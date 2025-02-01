@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 
 class Loading extends StatelessWidget {
@@ -24,9 +23,13 @@ class Loading extends StatelessWidget {
 
 class LoadingAction<T> extends HookWidget {
   final Future<T> Function() action;
-  final Widget Function(Future<T>) builder;
+  final Widget Function(Future<T>, bool isLoading) builder;
 
-  const LoadingAction({super.key, required this.builder, required this.action});
+  const LoadingAction({
+    super.key,
+    required this.action,
+    required this.builder,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,7 @@ class LoadingAction<T> extends HookWidget {
 
     return Loading(
       isLoading: isLoading.value,
-      child: builder(future),
+      child: builder(future, isLoading.value),
     );
   }
 }

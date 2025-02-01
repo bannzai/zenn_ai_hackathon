@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todomaker/components/button/buttons.dart';
+import 'package:todomaker/components/loading/loading.dart';
 import 'package:todomaker/features/localization/l.dart';
 
 class OKDialog extends StatelessWidget {
@@ -45,9 +46,8 @@ class OKDialog extends StatelessWidget {
         ],
       ),
       actions: <Widget>[
-        AlertButton(
-          text: L.ok,
-          onPressed: () async {
+        LoadingAction(
+          action: () async {
             final ok = this.ok;
             if (ok != null) {
               ok();
@@ -55,6 +55,14 @@ class OKDialog extends StatelessWidget {
               Navigator.of(context).pop();
             }
           },
+          builder: (future, isLoading) => TextButton(
+            onPressed: isLoading
+                ? null
+                : () async {
+                    await future;
+                  },
+            child: const Text('OK'),
+          ),
         ),
       ],
     );
