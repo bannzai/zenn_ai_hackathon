@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medicalarm/components/loading/indicator.dart';
+import 'package:todomaker/components/loading/indicator.dart';
 
 class Loading extends StatelessWidget {
   final bool isLoading;

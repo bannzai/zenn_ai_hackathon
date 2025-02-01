@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:replai/components/loading/indicator.dart';
-import 'package:replai/components/retry/page.dart';
+import 'package:todomaker/components/loading/indicator.dart';
+import 'package:todomaker/components/retry/page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth.g.dart';
@@ -27,7 +27,7 @@ class AuthResolver extends HookConsumerWidget {
       child: () {
         return firebaseUserChanges.when(
           data: (user) {
-            debugPrint("user.uid: ${user?.uid}");
+            debugPrint('user.uid: ${user?.uid}');
             if (user == null) {
               return SignInResolver(
                 builder: (context, user) => builder(context, user),

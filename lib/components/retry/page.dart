@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:medicalarm/features/localization/l.dart';
+import 'package:todomaker/features/localization/l.dart';
 
 class Retry extends InheritedWidget {
   final VoidCallback retry;

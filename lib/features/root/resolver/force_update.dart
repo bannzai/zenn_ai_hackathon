@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:replai/components/alert/ok.dart';
-import 'package:replai/components/loading/indicator.dart';
-import 'package:replai/provider/force_update.dart';
-import 'package:replai/utils/analytics/error.dart';
-import 'package:replai/utils/platform/platform.dart';
+import 'package:todomaker/components/alert/ok.dart';
+import 'package:todomaker/components/loading/indicator.dart';
+import 'package:todomaker/provider/force_update.dart';
+import 'package:todomaker/utils/analytics/error.dart';
+import 'package:todomaker/utils/platform/platform.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ForceUpdateResolver extends HookConsumerWidget {
@@ -41,7 +41,7 @@ class ForceUpdateResolver extends HookConsumerWidget {
       Future.microtask(() async {
         if (context.mounted) {
           await showOKDialog(context,
-              icon: Icons.error, title: "アプリをアップデートしてください", message: "お使いのアプリのバージョンのアップデートをお願いしております。$storeNameから最新バージョンにアップデートしてください", ok: () async {
+              icon: Icons.error, title: 'アプリをアップデートしてください', message: 'お使いのアプリのバージョンのアップデートをお願いしております。$storeNameから最新バージョンにアップデートしてください', ok: () async {
             await launchUrl(
               Uri.parse(forceUpdateStoreURL),
               mode: LaunchMode.externalApplication,

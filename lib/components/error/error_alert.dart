@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medicalarm/components/button/buttons.dart';
-import 'package:medicalarm/features/localization/l.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void showErrorAlert(BuildContext? context, Object error) {
@@ -11,15 +9,15 @@ void showErrorAlert(BuildContext? context, Object error) {
   final String message;
   final String? faqLinkURL;
   if (error is FormatException) {
-    title = L.unknownError;
+    title = '不明なエラーです';
     message = error.message;
     faqLinkURL = null;
   } else if (error is String) {
-    title = L.error;
+    title = 'エラーが発生しました';
     message = error;
     faqLinkURL = null;
   } else {
-    title = L.unexpectedError;
+    title = '予期せぬエラーが発生しました';
     message = error.toString();
     faqLinkURL = null;
   }
@@ -47,7 +45,7 @@ class ErrorAlert extends StatelessWidget {
     final faq = faqLinkURL;
     return AlertDialog(
       title: Text(
-        title ?? L.error,
+        title ?? 'エラーが発生しました',
         style: const TextStyle(
           fontWeight: FontWeight.w600,
           fontSize: 16,

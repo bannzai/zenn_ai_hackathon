@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:replai/components/loading/indicator.dart';
-import 'package:replai/utils/purchase/purchase.dart';
+import 'package:todomaker/components/loading/indicator.dart';
+import 'package:todomaker/utils/purchase/purchase.dart';
 
 class PurchaseSetupResolver extends HookConsumerWidget {
   final String userID;

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:medicalarm/components/loading/loading.dart';
-import 'package:medicalarm/features/localization/l.dart';
+import 'package:todomaker/components/loading/loading.dart';
+import 'package:todomaker/features/localization/l.dart';
 
 class ImagePickerDialog extends HookConsumerWidget {
   const ImagePickerDialog({super.key});
