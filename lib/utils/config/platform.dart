@@ -8,7 +8,6 @@ String get accountName {
   return Platform.isIOS ? 'Apple ID' : 'Google アカウント';
 }
 
-// TODO: アプリのURLを設定する
 String get forceUpdateStoreURL {
-  return Platform.isIOS ? '' : '';
+  return Platform.isIOS ? 'https://apps.apple.com/app/apple-store/id6741352387?pt=97327896&ct=force_update&mt=8' : '';
 }
