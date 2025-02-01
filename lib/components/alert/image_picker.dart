@@ -3,7 +3,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:todomaker/components/loading/loading.dart';
-import 'package:todomaker/features/localization/l.dart';
 
 class ImagePickerDialog extends HookConsumerWidget {
   const ImagePickerDialog({super.key});
@@ -20,7 +19,7 @@ class ImagePickerDialog extends HookConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              title: Text(L.camera),
+              title: Text('カメラ'),
               leading: const Icon(Icons.photo_camera),
               onTap: () async {
                 final XFile? photo = await imagePicker.pickImage(source: ImageSource.camera);
@@ -33,7 +32,7 @@ class ImagePickerDialog extends HookConsumerWidget {
               },
             ),
             ListTile(
-              title: Text(L.photoLibrary),
+              title: Text('フォトライブラリ'),
               leading: const Icon(Icons.photo_album),
               onTap: () async {
                 final XFile? photo = await imagePicker.pickImage(source: ImageSource.gallery);
@@ -52,7 +51,7 @@ class ImagePickerDialog extends HookConsumerWidget {
           onPressed: () {
             Navigator.pop(context, null);
           },
-          child: Text(L.close),
+          child: Text('閉じる'),
         ),
       ],
     );
