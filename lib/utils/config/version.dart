@@ -1,5 +1,5 @@
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:todomaker/utils/config/environment.dart';
+import 'package:todomaker/utils/platform/environment.dart';
 
 class Version {
   final int major;
