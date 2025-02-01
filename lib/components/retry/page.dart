@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:todomaker/features/localization/l.dart';
 
 class Retry extends InheritedWidget {
   final VoidCallback retry;
@@ -50,7 +49,7 @@ class RetryPage extends HookConsumerWidget {
                 onPressed: () {
                   Retry.of(context).retry();
                 },
-                child: Text(L.retry),
+                child: const Text('再試行'),
               ),
             ),
           ],
