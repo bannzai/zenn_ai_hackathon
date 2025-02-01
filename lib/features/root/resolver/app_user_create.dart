@@ -6,9 +6,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/retry/page.dart';
 import 'package:todomaker/entity/app_user.dart';
-import 'package:todomaker/features/resolver/database.dart';
-import 'package:todomaker/provider/app_user.dart';
+import 'package:todomaker/features/root/resolver/database.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:todomaker/provider/app_user.dart';
 
 part 'app_user_create.g.dart';
 
@@ -18,14 +18,15 @@ class AppUserCreate {
   AppUserCreate({required this.userDatabase});
 
   Future<void> call() async {
-    final document = await userDatabase.userReference().get();
-    if (document.exists) {
+    final docRef = userDatabase.userReference();
+    final docData = await docRef.get();
+    if (docData.exists) {
       return;
     }
-    await userDatabase.userReference().set(
-          const AppUser(),
-          SetOptions(merge: true),
-        );
+    await docRef.set(
+      AppUser(id: docRef.id),
+      SetOptions(merge: true),
+    );
   }
 }
 
