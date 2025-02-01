@@ -14,6 +14,7 @@ part 'database.g.dart';
 
 abstract class _CollectionPath {
   static const String users = '/users';
+  static String userPrivates(String userID) => '$users/$userID/privates';
 }
 
 @Riverpod(keepAlive: true, dependencies: [firebaseUserChanges])
@@ -36,6 +37,7 @@ class UserDatabase {
         fromFirestore: _userFromFirestore,
         toFirestore: _userToFirestore,
       );
+  DocumentReference userPrivateRawReference() => FirebaseFirestore.instance.collection(_CollectionPath.userPrivates(userID)).doc(userID);
 }
 
 class UserDatabaseResolver extends HookConsumerWidget {
