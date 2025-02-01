@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 
 class Loading extends StatelessWidget {
@@ -16,6 +18,30 @@ class Loading extends StatelessWidget {
           const Indicator(),
         ],
       ],
+    );
+  }
+}
+
+class LoadingAction<T> extends HookWidget {
+  final Future<T> Function() action;
+  final Widget Function(Future<T>) builder;
+
+  const LoadingAction({super.key, required this.builder, required this.action});
+
+  @override
+  Widget build(BuildContext context) {
+    final isLoading = useState(false);
+    final future = useMemoized(() => action(), []);
+    final asyncSnapshot = useFuture(future);
+
+    useEffect(() {
+      isLoading.value = asyncSnapshot.connectionState == ConnectionState.waiting;
+      return null;
+    }, [asyncSnapshot]);
+
+    return Loading(
+      isLoading: isLoading.value,
+      child: builder(future),
     );
   }
 }
