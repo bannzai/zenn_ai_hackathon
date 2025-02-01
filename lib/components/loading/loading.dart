@@ -23,7 +23,7 @@ class Loading extends StatelessWidget {
 
 class LoadingAction<T> extends HookWidget {
   final Future<T> Function() action;
-  final Widget Function(Future<T>, bool isLoading) builder;
+  final Widget Function(VoidCallback?) builder;
 
   const LoadingAction({
     super.key,
@@ -44,7 +44,11 @@ class LoadingAction<T> extends HookWidget {
 
     return Loading(
       isLoading: isLoading.value,
-      child: builder(future, isLoading.value),
+      child: builder(isLoading.value
+          ? null
+          : () async {
+              await future;
+            }),
     );
   }
 }
