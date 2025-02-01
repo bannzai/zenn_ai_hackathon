@@ -1,4 +1,4 @@
-package com.example.zenn_ai_hackathon
+package com.bannzai.todomaker
 
 import io.flutter.embedding.android.FlutterActivity
 
