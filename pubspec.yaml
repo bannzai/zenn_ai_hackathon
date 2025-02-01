@@ -1,8 +1,8 @@
-name: zenn_ai_hackathon
+name: todomaker
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -16,10 +16,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 202501.09.125827+3
 
 environment:
-  sdk: ^3.5.4
+  sdk: ">=3.2.4 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -30,11 +30,48 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
+  intl: ^0.19.0
+  shared_preferences: ^2.2.2
+  flutter_svg: ^2.0.9
+
+  firebase_core: ^3.9.0
+  firebase_analytics:
+  firebase_auth: 
+  firebase_messaging:
+  firebase_remote_config: 
+  cloud_firestore:
+  cloud_functions: 
+  firebase_crashlytics: 
+  firebase_storage:
+
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.8.0
+
+  riverpod: ^2.6.1
+  hooks_riverpod: ^2.6.1
+  riverpod_annotation: ^2.6.1
+  flutter_hooks: ^0.20.5
+
+  url_launcher: ^6.3.0
+  package_info_plus: ^8.1.2
+  mockito: ^5.3.2
+  in_app_review: ^2.0.8
+  async_value_group: ^1.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
+  cupertino_icons: ^1.0.6
+  purchases_flutter: ^5.7.0
+  collection: ^1.18.0
+
+  image_picker: ^1.1.2
+  image: ^4.5.2
+  image_cropper: ^8.1.0
+  uuid: ^4.5.1
+  widget_arrows: ^0.6.0
 
 dev_dependencies:
   flutter_test:
@@ -46,12 +83,26 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
+  build_runner: 2.4.11
+  json_serializable:
+  freezed: ^2.5.7
+  custom_lint: 0.6.4
+  riverpod_lint: 2.3.10
+  riverpod_generator: 2.4.0
+  integration_test:
+    sdk: flutter
+  flutter_driver:
+    sdk: flutter
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true
+  assets:
+    - assets/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -64,10 +115,10 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/to/resolution-aware-images
+  # https://flutter.dev/assets-and-images/#resolution-aware
 
   # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/to/asset-from-package
+  # https://flutter.dev/assets-and-images/#from-packages
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
@@ -87,4 +138,5 @@ flutter:
   #         weight: 700
   #
   # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/to/font-from-package
+  # see https://flutter.dev/custom-fonts/#from-packages
+
