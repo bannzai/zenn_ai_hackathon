@@ -67,8 +67,6 @@ class App extends StatelessWidget {
         useMaterial3: false,
       ),
       home: const RootPage(),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }

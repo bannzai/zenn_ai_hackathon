@@ -9,5 +9,5 @@ String get accountName {
 }
 
 String get forceUpdateStoreURL {
-  return Platform.isIOS ? 'https://apps.apple.com/app/apple-store/id6740401642?pt=97327896&ct=force_update&mt=8' : '';
+  return Platform.isIOS ? 'https://apps.apple.com/app/apple-store/id6741352387?pt=97327896&ct=force_update&mt=8' : '';
 }
