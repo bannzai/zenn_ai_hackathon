@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todomaker/components/loading/loading.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void showErrorAlert(BuildContext? context, Object error) {
@@ -60,17 +61,31 @@ class ErrorAlert extends StatelessWidget {
           )),
       actions: <Widget>[
         if (faq != null)
-          AlertButton(
-            text: L.viewFaq,
-            onPressed: () async {
+          LoadingAction(
+            action: () async {
               launchUrl(Uri.parse(faq));
             },
+            builder: (future, isLoading) => TextButton(
+              onPressed: isLoading
+                  ? null
+                  : () async {
+                      await future;
+                    },
+              child: const Text('FAQを見る'),
+            ),
           ),
-        AlertButton(
-          text: L.close,
-          onPressed: () async {
+        LoadingAction(
+          action: () async {
             Navigator.of(context).pop();
           },
+          builder: (future, isLoading) => TextButton(
+            onPressed: isLoading
+                ? null
+                : () async {
+                    await future;
+                  },
+            child: const Text('閉じる'),
+          ),
         ),
       ],
     );

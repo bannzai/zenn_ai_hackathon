@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todomaker/components/button/buttons.dart';
 import 'package:todomaker/components/loading/loading.dart';
-import 'package:todomaker/features/localization/l.dart';
 
 class OKDialog extends StatelessWidget {
   final IconData icon;
