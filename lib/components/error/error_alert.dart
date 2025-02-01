@@ -65,12 +65,8 @@ class ErrorAlert extends StatelessWidget {
             action: () async {
               launchUrl(Uri.parse(faq));
             },
-            builder: (future, isLoading) => TextButton(
-              onPressed: isLoading
-                  ? null
-                  : () async {
-                      await future;
-                    },
+            builder: (action) => TextButton(
+              onPressed: action,
               child: const Text('FAQを見る'),
             ),
           ),
@@ -78,12 +74,8 @@ class ErrorAlert extends StatelessWidget {
           action: () async {
             Navigator.of(context).pop();
           },
-          builder: (future, isLoading) => TextButton(
-            onPressed: isLoading
-                ? null
-                : () async {
-                    await future;
-                  },
+          builder: (action) => TextButton(
+            onPressed: action,
             child: const Text('閉じる'),
           ),
         ),
