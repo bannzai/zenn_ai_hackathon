@@ -19,7 +19,7 @@ class ImagePickerDialog extends HookConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              title: Text('カメラ'),
+              title: const Text('カメラ'),
               leading: const Icon(Icons.photo_camera),
               onTap: () async {
                 final XFile? photo = await imagePicker.pickImage(source: ImageSource.camera);
@@ -32,7 +32,7 @@ class ImagePickerDialog extends HookConsumerWidget {
               },
             ),
             ListTile(
-              title: Text('フォトライブラリ'),
+              title: const Text('フォトライブラリ'),
               leading: const Icon(Icons.photo_album),
               onTap: () async {
                 final XFile? photo = await imagePicker.pickImage(source: ImageSource.gallery);
@@ -51,7 +51,7 @@ class ImagePickerDialog extends HookConsumerWidget {
           onPressed: () {
             Navigator.pop(context, null);
           },
-          child: Text('閉じる'),
+          child: const Text('閉じる'),
         ),
       ],
     );
