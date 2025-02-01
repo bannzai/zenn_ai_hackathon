@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
-import 'package:todomaker/utils/platform/platform.dart';
+import 'package:todomaker/utils/config/platform.dart';
 
 // See also: https://docs.revenuecat.com/docs/errors
 Exception? mapToDisplayedException(PlatformException exception) {
