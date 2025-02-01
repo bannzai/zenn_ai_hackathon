@@ -53,12 +53,8 @@ class OKDialog extends StatelessWidget {
               Navigator.of(context).pop();
             }
           },
-          builder: (future, isLoading) => TextButton(
-            onPressed: isLoading
-                ? null
-                : () async {
-                    await future;
-                  },
+          builder: (action) => TextButton(
+            onPressed: action,
             child: const Text('OK'),
           ),
         ),
