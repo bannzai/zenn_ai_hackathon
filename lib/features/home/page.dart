@@ -13,7 +13,7 @@ class HomePage extends HookConsumerWidget {
         title: const Text('HomePage'),
       ),
       body: ListView(
-        children: [],
+        children: const [],
       ),
     );
   }
