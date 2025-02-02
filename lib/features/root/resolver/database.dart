@@ -8,13 +8,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/entity/app_user.dart';
+import 'package:todomaker/entity/task.dart';
+import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/features/root/resolver/auth.dart';
 
 part 'database.g.dart';
 
 abstract class _CollectionPath {
   static const String users = '/users';
-  static String userPrivates(String userID) => '$users/$userID/privates';
+  static String userPrivates({required String userID}) => '$users/$userID/privates';
+  static String tasks({required String userID}) => '$users/$userID/tasks';
+  static String todos({required String userID, required String taskID}) => '$users/$userID/tasks/$taskID/todos';
 }
 
 @Riverpod(keepAlive: true, dependencies: [firebaseUserChanges])
@@ -37,7 +41,22 @@ class UserDatabase {
         fromFirestore: _userFromFirestore,
         toFirestore: _userToFirestore,
       );
-  DocumentReference userPrivateRawReference() => FirebaseFirestore.instance.collection(_CollectionPath.userPrivates(userID)).doc(userID);
+  DocumentReference userPrivateRawReference() => FirebaseFirestore.instance.collection(_CollectionPath.userPrivates(userID: userID)).doc(userID);
+
+  final FromFirestore<Task> _taskFromFirestore = (snapshot, options) => Task.fromJson(snapshot.data()!..['id'] = snapshot.id);
+  final ToFirestore<Task> _taskToFirestore = (task, options) => task.toJson();
+  CollectionReference<Task> tasksReference() => FirebaseFirestore.instance.collection(_CollectionPath.tasks(userID: userID)).withConverter(
+        fromFirestore: _taskFromFirestore,
+        toFirestore: _taskToFirestore,
+      );
+
+  final FromFirestore<Todo> _todoFromFirestore = (snapshot, options) => Todo.fromJson(snapshot.data()!..['id'] = snapshot.id);
+  final ToFirestore<Todo> _todoToFirestore = (todo, options) => todo.toJson();
+  CollectionReference<Todo> todosReference({required String taskID}) =>
+      FirebaseFirestore.instance.collection(_CollectionPath.todos(userID: userID, taskID: taskID)).withConverter(
+            fromFirestore: _todoFromFirestore,
+            toFirestore: _todoToFirestore,
+          );
 }
 
 class UserDatabaseResolver extends HookConsumerWidget {
