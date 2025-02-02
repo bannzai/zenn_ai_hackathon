@@ -14,7 +14,6 @@ class Task with _$Task {
     required String userID,
     required String question,
     required String aiTextResponse,
-    required List<String> todoIDs,
     required List<GroundingData> groundings,
     required bool completed,
     @ClientCreatedTimestamp() DateTime? createdDateTime,

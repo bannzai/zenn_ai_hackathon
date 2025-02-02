@@ -24,7 +24,6 @@ mixin _$Task {
   String get userID => throw _privateConstructorUsedError;
   String get question => throw _privateConstructorUsedError;
   String get aiTextResponse => throw _privateConstructorUsedError;
-  List<String> get todoIDs => throw _privateConstructorUsedError;
   List<GroundingData> get groundings => throw _privateConstructorUsedError;
   bool get completed => throw _privateConstructorUsedError;
   @ClientCreatedTimestamp()
@@ -54,7 +53,6 @@ abstract class $TaskCopyWith<$Res> {
       String userID,
       String question,
       String aiTextResponse,
-      List<String> todoIDs,
       List<GroundingData> groundings,
       bool completed,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -81,7 +79,6 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task> implements $TaskCopyWith<$Res>
     Object? userID = null,
     Object? question = null,
     Object? aiTextResponse = null,
-    Object? todoIDs = null,
     Object? groundings = null,
     Object? completed = null,
     Object? createdDateTime = freezed,
@@ -106,10 +103,6 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task> implements $TaskCopyWith<$Res>
           ? _value.aiTextResponse
           : aiTextResponse // ignore: cast_nullable_to_non_nullable
               as String,
-      todoIDs: null == todoIDs
-          ? _value.todoIDs
-          : todoIDs // ignore: cast_nullable_to_non_nullable
-              as List<String>,
       groundings: null == groundings
           ? _value.groundings
           : groundings // ignore: cast_nullable_to_non_nullable
@@ -148,7 +141,6 @@ abstract class _$$TaskImplCopyWith<$Res> implements $TaskCopyWith<$Res> {
       String userID,
       String question,
       String aiTextResponse,
-      List<String> todoIDs,
       List<GroundingData> groundings,
       bool completed,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -170,7 +162,6 @@ class __$$TaskImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$TaskImpl
     Object? userID = null,
     Object? question = null,
     Object? aiTextResponse = null,
-    Object? todoIDs = null,
     Object? groundings = null,
     Object? completed = null,
     Object? createdDateTime = freezed,
@@ -195,10 +186,6 @@ class __$$TaskImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$TaskImpl
           ? _value.aiTextResponse
           : aiTextResponse // ignore: cast_nullable_to_non_nullable
               as String,
-      todoIDs: null == todoIDs
-          ? _value._todoIDs
-          : todoIDs // ignore: cast_nullable_to_non_nullable
-              as List<String>,
       groundings: null == groundings
           ? _value._groundings
           : groundings // ignore: cast_nullable_to_non_nullable
@@ -236,15 +223,13 @@ class _$TaskImpl extends _Task {
       required this.userID,
       required this.question,
       required this.aiTextResponse,
-      required final List<String> todoIDs,
       required final List<GroundingData> groundings,
       required this.completed,
       @ClientCreatedTimestamp() this.createdDateTime,
       @ClientUpdatedTimestamp() this.updatedDateTime,
       @ServerCreatedTimestamp() this.serverCreatedDateTime,
       @ServerUpdatedTimestamp() this.serverUpdatedDateTime})
-      : _todoIDs = todoIDs,
-        _groundings = groundings,
+      : _groundings = groundings,
         super._();
 
   factory _$TaskImpl.fromJson(Map<String, dynamic> json) => _$$TaskImplFromJson(json);
@@ -257,14 +242,6 @@ class _$TaskImpl extends _Task {
   final String question;
   @override
   final String aiTextResponse;
-  final List<String> _todoIDs;
-  @override
-  List<String> get todoIDs {
-    if (_todoIDs is EqualUnmodifiableListView) return _todoIDs;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_todoIDs);
-  }
-
   final List<GroundingData> _groundings;
   @override
   List<GroundingData> get groundings {
@@ -290,7 +267,7 @@ class _$TaskImpl extends _Task {
 
   @override
   String toString() {
-    return 'Task(id: $id, userID: $userID, question: $question, aiTextResponse: $aiTextResponse, todoIDs: $todoIDs, groundings: $groundings, completed: $completed, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
+    return 'Task(id: $id, userID: $userID, question: $question, aiTextResponse: $aiTextResponse, groundings: $groundings, completed: $completed, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
   }
 
   @override
@@ -302,7 +279,6 @@ class _$TaskImpl extends _Task {
             (identical(other.userID, userID) || other.userID == userID) &&
             (identical(other.question, question) || other.question == question) &&
             (identical(other.aiTextResponse, aiTextResponse) || other.aiTextResponse == aiTextResponse) &&
-            const DeepCollectionEquality().equals(other._todoIDs, _todoIDs) &&
             const DeepCollectionEquality().equals(other._groundings, _groundings) &&
             (identical(other.completed, completed) || other.completed == completed) &&
             (identical(other.createdDateTime, createdDateTime) || other.createdDateTime == createdDateTime) &&
@@ -313,8 +289,8 @@ class _$TaskImpl extends _Task {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, userID, question, aiTextResponse, const DeepCollectionEquality().hash(_todoIDs),
-      const DeepCollectionEquality().hash(_groundings), completed, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
+  int get hashCode => Object.hash(runtimeType, id, userID, question, aiTextResponse, const DeepCollectionEquality().hash(_groundings), completed,
+      createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
 
   /// Create a copy of Task
   /// with the given fields replaced by the non-null parameter values.
@@ -337,7 +313,6 @@ abstract class _Task extends Task {
       required final String userID,
       required final String question,
       required final String aiTextResponse,
-      required final List<String> todoIDs,
       required final List<GroundingData> groundings,
       required final bool completed,
       @ClientCreatedTimestamp() final DateTime? createdDateTime,
@@ -356,8 +331,6 @@ abstract class _Task extends Task {
   String get question;
   @override
   String get aiTextResponse;
-  @override
-  List<String> get todoIDs;
   @override
   List<GroundingData> get groundings;
   @override
