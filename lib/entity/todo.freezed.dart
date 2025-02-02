@@ -26,6 +26,7 @@ mixin _$Todo {
   String get supplement => throw _privateConstructorUsedError;
   String get aiTextResponse => throw _privateConstructorUsedError;
   List<GroundingData> get groundings => throw _privateConstructorUsedError;
+  bool get completed => throw _privateConstructorUsedError;
   @ClientCreatedTimestamp()
   DateTime? get createdDateTime => throw _privateConstructorUsedError;
   @ClientUpdatedTimestamp()
@@ -55,6 +56,7 @@ abstract class $TodoCopyWith<$Res> {
       String supplement,
       String aiTextResponse,
       List<GroundingData> groundings,
+      bool completed,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
       @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
@@ -81,6 +83,7 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
     Object? supplement = null,
     Object? aiTextResponse = null,
     Object? groundings = null,
+    Object? completed = null,
     Object? createdDateTime = freezed,
     Object? updatedDateTime = freezed,
     Object? serverCreatedDateTime = freezed,
@@ -111,6 +114,10 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
           ? _value.groundings
           : groundings // ignore: cast_nullable_to_non_nullable
               as List<GroundingData>,
+      completed: null == completed
+          ? _value.completed
+          : completed // ignore: cast_nullable_to_non_nullable
+              as bool,
       createdDateTime: freezed == createdDateTime
           ? _value.createdDateTime
           : createdDateTime // ignore: cast_nullable_to_non_nullable
@@ -143,6 +150,7 @@ abstract class _$$TodoImplCopyWith<$Res> implements $TodoCopyWith<$Res> {
       String supplement,
       String aiTextResponse,
       List<GroundingData> groundings,
+      bool completed,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
       @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
@@ -164,6 +172,7 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
     Object? supplement = null,
     Object? aiTextResponse = null,
     Object? groundings = null,
+    Object? completed = null,
     Object? createdDateTime = freezed,
     Object? updatedDateTime = freezed,
     Object? serverCreatedDateTime = freezed,
@@ -194,6 +203,10 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
           ? _value._groundings
           : groundings // ignore: cast_nullable_to_non_nullable
               as List<GroundingData>,
+      completed: null == completed
+          ? _value.completed
+          : completed // ignore: cast_nullable_to_non_nullable
+              as bool,
       createdDateTime: freezed == createdDateTime
           ? _value.createdDateTime
           : createdDateTime // ignore: cast_nullable_to_non_nullable
@@ -225,6 +238,7 @@ class _$TodoImpl extends _Todo {
       required this.supplement,
       required this.aiTextResponse,
       required final List<GroundingData> groundings,
+      this.completed = false,
       @ClientCreatedTimestamp() this.createdDateTime,
       @ClientUpdatedTimestamp() this.updatedDateTime,
       @ServerCreatedTimestamp() this.serverCreatedDateTime,
@@ -253,6 +267,9 @@ class _$TodoImpl extends _Todo {
   }
 
   @override
+  @JsonKey()
+  final bool completed;
+  @override
   @ClientCreatedTimestamp()
   final DateTime? createdDateTime;
   @override
@@ -267,7 +284,7 @@ class _$TodoImpl extends _Todo {
 
   @override
   String toString() {
-    return 'Todo(id: $id, taskID: $taskID, content: $content, supplement: $supplement, aiTextResponse: $aiTextResponse, groundings: $groundings, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
+    return 'Todo(id: $id, taskID: $taskID, content: $content, supplement: $supplement, aiTextResponse: $aiTextResponse, groundings: $groundings, completed: $completed, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
   }
 
   @override
@@ -281,6 +298,7 @@ class _$TodoImpl extends _Todo {
             (identical(other.supplement, supplement) || other.supplement == supplement) &&
             (identical(other.aiTextResponse, aiTextResponse) || other.aiTextResponse == aiTextResponse) &&
             const DeepCollectionEquality().equals(other._groundings, _groundings) &&
+            (identical(other.completed, completed) || other.completed == completed) &&
             (identical(other.createdDateTime, createdDateTime) || other.createdDateTime == createdDateTime) &&
             (identical(other.updatedDateTime, updatedDateTime) || other.updatedDateTime == updatedDateTime) &&
             (identical(other.serverCreatedDateTime, serverCreatedDateTime) || other.serverCreatedDateTime == serverCreatedDateTime) &&
@@ -290,7 +308,7 @@ class _$TodoImpl extends _Todo {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, taskID, content, supplement, aiTextResponse, const DeepCollectionEquality().hash(_groundings),
-      createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
+      completed, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
 
   /// Create a copy of Todo
   /// with the given fields replaced by the non-null parameter values.
@@ -315,6 +333,7 @@ abstract class _Todo extends Todo {
       required final String supplement,
       required final String aiTextResponse,
       required final List<GroundingData> groundings,
+      final bool completed,
       @ClientCreatedTimestamp() final DateTime? createdDateTime,
       @ClientUpdatedTimestamp() final DateTime? updatedDateTime,
       @ServerCreatedTimestamp() final DateTime? serverCreatedDateTime,
@@ -335,6 +354,8 @@ abstract class _Todo extends Todo {
   String get aiTextResponse;
   @override
   List<GroundingData> get groundings;
+  @override
+  bool get completed;
   @override
   @ClientCreatedTimestamp()
   DateTime? get createdDateTime;
