@@ -42,12 +42,14 @@ class TasksPageBody extends HookConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         children: tasks
-            .map((task) => Column(
-                  children: [
-                    TasksPageSection(task: task),
-                    const SizedBox(height: 10),
-                  ],
-                ))
+            .map(
+              (task) => Column(
+                children: [
+                  TasksPageSection(task: task),
+                  const SizedBox(height: 10),
+                ],
+              ),
+            )
             .toList(),
       ),
       floatingActionButton: FloatingActionButton(
