@@ -105,6 +105,7 @@ class TasksPageSection extends StatelessWidget {
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
+              maxLines: 5,
             ),
             const SizedBox(height: 4),
             TasksTodoList(taskID: task.id),
@@ -126,11 +127,14 @@ class TasksTodoList extends HookConsumerWidget {
     return Retry(
       retry: () => ref.invalidate(todosProvider(taskID: taskID)),
       child: todos.when(
-        data: (todos) => Column(children: [
-          for (final todo in todos) ...[
-            TasksPageTodoRow(todo: todo),
+        data: (todos) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            for (final todo in todos) ...[
+              TasksPageTodoRow(todo: todo),
+            ],
           ],
-        ]),
+        ),
         error: (error, stackTrace) => RetryPage(exception: error, stackTrace: stackTrace),
         loading: () => const IndicatorPage(),
       ),
@@ -138,14 +142,15 @@ class TasksTodoList extends HookConsumerWidget {
   }
 }
 
-class TasksPageTodoRow extends StatelessWidget {
+class TasksPageTodoRow extends HookConsumerWidget {
   final Todo todo;
   const TasksPageTodoRow({super.key, required this.todo});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final completed = useState(todo.completed);
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Checkbox(
           value: completed.value,
@@ -153,11 +158,14 @@ class TasksPageTodoRow extends StatelessWidget {
             completed.value = value ?? false;
           },
         ),
-        Column(
-          children: [
-            Text(todo.content),
-            Text(todo.supplement),
-          ],
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(todo.content, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              Text(todo.supplement, style: const TextStyle(fontSize: 14), maxLines: 2),
+            ],
+          ),
         ),
       ],
     );
