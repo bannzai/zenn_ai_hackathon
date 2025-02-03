@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/retry/button.dart';
 import 'package:todomaker/components/retry/page.dart';
+import 'package:todomaker/components/todo/help.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/features/task/page.dart';
 import 'package:todomaker/provider/todo.dart';
@@ -88,6 +89,7 @@ class TasksPageTodoRow extends HookConsumerWidget {
             ],
           ),
         ),
+        TodoHelpButton(todo: todo),
       ],
     );
   }
