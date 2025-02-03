@@ -98,6 +98,8 @@ class TasksPageSection extends StatelessWidget {
                 color: primaryColor,
               ),
             ),
+            const SizedBox(height: 10),
+            Text(task.definition, style: const TextStyle(fontSize: 14)),
             const SizedBox(height: 20),
             TasksTodoList(taskID: task.id, limit: 3),
           ],
