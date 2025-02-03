@@ -24,6 +24,7 @@ class TasksTodoList extends HookConsumerWidget {
           children: [
             for (final todo in todos.take(limit ?? todos.length)) ...[
               TasksPageTodoRow(todo: todo),
+              const SizedBox(height: 10),
             ],
           ],
         ),
