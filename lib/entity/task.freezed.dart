@@ -25,9 +25,8 @@ mixin _$Task {
   String get question => throw _privateConstructorUsedError;
   String get shortAnswer => throw _privateConstructorUsedError;
   String get topic => throw _privateConstructorUsedError;
-  String get definition => throw _privateConstructorUsedError;
-  String get todoAITextResponse => throw _privateConstructorUsedError;
-  List<GroundingData> get todoGroundings => throw _privateConstructorUsedError;
+  String get definitionAITextResponse => throw _privateConstructorUsedError;
+  List<GroundingData> get definitionGroundings => throw _privateConstructorUsedError;
   bool get completed => throw _privateConstructorUsedError;
   @ClientCreatedTimestamp()
   DateTime? get createdDateTime => throw _privateConstructorUsedError;
@@ -57,9 +56,8 @@ abstract class $TaskCopyWith<$Res> {
       String question,
       String shortAnswer,
       String topic,
-      String definition,
-      String todoAITextResponse,
-      List<GroundingData> todoGroundings,
+      String definitionAITextResponse,
+      List<GroundingData> definitionGroundings,
       bool completed,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
@@ -86,9 +84,8 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task> implements $TaskCopyWith<$Res>
     Object? question = null,
     Object? shortAnswer = null,
     Object? topic = null,
-    Object? definition = null,
-    Object? todoAITextResponse = null,
-    Object? todoGroundings = null,
+    Object? definitionAITextResponse = null,
+    Object? definitionGroundings = null,
     Object? completed = null,
     Object? createdDateTime = freezed,
     Object? updatedDateTime = freezed,
@@ -116,17 +113,13 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task> implements $TaskCopyWith<$Res>
           ? _value.topic
           : topic // ignore: cast_nullable_to_non_nullable
               as String,
-      definition: null == definition
-          ? _value.definition
-          : definition // ignore: cast_nullable_to_non_nullable
+      definitionAITextResponse: null == definitionAITextResponse
+          ? _value.definitionAITextResponse
+          : definitionAITextResponse // ignore: cast_nullable_to_non_nullable
               as String,
-      todoAITextResponse: null == todoAITextResponse
-          ? _value.todoAITextResponse
-          : todoAITextResponse // ignore: cast_nullable_to_non_nullable
-              as String,
-      todoGroundings: null == todoGroundings
-          ? _value.todoGroundings
-          : todoGroundings // ignore: cast_nullable_to_non_nullable
+      definitionGroundings: null == definitionGroundings
+          ? _value.definitionGroundings
+          : definitionGroundings // ignore: cast_nullable_to_non_nullable
               as List<GroundingData>,
       completed: null == completed
           ? _value.completed
@@ -163,9 +156,8 @@ abstract class _$$TaskImplCopyWith<$Res> implements $TaskCopyWith<$Res> {
       String question,
       String shortAnswer,
       String topic,
-      String definition,
-      String todoAITextResponse,
-      List<GroundingData> todoGroundings,
+      String definitionAITextResponse,
+      List<GroundingData> definitionGroundings,
       bool completed,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
@@ -187,9 +179,8 @@ class __$$TaskImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$TaskImpl
     Object? question = null,
     Object? shortAnswer = null,
     Object? topic = null,
-    Object? definition = null,
-    Object? todoAITextResponse = null,
-    Object? todoGroundings = null,
+    Object? definitionAITextResponse = null,
+    Object? definitionGroundings = null,
     Object? completed = null,
     Object? createdDateTime = freezed,
     Object? updatedDateTime = freezed,
@@ -217,17 +208,13 @@ class __$$TaskImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$TaskImpl
           ? _value.topic
           : topic // ignore: cast_nullable_to_non_nullable
               as String,
-      definition: null == definition
-          ? _value.definition
-          : definition // ignore: cast_nullable_to_non_nullable
+      definitionAITextResponse: null == definitionAITextResponse
+          ? _value.definitionAITextResponse
+          : definitionAITextResponse // ignore: cast_nullable_to_non_nullable
               as String,
-      todoAITextResponse: null == todoAITextResponse
-          ? _value.todoAITextResponse
-          : todoAITextResponse // ignore: cast_nullable_to_non_nullable
-              as String,
-      todoGroundings: null == todoGroundings
-          ? _value._todoGroundings
-          : todoGroundings // ignore: cast_nullable_to_non_nullable
+      definitionGroundings: null == definitionGroundings
+          ? _value._definitionGroundings
+          : definitionGroundings // ignore: cast_nullable_to_non_nullable
               as List<GroundingData>,
       completed: null == completed
           ? _value.completed
@@ -263,15 +250,14 @@ class _$TaskImpl extends _Task {
       required this.question,
       required this.shortAnswer,
       required this.topic,
-      required this.definition,
-      required this.todoAITextResponse,
-      required final List<GroundingData> todoGroundings,
+      required this.definitionAITextResponse,
+      required final List<GroundingData> definitionGroundings,
       required this.completed,
       @ClientCreatedTimestamp() this.createdDateTime,
       @ClientUpdatedTimestamp() this.updatedDateTime,
       @ServerCreatedTimestamp() this.serverCreatedDateTime,
       @ServerUpdatedTimestamp() this.serverUpdatedDateTime})
-      : _todoGroundings = todoGroundings,
+      : _definitionGroundings = definitionGroundings,
         super._();
 
   factory _$TaskImpl.fromJson(Map<String, dynamic> json) => _$$TaskImplFromJson(json);
@@ -287,15 +273,13 @@ class _$TaskImpl extends _Task {
   @override
   final String topic;
   @override
-  final String definition;
+  final String definitionAITextResponse;
+  final List<GroundingData> _definitionGroundings;
   @override
-  final String todoAITextResponse;
-  final List<GroundingData> _todoGroundings;
-  @override
-  List<GroundingData> get todoGroundings {
-    if (_todoGroundings is EqualUnmodifiableListView) return _todoGroundings;
+  List<GroundingData> get definitionGroundings {
+    if (_definitionGroundings is EqualUnmodifiableListView) return _definitionGroundings;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_todoGroundings);
+    return EqualUnmodifiableListView(_definitionGroundings);
   }
 
   @override
@@ -315,7 +299,7 @@ class _$TaskImpl extends _Task {
 
   @override
   String toString() {
-    return 'Task(id: $id, userID: $userID, question: $question, shortAnswer: $shortAnswer, topic: $topic, definition: $definition, todoAITextResponse: $todoAITextResponse, todoGroundings: $todoGroundings, completed: $completed, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
+    return 'Task(id: $id, userID: $userID, question: $question, shortAnswer: $shortAnswer, topic: $topic, definitionAITextResponse: $definitionAITextResponse, definitionGroundings: $definitionGroundings, completed: $completed, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
   }
 
   @override
@@ -328,9 +312,8 @@ class _$TaskImpl extends _Task {
             (identical(other.question, question) || other.question == question) &&
             (identical(other.shortAnswer, shortAnswer) || other.shortAnswer == shortAnswer) &&
             (identical(other.topic, topic) || other.topic == topic) &&
-            (identical(other.definition, definition) || other.definition == definition) &&
-            (identical(other.todoAITextResponse, todoAITextResponse) || other.todoAITextResponse == todoAITextResponse) &&
-            const DeepCollectionEquality().equals(other._todoGroundings, _todoGroundings) &&
+            (identical(other.definitionAITextResponse, definitionAITextResponse) || other.definitionAITextResponse == definitionAITextResponse) &&
+            const DeepCollectionEquality().equals(other._definitionGroundings, _definitionGroundings) &&
             (identical(other.completed, completed) || other.completed == completed) &&
             (identical(other.createdDateTime, createdDateTime) || other.createdDateTime == createdDateTime) &&
             (identical(other.updatedDateTime, updatedDateTime) || other.updatedDateTime == updatedDateTime) &&
@@ -347,9 +330,8 @@ class _$TaskImpl extends _Task {
       question,
       shortAnswer,
       topic,
-      definition,
-      todoAITextResponse,
-      const DeepCollectionEquality().hash(_todoGroundings),
+      definitionAITextResponse,
+      const DeepCollectionEquality().hash(_definitionGroundings),
       completed,
       createdDateTime,
       updatedDateTime,
@@ -378,9 +360,8 @@ abstract class _Task extends Task {
       required final String question,
       required final String shortAnswer,
       required final String topic,
-      required final String definition,
-      required final String todoAITextResponse,
-      required final List<GroundingData> todoGroundings,
+      required final String definitionAITextResponse,
+      required final List<GroundingData> definitionGroundings,
       required final bool completed,
       @ClientCreatedTimestamp() final DateTime? createdDateTime,
       @ClientUpdatedTimestamp() final DateTime? updatedDateTime,
@@ -401,11 +382,9 @@ abstract class _Task extends Task {
   @override
   String get topic;
   @override
-  String get definition;
+  String get definitionAITextResponse;
   @override
-  String get todoAITextResponse;
-  @override
-  List<GroundingData> get todoGroundings;
+  List<GroundingData> get definitionGroundings;
   @override
   bool get completed;
   @override
