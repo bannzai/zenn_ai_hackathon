@@ -10,7 +10,6 @@ class GroundingData with _$GroundingData {
   const GroundingData._();
   @JsonSerializable(explicitToJson: true)
   const factory GroundingData({
-    required String id,
     required int? index,
     required String? url,
     required String? title,

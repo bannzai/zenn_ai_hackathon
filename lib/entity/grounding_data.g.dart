@@ -7,7 +7,6 @@ part of 'grounding_data.dart';
 // **************************************************************************
 
 _$GroundingDataImpl _$$GroundingDataImplFromJson(Map<String, dynamic> json) => _$GroundingDataImpl(
-      id: json['id'] as String,
       index: (json['index'] as num?)?.toInt(),
       url: json['url'] as String?,
       title: json['title'] as String?,
@@ -18,7 +17,6 @@ _$GroundingDataImpl _$$GroundingDataImplFromJson(Map<String, dynamic> json) => _
     );
 
 Map<String, dynamic> _$$GroundingDataImplToJson(_$GroundingDataImpl instance) => <String, dynamic>{
-      'id': instance.id,
       'index': instance.index,
       'url': instance.url,
       'title': instance.title,

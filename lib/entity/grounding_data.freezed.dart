@@ -20,7 +20,6 @@ GroundingData _$GroundingDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$GroundingData {
-  String get id => throw _privateConstructorUsedError;
   int? get index => throw _privateConstructorUsedError;
   String? get url => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
@@ -47,8 +46,7 @@ abstract class $GroundingDataCopyWith<$Res> {
   factory $GroundingDataCopyWith(GroundingData value, $Res Function(GroundingData) then) = _$GroundingDataCopyWithImpl<$Res, GroundingData>;
   @useResult
   $Res call(
-      {String id,
-      int? index,
+      {int? index,
       String? url,
       String? title,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -71,7 +69,6 @@ class _$GroundingDataCopyWithImpl<$Res, $Val extends GroundingData> implements $
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? index = freezed,
     Object? url = freezed,
     Object? title = freezed,
@@ -81,10 +78,6 @@ class _$GroundingDataCopyWithImpl<$Res, $Val extends GroundingData> implements $
     Object? serverUpdatedDateTime = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       index: freezed == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
@@ -123,8 +116,7 @@ abstract class _$$GroundingDataImplCopyWith<$Res> implements $GroundingDataCopyW
   @override
   @useResult
   $Res call(
-      {String id,
-      int? index,
+      {int? index,
       String? url,
       String? title,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -143,7 +135,6 @@ class __$$GroundingDataImplCopyWithImpl<$Res> extends _$GroundingDataCopyWithImp
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? index = freezed,
     Object? url = freezed,
     Object? title = freezed,
@@ -153,10 +144,6 @@ class __$$GroundingDataImplCopyWithImpl<$Res> extends _$GroundingDataCopyWithImp
     Object? serverUpdatedDateTime = freezed,
   }) {
     return _then(_$GroundingDataImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       index: freezed == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
@@ -194,8 +181,7 @@ class __$$GroundingDataImplCopyWithImpl<$Res> extends _$GroundingDataCopyWithImp
 @JsonSerializable(explicitToJson: true)
 class _$GroundingDataImpl extends _GroundingData {
   const _$GroundingDataImpl(
-      {required this.id,
-      required this.index,
+      {required this.index,
       required this.url,
       required this.title,
       @ClientCreatedTimestamp() this.createdDateTime,
@@ -206,8 +192,6 @@ class _$GroundingDataImpl extends _GroundingData {
 
   factory _$GroundingDataImpl.fromJson(Map<String, dynamic> json) => _$$GroundingDataImplFromJson(json);
 
-  @override
-  final String id;
   @override
   final int? index;
   @override
@@ -229,7 +213,7 @@ class _$GroundingDataImpl extends _GroundingData {
 
   @override
   String toString() {
-    return 'GroundingData(id: $id, index: $index, url: $url, title: $title, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
+    return 'GroundingData(index: $index, url: $url, title: $title, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
   }
 
   @override
@@ -237,7 +221,6 @@ class _$GroundingDataImpl extends _GroundingData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GroundingDataImpl &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.index, index) || other.index == index) &&
             (identical(other.url, url) || other.url == url) &&
             (identical(other.title, title) || other.title == title) &&
@@ -249,7 +232,7 @@ class _$GroundingDataImpl extends _GroundingData {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, index, url, title, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
+  int get hashCode => Object.hash(runtimeType, index, url, title, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
 
   /// Create a copy of GroundingData
   /// with the given fields replaced by the non-null parameter values.
@@ -268,8 +251,7 @@ class _$GroundingDataImpl extends _GroundingData {
 
 abstract class _GroundingData extends GroundingData {
   const factory _GroundingData(
-      {required final String id,
-      required final int? index,
+      {required final int? index,
       required final String? url,
       required final String? title,
       @ClientCreatedTimestamp() final DateTime? createdDateTime,
@@ -280,8 +262,6 @@ abstract class _GroundingData extends GroundingData {
 
   factory _GroundingData.fromJson(Map<String, dynamic> json) = _$GroundingDataImpl.fromJson;
 
-  @override
-  String get id;
   @override
   int? get index;
   @override
