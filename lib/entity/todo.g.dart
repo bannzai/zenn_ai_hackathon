@@ -10,7 +10,7 @@ _$TodoImpl _$$TodoImplFromJson(Map<String, dynamic> json) => _$TodoImpl(
       id: json['id'] as String,
       taskID: json['taskID'] as String,
       content: json['content'] as String,
-      supplement: json['supplement'] as String,
+      supplement: json['supplement'] as String?,
       aiTextResponse: json['aiTextResponse'] as String,
       groundings: (json['groundings'] as List<dynamic>).map((e) => GroundingData.fromJson(e as Map<String, dynamic>)).toList(),
       completed: json['completed'] as bool? ?? false,

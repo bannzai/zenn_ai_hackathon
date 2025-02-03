@@ -23,7 +23,7 @@ mixin _$Todo {
   String get id => throw _privateConstructorUsedError;
   String get taskID => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
-  String get supplement => throw _privateConstructorUsedError;
+  String? get supplement => throw _privateConstructorUsedError;
   String get aiTextResponse => throw _privateConstructorUsedError;
   List<GroundingData> get groundings => throw _privateConstructorUsedError;
   bool get completed => throw _privateConstructorUsedError;
@@ -53,7 +53,7 @@ abstract class $TodoCopyWith<$Res> {
       {String id,
       String taskID,
       String content,
-      String supplement,
+      String? supplement,
       String aiTextResponse,
       List<GroundingData> groundings,
       bool completed,
@@ -80,7 +80,7 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
     Object? id = null,
     Object? taskID = null,
     Object? content = null,
-    Object? supplement = null,
+    Object? supplement = freezed,
     Object? aiTextResponse = null,
     Object? groundings = null,
     Object? completed = null,
@@ -102,10 +102,10 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      supplement: null == supplement
+      supplement: freezed == supplement
           ? _value.supplement
           : supplement // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       aiTextResponse: null == aiTextResponse
           ? _value.aiTextResponse
           : aiTextResponse // ignore: cast_nullable_to_non_nullable
@@ -147,7 +147,7 @@ abstract class _$$TodoImplCopyWith<$Res> implements $TodoCopyWith<$Res> {
       {String id,
       String taskID,
       String content,
-      String supplement,
+      String? supplement,
       String aiTextResponse,
       List<GroundingData> groundings,
       bool completed,
@@ -169,7 +169,7 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
     Object? id = null,
     Object? taskID = null,
     Object? content = null,
-    Object? supplement = null,
+    Object? supplement = freezed,
     Object? aiTextResponse = null,
     Object? groundings = null,
     Object? completed = null,
@@ -191,10 +191,10 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      supplement: null == supplement
+      supplement: freezed == supplement
           ? _value.supplement
           : supplement // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       aiTextResponse: null == aiTextResponse
           ? _value.aiTextResponse
           : aiTextResponse // ignore: cast_nullable_to_non_nullable
@@ -255,7 +255,7 @@ class _$TodoImpl extends _Todo {
   @override
   final String content;
   @override
-  final String supplement;
+  final String? supplement;
   @override
   final String aiTextResponse;
   final List<GroundingData> _groundings;
@@ -330,7 +330,7 @@ abstract class _Todo extends Todo {
       {required final String id,
       required final String taskID,
       required final String content,
-      required final String supplement,
+      required final String? supplement,
       required final String aiTextResponse,
       required final List<GroundingData> groundings,
       final bool completed,
@@ -349,7 +349,7 @@ abstract class _Todo extends Todo {
   @override
   String get content;
   @override
-  String get supplement;
+  String? get supplement;
   @override
   String get aiTextResponse;
   @override

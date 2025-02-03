@@ -14,7 +14,7 @@ class Todo with _$Todo {
     required String id,
     required String taskID,
     required String content,
-    required String supplement,
+    required String? supplement,
     required String aiTextResponse,
     required List<GroundingData> groundings,
     @Default(false) bool completed,
