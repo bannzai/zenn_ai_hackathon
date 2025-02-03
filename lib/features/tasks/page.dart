@@ -8,6 +8,7 @@ import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/provider/task.dart';
 import 'package:todomaker/provider/todo.dart';
 import 'package:todomaker/style/color.dart';
+import 'package:todomaker/utils/network/cloud_run.dart';
 
 class TasksPage extends HookConsumerWidget {
   const TasksPage({super.key});
@@ -47,6 +48,12 @@ class TasksPageBody extends HookConsumerWidget {
                   ],
                 ))
             .toList(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          CloudRunClient.instance.taskCreate(question: 'test');
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }

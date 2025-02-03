@@ -22,7 +22,6 @@ class CloudRunClient {
     // baseURL: const String.fromEnvironment('cloudRunServiceBaseURL'),
     baseURL: 'https://zennaihackathonbackend-985520941084.asia-northeast1.run.app',
   );
-
   static CloudRunClient get instance => _instance;
 
   Future<Task> taskCreate({required String question}) async {
