@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/retry/page.dart';
 import 'package:todomaker/entity/todo.dart';
+import 'package:todomaker/features/task/page.dart';
 import 'package:todomaker/provider/todo.dart';
 
 class TasksTodoList extends HookConsumerWidget {
@@ -30,7 +31,17 @@ class TasksTodoList extends HookConsumerWidget {
             if (limit != null && todos.length > limit) ...[
               Align(
                 alignment: Alignment.bottomRight,
-                child: Text('+ 残り${todos.length - limit}件', style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                child: TextButton(
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPage(taskID: taskID))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text('+ 残り${todos.length - limit}件', style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                      const SizedBox(width: 4),
+                      const Icon(Icons.arrow_forward_ios, size: 10, color: Colors.grey),
+                    ],
+                  ),
+                ),
               ),
             ],
           ],

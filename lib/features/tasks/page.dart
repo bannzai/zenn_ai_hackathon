@@ -37,18 +37,20 @@ class TasksPageBody extends HookConsumerWidget {
       appBar: AppBar(
         title: const Text('タスク一覧'),
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 16.0),
-        children: tasks
-            .map(
-              (task) => Column(
-                children: [
-                  TasksPageSection(task: task),
-                  const SizedBox(height: 10),
-                ],
-              ),
-            )
-            .toList(),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 20.0),
+          children: tasks
+              .map(
+                (task) => Column(
+                  children: [
+                    TasksPageSection(task: task),
+                    const SizedBox(height: 10),
+                  ],
+                ),
+              )
+              .toList(),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
