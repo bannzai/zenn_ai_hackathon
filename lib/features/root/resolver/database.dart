@@ -49,6 +49,7 @@ class UserDatabase {
         fromFirestore: _taskFromFirestore,
         toFirestore: _taskToFirestore,
       );
+  DocumentReference<Task> taskReference({required String taskID}) => tasksReference().doc(taskID);
 
   final FromFirestore<Todo> _todoFromFirestore = (snapshot, options) => Todo.fromJson(snapshot.data()!..['id'] = snapshot.id);
   final ToFirestore<Todo> _todoToFirestore = (todo, options) => todo.toJson();

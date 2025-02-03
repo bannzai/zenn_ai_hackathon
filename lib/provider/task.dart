@@ -13,6 +13,6 @@ Stream<List<Task>> tasks(TasksRef ref) {
 @Riverpod(dependencies: [userDatabase])
 Future<Task> task(TaskRef ref, {required String taskID}) async {
   final database = ref.watch(userDatabaseProvider);
-  final task = await database.taskReference(taskID).get();
+  final task = await database.taskReference(taskID: taskID).get();
   return task.data()!;
 }

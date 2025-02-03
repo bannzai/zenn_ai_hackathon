@@ -19,7 +19,7 @@ final tasksProvider = AutoDisposeStreamProvider<List<Task>>.internal(
 );
 
 typedef TasksRef = AutoDisposeStreamProviderRef<List<Task>>;
-String _$taskHash() => r'22dd5a62737bced6e9aaaa7b5d6f07d4b3591424';
+String _$taskHash() => r'd955741c78919c8e67ee9c86514f6a93ea19bf1a';
 
 /// Copied from Dart SDK
 class _SystemHash {
