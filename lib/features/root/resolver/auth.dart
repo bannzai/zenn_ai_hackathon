@@ -36,7 +36,7 @@ class AuthResolver extends HookConsumerWidget {
               return builder(context, user);
             }
           },
-          error: (e, st) => RetryPage(exception: e),
+          error: (e, st) => RetryPage(exception: e, stackTrace: st),
           loading: () => const IndicatorPage(),
         );
       }(),

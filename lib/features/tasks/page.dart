@@ -21,7 +21,7 @@ class TasksPage extends HookConsumerWidget {
       retry: () => ref.invalidate(tasksProvider),
       child: tasks.when(
         data: (tasks) => TasksPageBody(tasks: tasks),
-        error: (error, stackTrace) => RetryPage(exception: error),
+        error: (error, stackTrace) => RetryPage(exception: error, stackTrace: stackTrace),
         loading: () => const IndicatorPage(),
       ),
     );
@@ -129,7 +129,7 @@ class TasksTodoList extends HookConsumerWidget {
             TasksPageTodoRow(todo: todo),
           ],
         ]),
-        error: (error, stackTrace) => RetryPage(exception: error),
+        error: (error, stackTrace) => RetryPage(exception: error, stackTrace: stackTrace),
         loading: () => const IndicatorPage(),
       ),
     );

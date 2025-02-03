@@ -57,6 +57,7 @@ class AppUserCreateResolver extends HookConsumerWidget {
           data: (appUser) => builder(context),
           error: (e, st) => RetryPage(
             exception: e,
+            stackTrace: st,
           ),
           loading: () => const IndicatorPage(),
         );
