@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/loading/indicator.dart';
+import 'package:todomaker/components/retry/button.dart';
 import 'package:todomaker/components/retry/page.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/features/task/page.dart';
@@ -46,8 +47,8 @@ class TasksTodoList extends HookConsumerWidget {
             ],
           ],
         ),
-        error: (error, stackTrace) => RetryPage(exception: error, stackTrace: stackTrace),
-        loading: () => const IndicatorPage(),
+        error: (error, stackTrace) => RetryButton(exception: error, stackTrace: stackTrace),
+        loading: () => const Indicator(),
       ),
     );
   }
@@ -79,7 +80,7 @@ class TasksPageTodoRow extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(todo.content, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              Text(todo.supplement, style: const TextStyle(fontSize: 14), maxLines: 2),
+              Text(todo.supplement ?? '', style: const TextStyle(fontSize: 14), maxLines: 2),
             ],
           ),
         ),
