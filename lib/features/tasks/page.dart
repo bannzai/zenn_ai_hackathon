@@ -34,6 +34,7 @@ class TasksPageBody extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    debugPrint(tasks.length.toString());
     return Scaffold(
       appBar: AppBar(
         title: const Text('タスク一覧'),
@@ -51,7 +52,7 @@ class TasksPageBody extends HookConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          CloudRunClient.instance.taskCreate(question: 'test');
+          CloudRunClient.instance.taskCreate(question: '確定申告の方法');
         },
         child: const Icon(Icons.add),
       ),

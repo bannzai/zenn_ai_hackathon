@@ -40,7 +40,7 @@ class CloudRunClient {
       }
       return Task.fromJson(response['data']['task']);
     } on DioException catch (e) {
-      throw Exception('Failed to generate image: ${e.message}');
+      throw Exception('Failed to create task: ${e.message}');
     }
   }
 }
