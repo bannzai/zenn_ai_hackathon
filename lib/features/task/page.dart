@@ -5,7 +5,6 @@ import 'package:todomaker/components/retry/page.dart';
 import 'package:todomaker/components/todos/list.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/provider/task.dart';
-import 'package:todomaker/style/color.dart';
 
 class TaskPage extends HookConsumerWidget {
   final String taskID;
