@@ -14,6 +14,7 @@ class TasksTodoList extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final limit = this.limit;
     final todos = ref.watch(todosProvider(taskID: taskID));
 
     return Retry(
@@ -25,6 +26,12 @@ class TasksTodoList extends HookConsumerWidget {
             for (final todo in todos.take(limit ?? todos.length)) ...[
               TasksPageTodoRow(todo: todo),
               const SizedBox(height: 10),
+            ],
+            if (limit != null && todos.length > limit) ...[
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Text('+ 残り${todos.length - limit}件', style: const TextStyle(fontSize: 12, color: Colors.grey)),
+              ),
             ],
           ],
         ),
