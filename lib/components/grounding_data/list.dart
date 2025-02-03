@@ -10,6 +10,7 @@ class GroundingDataList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text('出典', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         for (final grounding in groundings) ...[
@@ -36,8 +37,9 @@ class GroundingDataRow extends StatelessWidget {
       builder: (BuildContext ctx, FollowLink? openLink) {
         return TextButton(
           onPressed: openLink,
-          style: const ButtonStyle(
+          style: ButtonStyle(
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            padding: WidgetStateProperty.all(const EdgeInsets.symmetric(horizontal: 2, vertical: 0)),
           ),
           child: Text(
             title,

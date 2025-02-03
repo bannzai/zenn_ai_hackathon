@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/retry/page.dart';
 import 'package:todomaker/components/todos/list.dart';
@@ -102,6 +103,7 @@ class TasksPageSection extends StatelessWidget {
             Text(task.definition, style: const TextStyle(fontSize: 14)),
             const SizedBox(height: 20),
             TasksTodoList(taskID: task.id, limit: 3),
+            GroundingDataList(groundings: task.todoGroundings),
           ],
         ),
       ),

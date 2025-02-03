@@ -25,9 +25,10 @@ class TasksTodoList extends HookConsumerWidget {
         data: (todos) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const Text('やること', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             for (final todo in todos.take(limit ?? todos.length)) ...[
-              TasksPageTodoRow(todo: todo),
               const SizedBox(height: 10),
+              TasksPageTodoRow(todo: todo),
             ],
             if (limit != null && todos.length > limit) ...[
               Align(
