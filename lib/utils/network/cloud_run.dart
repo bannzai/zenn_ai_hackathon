@@ -17,7 +17,7 @@ class CloudRunClient {
   final String baseURL;
   late final Dio _dio;
 
-  static CloudRunClient _instance = CloudRunClient._(
+  static final CloudRunClient _instance = CloudRunClient._(
     // TODO: ハッカソンが終わってストアに出すことがあればenvにしよう
     // baseURL: const String.fromEnvironment('cloudRunServiceBaseURL'),
     baseURL: 'https://zennaihackathonbackend-985520941084.asia-northeast1.run.app',
