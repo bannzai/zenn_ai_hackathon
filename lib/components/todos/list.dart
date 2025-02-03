@@ -60,6 +60,7 @@ class TasksPageTodoRow extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final supplement = todo.supplement;
     final completed = useState(todo.completed);
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -80,7 +81,9 @@ class TasksPageTodoRow extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(todo.content, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              Text(todo.supplement ?? '', style: const TextStyle(fontSize: 14), maxLines: 2),
+              if (supplement != null && supplement.isNotEmpty) ...[
+                Text(supplement, style: const TextStyle(fontSize: 14), maxLines: 2),
+              ],
             ],
           ),
         ),
