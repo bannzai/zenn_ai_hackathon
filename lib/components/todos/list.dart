@@ -8,7 +8,8 @@ import 'package:todomaker/provider/todo.dart';
 
 class TasksTodoList extends HookConsumerWidget {
   final String taskID;
-  const TasksTodoList({super.key, required this.taskID});
+  final int? limit;
+  const TasksTodoList({super.key, required this.taskID, this.limit});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,7 +21,7 @@ class TasksTodoList extends HookConsumerWidget {
         data: (todos) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            for (final todo in todos) ...[
+            for (final todo in todos.take(limit ?? todos.length)) ...[
               TasksPageTodoRow(todo: todo),
             ],
           ],
