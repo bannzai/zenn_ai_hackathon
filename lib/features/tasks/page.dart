@@ -96,16 +96,7 @@ class TasksPageSection extends StatelessWidget {
                 color: primaryColor,
               ),
             ),
-            const SizedBox(height: 4),
-            Text(
-              task.aiTextResponse,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-              maxLines: 5,
-            ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 20),
             TasksTodoList(taskID: task.id, limit: 3),
           ],
         ),

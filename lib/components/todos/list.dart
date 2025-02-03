@@ -52,12 +52,17 @@ class TasksPageTodoRow extends HookConsumerWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Checkbox(
-          value: completed.value,
-          onChanged: (value) {
-            completed.value = value ?? false;
-          },
+        SizedBox(
+          width: 24,
+          height: 24,
+          child: Checkbox(
+            value: completed.value,
+            onChanged: (value) {
+              completed.value = value ?? false;
+            },
+          ),
         ),
+        const SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

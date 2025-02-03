@@ -70,7 +70,7 @@ class TaskPageBody extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 10),
             TasksTodoList(taskID: task.id),
           ],
         ),
