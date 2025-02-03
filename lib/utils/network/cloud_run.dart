@@ -1,18 +1,34 @@
 import 'package:dio/dio.dart';
 import 'package:todomaker/entity/task.dart';
-
-const serviceURL = 'https://zennaihackathonbackend-985520941084.asia-northeast1.run.app';
+import 'package:todomaker/utils/network/interceptors/authorization_request.dart';
+import 'package:todomaker/utils/network/interceptors/content_type.dart';
 
 class CloudRunClient {
-  CloudRunClient({
-    required this.dio,
-  });
-  final Dio dio;
+  CloudRunClient._({required this.baseURL}) {
+    _dio = Dio();
+    _dio.options
+      ..baseUrl = baseURL
+      ..connectTimeout = const Duration(milliseconds: 10000)
+      ..receiveTimeout = const Duration(milliseconds: 10000);
+
+    _dio.interceptors.add(AuthorizationRequestInterceptor());
+    _dio.interceptors.add(ContentTypeInterceptor());
+  }
+  final String baseURL;
+  late final Dio _dio;
+
+  static CloudRunClient _instance = CloudRunClient._(
+    // TODO: ハッカソンが終わってストアに出すことがあればenvにしよう
+    // baseURL: const String.fromEnvironment('cloudRunServiceBaseURL'),
+    baseURL: 'https://zennaihackathonbackend-985520941084.asia-northeast1.run.app',
+  );
+
+  static CloudRunClient get instance => _instance;
 
   Future<Task> taskCreate({required String question}) async {
     try {
-      final result = await dio.post(
-        '$serviceURL/taskCreate',
+      final result = await _dio.post(
+        '$baseURL/taskCreate',
         data: {
           'data': {
             'question': question,
