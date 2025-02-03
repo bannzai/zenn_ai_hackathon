@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/utils/network/interceptors/authorization_request.dart';
 import 'package:todomaker/utils/network/interceptors/content_type.dart';
@@ -18,11 +19,20 @@ class CloudRunClient {
   final String baseURL;
   late final Dio _dio;
 
-  static final CloudRunClient _instance = CloudRunClient._(
-    // TODO: ハッカソンが終わってストアに出すことがあればenvにしよう
-    // baseURL: const String.fromEnvironment('cloudRunServiceBaseURL'),
-    baseURL: 'https://zennaihackathonbackend-985520941084.asia-northeast1.run.app',
-  );
+  static final CloudRunClient _instance = () {
+    if (kDebugMode) {
+      return CloudRunClient._(
+        baseURL: 'http://localhost:3400',
+      );
+    } else {
+      return CloudRunClient._(
+        // TODO: ハッカソンが終わってストアに出すことがあればenvにしよう
+        // baseURL: const String.fromEnvironment('cloudRunServiceBaseURL'),
+        baseURL: 'https://zennaihackathonbackend-985520941084.asia-northeast1.run.app',
+      );
+    }
+  }();
+
   static CloudRunClient get instance => _instance;
 
   Future<Task> taskCreate({required String question}) async {
