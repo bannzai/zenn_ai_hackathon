@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/utils/network/interceptors/authorization_request.dart';
 import 'package:todomaker/utils/network/interceptors/content_type.dart';
@@ -8,8 +9,8 @@ class CloudRunClient {
     _dio = Dio();
     _dio.options
       ..baseUrl = baseURL
-      ..connectTimeout = const Duration(milliseconds: 10000)
-      ..receiveTimeout = const Duration(milliseconds: 10000);
+      ..connectTimeout = const Duration(seconds: 30)
+      ..receiveTimeout = const Duration(seconds: 30);
 
     _dio.interceptors.add(AuthorizationRequestInterceptor());
     _dio.interceptors.add(ContentTypeInterceptor());
@@ -26,15 +27,26 @@ class CloudRunClient {
 
   Future<Task> taskCreate({required String question}) async {
     try {
+      // {
+      //   "question": "",
+      //   "userRequest": {
+      //       "userID": "",
+      //   }
+      // }
       final result = await _dio.post(
         '$baseURL/taskCreate',
         data: {
           'data': {
             'question': question,
+            'userRequest': {
+              'userID': FirebaseAuth.instance.currentUser?.uid,
+            },
           },
         },
       );
-      final response = mapToJSON(result.data);
+      // resultはGenKitのレスポンス構造
+      final response = mapToJSON(result.data)['result'];
+
       if (response['result'] != 'OK') {
         throw Exception(response['error']['message']);
       }
