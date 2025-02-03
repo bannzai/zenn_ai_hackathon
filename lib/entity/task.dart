@@ -14,6 +14,8 @@ class Task with _$Task {
     required String id,
     required String userID,
     required String question,
+    required String todoAITextResponse,
+    required List<GroundingData> todoGroundings,
     required String shortAnswer,
     required String topic,
     required String definitionAITextResponse,
