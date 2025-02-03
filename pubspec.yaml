@@ -72,6 +72,7 @@ dependencies:
   image_cropper: ^8.1.0
   uuid: ^4.5.1
   widget_arrows: ^0.6.0
+  dio: ^5.8.0+1
 
 dev_dependencies:
   flutter_test:
