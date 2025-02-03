@@ -38,7 +38,7 @@ class TodoHelpDialog extends StatelessWidget {
           ],
         ],
       ),
-      content: Text(todo.content),
+      content: Text(todo.aiTextResponse),
     );
   }
 }

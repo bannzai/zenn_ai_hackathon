@@ -43,7 +43,7 @@ class TaskPageBody extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(task.definition, style: const TextStyle(fontSize: 14)),
+              Text(task.definitionAITextResponse, style: const TextStyle(fontSize: 14)),
               const SizedBox(height: 20),
               TasksTodoList(taskID: task.id),
               const SizedBox(height: 10),
