@@ -106,7 +106,7 @@ class TasksPageSection extends StatelessWidget {
               maxLines: 5,
             ),
             const SizedBox(height: 4),
-            TasksTodoList(taskID: task.id),
+            TasksTodoList(taskID: task.id, limit: 3),
           ],
         ),
       ),
