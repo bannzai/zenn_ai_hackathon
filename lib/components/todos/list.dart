@@ -8,6 +8,7 @@ import 'package:todomaker/provider/todo.dart';
 
 class TasksTodoList extends HookConsumerWidget {
   final String taskID;
+  // 表示するTodoの数を制限する。オンメモリで制限。クエリでは大した件数ではないので全権取得。コンポーネント分けるほどでもないので引数にする
   final int? limit;
   const TasksTodoList({super.key, required this.taskID, this.limit});
 
