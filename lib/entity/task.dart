@@ -14,8 +14,11 @@ class Task with _$Task {
     required String id,
     required String userID,
     required String question,
-    required String aiTextResponse,
-    required List<GroundingData> groundings,
+    required String shortAnswer,
+    required String topic,
+    required String definition,
+    required String todoAITextResponse,
+    required List<GroundingData> todoGroundings,
     required bool completed,
     @ClientCreatedTimestamp() DateTime? createdDateTime,
     @ClientUpdatedTimestamp() DateTime? updatedDateTime,
@@ -30,10 +33,19 @@ class Task with _$Task {
 export const TaskSchema = z.object({
   id: z.string(),
   userID: z.string(),
+  // 質問の内容
   question: z.string(),
-  aiTextResponse: z.string(),
-  todoIDs: z.array(z.string()),
-  groundings: z.array(GroundingDataSchema),
+  // TODOの質問の内容の回答をAIに渡して、AIが回答した内容
+  todoAITextResponse: z.string(),
+  // TODOのAIの回答のソースとなったもの
+  todoGroundings: z.array(GroundingDataSchema),
+  // 質問の内容を短く回答したもの
+  shortAnswer: z.string(),
+  // 質問の内容の対象となるトピック。例) question: 「確定申告の方法」だと「確定申告」
+  topic: z.string(),
+  // 質問の内容の対象となるトピックについての解説
+  definition: z.string(),
   completed: z.boolean().default(false),
 });
+
 */
