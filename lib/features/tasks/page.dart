@@ -108,7 +108,7 @@ class TasksPageSection extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TasksTodoList(taskID: task.id, limit: 3),
-            GroundingDataList(groundings: task.todoGroundings),
+            GroundingDataList(groundings: task.todosGroundings),
           ],
         ),
       ),

@@ -49,7 +49,7 @@ class TaskPageBody extends StatelessWidget {
               const SizedBox(height: 20),
               TasksTodoList(taskID: task.id),
               const SizedBox(height: 10),
-              GroundingDataList(groundings: task.todoGroundings),
+              GroundingDataList(groundings: task.todosGroundings),
             ],
           ),
         ),

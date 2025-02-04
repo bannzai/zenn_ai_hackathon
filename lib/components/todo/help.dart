@@ -57,7 +57,7 @@ class TodoHelpDialog extends StatelessWidget {
                 children: [
                   Text('詳細', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: primaryColor)),
                   const SizedBox(height: 10),
-                  MarkdownBody(data: todo.aiTextResponse),
+                  MarkdownBody(data: todo.aiTextResponseMarkdown),
                 ],
               ),
             ),
