@@ -55,7 +55,8 @@ class App extends StatelessWidget {
           ),
         ),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          extendedTextStyle: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+          extendedTextStyle: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+          iconSize: 32.0,
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
