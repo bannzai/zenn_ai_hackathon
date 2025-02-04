@@ -14,8 +14,8 @@ class Task with _$Task {
     required String id,
     required String userID,
     required String question,
-    required String todoAITextResponse,
-    required List<GroundingData> todoGroundings,
+    required String todosAITextResponseMarkdown,
+    required List<GroundingData> todosGroundings,
     required String shortAnswer,
     required String topic,
     required String definitionAITextResponse,
@@ -31,16 +31,15 @@ class Task with _$Task {
 }
 
 /*
-
 export const TaskSchema = z.object({
   id: z.string(),
   userID: z.string(),
   // 質問の内容
   question: z.string(),
   // TODOの質問の内容の回答をAIに渡して、AIが回答した内容
-  todoAITextResponse: z.string(),
+  todosAITextResponseMarkdown: z.string(),
   // TODOのAIの回答のソースとなったもの
-  todoGroundings: z.array(GroundingDataSchema),
+  todosGroundings: z.array(GroundingDataSchema),
   // 質問の内容を短く回答したもの
   shortAnswer: z.string(),
   // 質問の内容の対象となるトピック。例) question: 「確定申告の方法」だと「確定申告」
@@ -50,4 +49,5 @@ export const TaskSchema = z.object({
   // TODOのAIの回答のソースとなったもの
   definitionGroundings: z.array(GroundingDataSchema),
   completed: z.boolean().default(false),
+});
 })*/

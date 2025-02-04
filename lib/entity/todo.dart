@@ -15,7 +15,7 @@ class Todo with _$Todo {
     required String taskID,
     required String content,
     required String? supplement,
-    required String aiTextResponse,
+    required String aiTextResponseMarkdown,
     required List<GroundingData> groundings,
     @Default(false) bool completed,
     @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -28,18 +28,23 @@ class Todo with _$Todo {
 }
 
 /*
-import { z } from "zod";
-import { GroundingDataSchema } from "./grounding";
-
-export const TODOSchema = z.object({
+export const TaskSchema = z.object({
   id: z.string(),
   userID: z.string(),
-  taskID: z.string(),
-  content: z.string(),
-  supplement: z.string().optional(),
-  aiTextResponse: z.string(),
-  groundings: z.array(GroundingDataSchema),
+  // 質問の内容
+  question: z.string(),
+  // TODOの質問の内容の回答をAIに渡して、AIが回答した内容
+  todosAITextResponseMarkdown: z.string(),
+  // TODOのAIの回答のソースとなったもの
+  todosGroundings: z.array(GroundingDataSchema),
+  // 質問の内容を短く回答したもの
+  shortAnswer: z.string(),
+  // 質問の内容の対象となるトピック。例) question: 「確定申告の方法」だと「確定申告」
+  topic: z.string(),
+  // 質問の内容の対象となるトピックについての解説
+  definitionAITextResponse: z.string(),
+  // TODOのAIの回答のソースとなったもの
+  definitionGroundings: z.array(GroundingDataSchema),
+  completed: z.boolean().default(false),
 });
-
-export type TODO = z.infer<typeof TODOSchema>;
 */

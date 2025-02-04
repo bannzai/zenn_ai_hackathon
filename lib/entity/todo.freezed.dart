@@ -24,7 +24,7 @@ mixin _$Todo {
   String get taskID => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   String? get supplement => throw _privateConstructorUsedError;
-  String get aiTextResponse => throw _privateConstructorUsedError;
+  String get aiTextResponseMarkdown => throw _privateConstructorUsedError;
   List<GroundingData> get groundings => throw _privateConstructorUsedError;
   bool get completed => throw _privateConstructorUsedError;
   @ClientCreatedTimestamp()
@@ -54,7 +54,7 @@ abstract class $TodoCopyWith<$Res> {
       String taskID,
       String content,
       String? supplement,
-      String aiTextResponse,
+      String aiTextResponseMarkdown,
       List<GroundingData> groundings,
       bool completed,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -81,7 +81,7 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
     Object? taskID = null,
     Object? content = null,
     Object? supplement = freezed,
-    Object? aiTextResponse = null,
+    Object? aiTextResponseMarkdown = null,
     Object? groundings = null,
     Object? completed = null,
     Object? createdDateTime = freezed,
@@ -106,9 +106,9 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
           ? _value.supplement
           : supplement // ignore: cast_nullable_to_non_nullable
               as String?,
-      aiTextResponse: null == aiTextResponse
-          ? _value.aiTextResponse
-          : aiTextResponse // ignore: cast_nullable_to_non_nullable
+      aiTextResponseMarkdown: null == aiTextResponseMarkdown
+          ? _value.aiTextResponseMarkdown
+          : aiTextResponseMarkdown // ignore: cast_nullable_to_non_nullable
               as String,
       groundings: null == groundings
           ? _value.groundings
@@ -148,7 +148,7 @@ abstract class _$$TodoImplCopyWith<$Res> implements $TodoCopyWith<$Res> {
       String taskID,
       String content,
       String? supplement,
-      String aiTextResponse,
+      String aiTextResponseMarkdown,
       List<GroundingData> groundings,
       bool completed,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -170,7 +170,7 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
     Object? taskID = null,
     Object? content = null,
     Object? supplement = freezed,
-    Object? aiTextResponse = null,
+    Object? aiTextResponseMarkdown = null,
     Object? groundings = null,
     Object? completed = null,
     Object? createdDateTime = freezed,
@@ -195,9 +195,9 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
           ? _value.supplement
           : supplement // ignore: cast_nullable_to_non_nullable
               as String?,
-      aiTextResponse: null == aiTextResponse
-          ? _value.aiTextResponse
-          : aiTextResponse // ignore: cast_nullable_to_non_nullable
+      aiTextResponseMarkdown: null == aiTextResponseMarkdown
+          ? _value.aiTextResponseMarkdown
+          : aiTextResponseMarkdown // ignore: cast_nullable_to_non_nullable
               as String,
       groundings: null == groundings
           ? _value._groundings
@@ -236,7 +236,7 @@ class _$TodoImpl extends _Todo {
       required this.taskID,
       required this.content,
       required this.supplement,
-      required this.aiTextResponse,
+      required this.aiTextResponseMarkdown,
       required final List<GroundingData> groundings,
       this.completed = false,
       @ClientCreatedTimestamp() this.createdDateTime,
@@ -257,7 +257,7 @@ class _$TodoImpl extends _Todo {
   @override
   final String? supplement;
   @override
-  final String aiTextResponse;
+  final String aiTextResponseMarkdown;
   final List<GroundingData> _groundings;
   @override
   List<GroundingData> get groundings {
@@ -284,7 +284,7 @@ class _$TodoImpl extends _Todo {
 
   @override
   String toString() {
-    return 'Todo(id: $id, taskID: $taskID, content: $content, supplement: $supplement, aiTextResponse: $aiTextResponse, groundings: $groundings, completed: $completed, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
+    return 'Todo(id: $id, taskID: $taskID, content: $content, supplement: $supplement, aiTextResponseMarkdown: $aiTextResponseMarkdown, groundings: $groundings, completed: $completed, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
   }
 
   @override
@@ -296,7 +296,7 @@ class _$TodoImpl extends _Todo {
             (identical(other.taskID, taskID) || other.taskID == taskID) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.supplement, supplement) || other.supplement == supplement) &&
-            (identical(other.aiTextResponse, aiTextResponse) || other.aiTextResponse == aiTextResponse) &&
+            (identical(other.aiTextResponseMarkdown, aiTextResponseMarkdown) || other.aiTextResponseMarkdown == aiTextResponseMarkdown) &&
             const DeepCollectionEquality().equals(other._groundings, _groundings) &&
             (identical(other.completed, completed) || other.completed == completed) &&
             (identical(other.createdDateTime, createdDateTime) || other.createdDateTime == createdDateTime) &&
@@ -307,8 +307,8 @@ class _$TodoImpl extends _Todo {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, taskID, content, supplement, aiTextResponse, const DeepCollectionEquality().hash(_groundings),
-      completed, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
+  int get hashCode => Object.hash(runtimeType, id, taskID, content, supplement, aiTextResponseMarkdown,
+      const DeepCollectionEquality().hash(_groundings), completed, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
 
   /// Create a copy of Todo
   /// with the given fields replaced by the non-null parameter values.
@@ -331,7 +331,7 @@ abstract class _Todo extends Todo {
       required final String taskID,
       required final String content,
       required final String? supplement,
-      required final String aiTextResponse,
+      required final String aiTextResponseMarkdown,
       required final List<GroundingData> groundings,
       final bool completed,
       @ClientCreatedTimestamp() final DateTime? createdDateTime,
@@ -351,7 +351,7 @@ abstract class _Todo extends Todo {
   @override
   String? get supplement;
   @override
-  String get aiTextResponse;
+  String get aiTextResponseMarkdown;
   @override
   List<GroundingData> get groundings;
   @override
