@@ -17,6 +17,7 @@ abstract class AppColors {
 
 abstract class TextColor {
   static const Color main = AppColors.primary;
+  static const Color darkGray = Color(0xFF404040);
   static const Color gray = Color(0xFF928484);
   static const Color black = Colors.black;
   static const Color white = Colors.white;

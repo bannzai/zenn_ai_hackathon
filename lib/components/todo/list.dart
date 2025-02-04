@@ -8,6 +8,7 @@ import 'package:todomaker/components/todo/help.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/features/task/page.dart';
 import 'package:todomaker/provider/todo.dart';
+import 'package:todomaker/style/color.dart';
 
 class TasksTodoList extends HookConsumerWidget {
   final String taskID;
@@ -86,7 +87,7 @@ class TasksPageTodoRow extends HookConsumerWidget {
               if (supplement != null && supplement.isNotEmpty) ...[
                 Text(
                   supplement,
-                  style: const TextStyle(fontSize: 14),
+                  style: const TextStyle(fontSize: 14, color: TextColor.darkGray),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
