@@ -32,7 +32,7 @@ class TaskPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Wrap Scaffold
+    final primaryColor = Theme.of(context).colorScheme.primary;
     return Scaffold(
       appBar: AppBar(
         title: Text(task.question),
@@ -43,6 +43,8 @@ class TaskPageBody extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(task.topic, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: primaryColor)),
+              const SizedBox(height: 10),
               Text(task.definitionAITextResponse, style: const TextStyle(fontSize: 14)),
               const SizedBox(height: 20),
               TasksTodoList(taskID: task.id),
