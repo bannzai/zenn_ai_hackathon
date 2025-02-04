@@ -51,6 +51,7 @@ class TodoHelpDialog extends StatelessWidget {
         children: [
           Expanded(
             child: SingleChildScrollView(
+              padding: const EdgeInsets.only(bottom: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
