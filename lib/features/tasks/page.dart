@@ -100,7 +100,12 @@ class TasksPageSection extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            Text(task.definitionAITextResponse, style: const TextStyle(fontSize: 14), maxLines: 5),
+            Text(
+              task.definitionAITextResponse,
+              style: const TextStyle(fontSize: 14),
+              maxLines: 5,
+              overflow: TextOverflow.ellipsis,
+            ),
             const SizedBox(height: 20),
             TasksTodoList(taskID: task.id, limit: 3),
             GroundingDataList(groundings: task.todoGroundings),

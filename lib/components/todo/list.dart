@@ -84,7 +84,12 @@ class TasksPageTodoRow extends HookConsumerWidget {
             children: [
               Text(todo.content, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               if (supplement != null && supplement.isNotEmpty) ...[
-                Text(supplement, style: const TextStyle(fontSize: 14), maxLines: 2),
+                Text(
+                  supplement,
+                  style: const TextStyle(fontSize: 14),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ],
             ],
           ),
