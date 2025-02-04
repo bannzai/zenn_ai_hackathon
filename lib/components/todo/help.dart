@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/style/color.dart';
 
@@ -45,6 +46,7 @@ class TodoHelpDialog extends StatelessWidget {
         ],
       ),
       content: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: SingleChildScrollView(
@@ -62,8 +64,11 @@ class TodoHelpDialog extends StatelessWidget {
             height: 1,
             color: Colors.black,
           ),
+          const SizedBox(height: 10),
+          for (final grounding in todo.groundings) GroundingDataList(groundings: [grounding]),
         ],
       ),
+      actionsPadding: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
       actions: [
         TextButton(
             onPressed: () {
