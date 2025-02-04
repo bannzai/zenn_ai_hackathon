@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/style/color.dart';
@@ -55,7 +56,7 @@ class TodoHelpDialog extends StatelessWidget {
                 children: [
                   Text('詳細', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: primaryColor)),
                   const SizedBox(height: 10),
-                  Text(todo.aiTextResponse, style: const TextStyle(fontSize: 14)),
+                  MarkdownBody(data: todo.aiTextResponse),
                 ],
               ),
             ),
@@ -68,6 +69,8 @@ class TodoHelpDialog extends StatelessWidget {
           for (final grounding in todo.groundings) GroundingDataList(groundings: [grounding]),
         ],
       ),
+      // Default padding is 20;
+      contentPadding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
       actionsPadding: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
       actions: [
         TextButton(
