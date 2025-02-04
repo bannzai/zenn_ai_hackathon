@@ -37,6 +37,7 @@ class App extends StatelessWidget {
         ),
         appBarTheme: const AppBarTheme(
           elevation: 1,
+          titleTextStyle: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(

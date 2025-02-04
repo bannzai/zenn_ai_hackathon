@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:todomaker/components/alert/help.dart';
 import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/retry/page.dart';
@@ -45,9 +47,12 @@ class TaskPageBody extends StatelessWidget {
             children: [
               Text(task.topic, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: primaryColor)),
               const SizedBox(height: 10),
+              MarkdownBody(data: task.definitionAITextResponse),
               Text(task.definitionAITextResponse, style: const TextStyle(fontSize: 14)),
               const SizedBox(height: 20),
               TasksTodoList(taskID: task.id),
+              const SizedBox(height: 10),
+              const Divider(height: 1, color: Colors.black),
               const SizedBox(height: 10),
               GroundingDataList(groundings: task.todosGroundings),
             ],
