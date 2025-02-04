@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/retry/button.dart';
@@ -24,32 +25,40 @@ class TasksTodoList extends HookConsumerWidget {
     return Retry(
       retry: () => ref.invalidate(todosProvider(taskID: taskID)),
       child: todos.when(
-        data: (todos) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('やること', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            for (final todo in todos.take(limit ?? todos.length)) ...[
-              const SizedBox(height: 10),
-              TasksPageTodoRow(todo: todo),
-            ],
-            if (limit != null && todos.length > limit) ...[
-              Align(
-                alignment: Alignment.bottomRight,
-                child: TextButton(
-                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPage(taskID: taskID))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text('+ 残り${todos.length - limit}件', style: const TextStyle(fontSize: 12, color: Colors.grey)),
-                      const SizedBox(width: 4),
-                      const Icon(Icons.arrow_forward_ios, size: 10, color: Colors.grey),
-                    ],
+        data: (todos) {
+          final sortedTodos = todos
+            ..sort((a, b) => a.completed
+                ? 1
+                : b.completed
+                    ? -1
+                    : 0);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('やること', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              for (final todo in sortedTodos.take(limit ?? todos.length)) ...[
+                const SizedBox(height: 10),
+                TasksPageTodoRow(todo: todo),
+              ],
+              if (limit != null && todos.length > limit) ...[
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: TextButton(
+                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPage(taskID: taskID))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text('+ 残り${todos.length - limit}件', style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                        const SizedBox(width: 4),
+                        const Icon(Icons.arrow_forward_ios, size: 10, color: Colors.grey),
+                      ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ],
-          ],
-        ),
+          );
+        },
         error: (error, stackTrace) => RetryButton(exception: error, stackTrace: stackTrace),
         loading: () => const Indicator(),
       ),
