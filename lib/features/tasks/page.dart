@@ -5,6 +5,7 @@ import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/retry/page.dart';
 import 'package:todomaker/components/todo/list.dart';
 import 'package:todomaker/entity/task.dart';
+import 'package:todomaker/features/task/page.dart';
 import 'package:todomaker/provider/task.dart';
 import 'package:todomaker/style/color.dart';
 import 'package:todomaker/utils/network/cloud_run.dart';
@@ -91,13 +92,31 @@ class TasksPageSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              task.question,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: primaryColor,
-              ),
+            Row(
+              children: [
+                Text(
+                  task.question,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: primaryColor,
+                  ),
+                ),
+                const Spacer(),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPage(taskID: task.id)));
+                  },
+                  child: const Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text('詳細を見る', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: TextColor.link)),
+                      SizedBox(width: 2),
+                      Icon(Icons.chevron_right, color: TextColor.link, size: 16),
+                    ],
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 10),
             Text(
