@@ -8,7 +8,7 @@ import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/features/task/page.dart';
 import 'package:todomaker/provider/task.dart';
 import 'package:todomaker/style/color.dart';
-import 'package:todomaker/utils/network/cloud_run.dart';
+import 'package:todomaker/utils/functions/firebase_functions.dart';
 
 class TasksPage extends HookConsumerWidget {
   const TasksPage({super.key});
@@ -56,7 +56,7 @@ class TasksPageBody extends HookConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          CloudRunClient.instance.taskCreate(question: '確定申告の方法');
+          functions.taskCreate(question: '確定申告の方法');
         },
         child: const Icon(Icons.add),
       ),
