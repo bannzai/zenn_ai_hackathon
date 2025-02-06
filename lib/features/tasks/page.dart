@@ -75,26 +75,26 @@ class TasksPageSection extends StatelessWidget {
     final definitionAITextResponse = task.definitionAITextResponse;
     final todosGroundings = task.todosGroundings;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: AppColors.border),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: const Offset(0, 3),
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: AppColors.border),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: const Offset(0, 3),
+                ),
+              ],
             ),
-          ],
-        ),
-        child: Stack(
-          children: [
-            Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
@@ -143,24 +143,24 @@ class TasksPageSection extends StatelessWidget {
                 ],
               ],
             ),
-            if (task is TaskPreparing) ...[
-              Center(
-                child: Container(
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: AppColors.border),
-                  ),
-                  child: const Center(
-                    child: Text('準備中...'),
-                  ),
-                ),
-              ),
-            ],
-          ],
+          ),
         ),
-      ),
+        if (task is TaskPreparing) ...[
+          Positioned.fill(
+            child: Container(
+              height: 100,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: AppColors.border),
+              ),
+              child: const Center(
+                child: Text('準備中...'),
+              ),
+            ),
+          ),
+        ],
+      ],
     );
   }
 }

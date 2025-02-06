@@ -70,7 +70,7 @@ class TaskPageBody extends StatelessWidget {
               ),
             ),
             if (task is TaskPreparing) ...[
-              Center(
+              Positioned.fill(
                 child: Container(
                   height: 100,
                   decoration: BoxDecoration(
