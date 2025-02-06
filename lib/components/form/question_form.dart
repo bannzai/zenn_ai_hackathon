@@ -55,7 +55,7 @@ class QuestionFormSheet extends HookWidget {
                   onPressed: () {
                     Navigator.of(context).pop(text.value);
                   },
-                  child: const Text('保存'),
+                  child: const Text('🤖に聞く'),
                 ),
               ),
             ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:todomaker/components/form/question_form.dart';
 import 'package:todomaker/components/loading/bot.dart';
 import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/components/loading/indicator.dart';
@@ -38,7 +39,7 @@ class TasksPageBody extends HookConsumerWidget {
     debugPrint(tasks.length.toString());
     return Scaffold(
       appBar: AppBar(
-        title: const Text('タスク一覧'),
+        title: const Text('やること一覧'),
       ),
       body: SafeArea(
         child: ListView(
@@ -56,8 +57,11 @@ class TasksPageBody extends HookConsumerWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          functions.taskCreate(question: '確定申告の方法');
+        onPressed: () async {
+          final question = await showQuestionFormSheet(context, text: '');
+          if (question != null) {
+            functions.taskCreate(question: question);
+          }
         },
         child: const Icon(Icons.add),
       ),
