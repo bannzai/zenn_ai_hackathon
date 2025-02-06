@@ -7,10 +7,11 @@ part 'task.g.dart';
 part 'task.freezed.dart';
 
 @freezed
-class Task with _$Task {
+sealed class Task with _$Task {
   const Task._();
+
   @JsonSerializable(explicitToJson: true)
-  const factory Task({
+  const factory Task.prepared({
     required String id,
     required String userID,
     required String question,
@@ -21,33 +22,86 @@ class Task with _$Task {
     required String definitionAITextResponse,
     required List<GroundingData> definitionGroundings,
     required bool completed,
+    @NullableTimestampConverter() required DateTime? fullFilledDateTime,
     @ClientCreatedTimestamp() DateTime? createdDateTime,
     @ClientUpdatedTimestamp() DateTime? updatedDateTime,
     @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
     @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime,
-  }) = _Task;
+  }) = TaskPrepared;
+
+  @JsonSerializable(explicitToJson: true)
+  const factory Task.preparing({
+    required String id,
+    required String userID,
+    required String? question,
+    required String? todosAITextResponseMarkdown,
+    required List<GroundingData>? todosGroundings,
+    required String? shortAnswer,
+    required String? topic,
+    required String? definitionAITextResponse,
+    required List<GroundingData>? definitionGroundings,
+    @ClientCreatedTimestamp() DateTime? createdDateTime,
+    @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+    @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+    @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime,
+  }) = TaskPreparing;
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
 }
 
 /*
-export const TaskSchema = z.object({
-  id: z.string(),
-  userID: z.string(),
-  // 質問の内容
-  question: z.string(),
-  // TODOの質問の内容の回答をAIに渡して、AIが回答した内容
-  todosAITextResponseMarkdown: z.string(),
-  // TODOのAIの回答のソースとなったもの
-  todosGroundings: z.array(GroundingDataSchema),
-  // 質問の内容を短く回答したもの
-  shortAnswer: z.string(),
-  // 質問の内容の対象となるトピック。例) question: 「確定申告の方法」だと「確定申告」
-  topic: z.string(),
-  // 質問の内容の対象となるトピックについての解説
-  definitionAITextResponse: z.string(),
-  // TODOのAIの回答のソースとなったもの
-  definitionGroundings: z.array(GroundingDataSchema),
-  completed: z.boolean().default(false),
-});
+import { z } from "zod";
+import { GroundingDataSchema } from "./grounding";
+import {
+  FirestoreTimestampSchema,
+  ServerTimestampSchema,
+} from "./util/timestamp";
+
+export const TaskPreparedSchema = z
+  .object({
+    status: z.literal("prepared"),
+    id: z.string(),
+    userID: z.string(),
+    // 質問の内容
+    question: z.string(),
+    // TODOの質問の内容の回答をAIに渡して、AIが回答した内容
+    todosAITextResponseMarkdown: z.string(),
+    // TODOのAIの回答のソースとなったもの
+    todosGroundings: z.array(GroundingDataSchema),
+    // 質問の内容を短く回答したもの
+    shortAnswer: z.string(),
+    // 質問の内容の対象となるトピック。例) question: 「確定申告の方法」だと「確定申告」
+    topic: z.string(),
+    // 質問の内容の対象となるトピックについての解説
+    definitionAITextResponse: z.string(),
+    // TODOのAIの回答のソースとなったもの
+    definitionGroundings: z.array(GroundingDataSchema),
+    completed: z.boolean().default(false),
+
+    fullFilledDateTime: FirestoreTimestampSchema,
+  })
+  .merge(ServerTimestampSchema);
+
+export const TaskPreparingSchema = TaskPreparedSchema.partial()
+  .required({
+    id: true,
+    userID: true,
+    question: true,
+    serverCreatedDateTime: true,
+    serverUpdatedDateTime: true,
+  })
+  .omit({
+    fullFilledDateTime: true,
+    completed: true,
+  })
+  .merge(
+    z.object({
+      status: z.literal("preparing"),
+    })
+  );
+export const TaskSchema = z.union([TaskPreparedSchema, TaskPreparingSchema]);
+
+export type Task = z.infer<typeof TaskSchema>;
+export type TaskPrepared = z.infer<typeof TaskPreparedSchema>;
+export type TaskPreparing = z.infer<typeof TaskPreparingSchema>;
 })*/
