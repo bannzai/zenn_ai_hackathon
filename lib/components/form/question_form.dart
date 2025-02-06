@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-class TextEditSheet extends HookWidget {
+class QuestionFormSheet extends HookWidget {
   final String text;
   final FormFieldValidator<String>? validator;
 
-  const TextEditSheet({super.key, required this.text, this.validator});
+  const QuestionFormSheet({super.key, required this.text, this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -66,12 +66,12 @@ class TextEditSheet extends HookWidget {
   }
 }
 
-Future<String?> showTextEditSheet(BuildContext context, {required String text, FormFieldValidator<String>? validator}) async {
+Future<String?> showQuestionFormSheet(BuildContext context, {required String text, FormFieldValidator<String>? validator}) async {
   return await showModalBottomSheet<String?>(
     useSafeArea: true,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     context: context,
-    builder: (context) => TextEditSheet(text: text, validator: validator),
+    builder: (context) => QuestionFormSheet(text: text, validator: validator),
   );
 }
