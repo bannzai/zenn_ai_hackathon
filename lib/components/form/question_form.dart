@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class QuestionFormSheet extends HookWidget {
-  final String text;
-  final FormFieldValidator<String>? validator;
-
-  const QuestionFormSheet({super.key, required this.text, this.validator});
+  const QuestionFormSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final text = useState(this.text);
+    final question = useState('');
     final focusNode = useFocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -33,8 +30,7 @@ class QuestionFormSheet extends HookWidget {
                   padding: const EdgeInsets.only(bottom: 20, top: 40, left: 16, right: 16),
                   child: TextFormField(
                     focusNode: focusNode,
-                    initialValue: text.value,
-                    validator: validator,
+                    initialValue: question.value,
                     minLines: 1,
                     maxLines: 10,
                     decoration: const InputDecoration(
@@ -45,7 +41,7 @@ class QuestionFormSheet extends HookWidget {
                       labelText: '手順がわからないものをご記入ください',
                     ),
                     onChanged: (value) {
-                      text.value = value;
+                      question.value = value;
                     },
                   ),
                 ),
@@ -55,7 +51,7 @@ class QuestionFormSheet extends HookWidget {
                 right: 10,
                 child: TextButton(
                   onPressed: () {
-                    Navigator.of(context).pop(text.value);
+                    Navigator.of(context).pop(question.value);
                   },
                   child: const Text('🤖に聞く'),
                 ),
@@ -68,12 +64,12 @@ class QuestionFormSheet extends HookWidget {
   }
 }
 
-Future<String?> showQuestionFormSheet(BuildContext context, {required String text, FormFieldValidator<String>? validator}) async {
+Future<String?> showQuestionFormSheet(BuildContext context) async {
   return await showModalBottomSheet<String?>(
     useSafeArea: true,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     context: context,
-    builder: (context) => QuestionFormSheet(text: text, validator: validator),
+    builder: (context) => const QuestionFormSheet(),
   );
 }

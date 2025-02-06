@@ -43,7 +43,7 @@ class TasksPageBody extends HookConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final question = await showQuestionFormSheet(context, text: '');
+          final question = await showQuestionFormSheet(context);
           if (question != null) {
             try {
               await functions.taskCreate(question: question);
