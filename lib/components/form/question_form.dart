@@ -41,6 +41,8 @@ class QuestionFormSheet extends HookWidget {
                       border: UnderlineInputBorder(),
                       enabledBorder: UnderlineInputBorder(),
                       focusedBorder: UnderlineInputBorder(),
+                      hintText: '例)確定申告の方法,結婚の手続き',
+                      labelText: '手順がわからないものをご記入ください',
                     ),
                     onChanged: (value) {
                       text.value = value;
