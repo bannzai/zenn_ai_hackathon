@@ -147,7 +147,7 @@ class TasksPageSection extends StatelessWidget {
           ),
         ),
         if (task is TaskPreparing) ...[
-          const BotLoading(message: '準備中...'),
+          const BotLoading(messages: ['準備中...', 'ちょっと待っててね😘', '丁寧にWebから情報を集めてるよ🦾']),
         ],
       ],
     );

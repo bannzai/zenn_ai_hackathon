@@ -8,7 +8,6 @@ import 'package:todomaker/components/retry/page.dart';
 import 'package:todomaker/components/todo/list.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/provider/task.dart';
-import 'package:todomaker/style/color.dart';
 
 class TaskPage extends HookConsumerWidget {
   final String taskID;
@@ -71,7 +70,7 @@ class TaskPageBody extends StatelessWidget {
               ),
             ),
             if (task is TaskPreparing) ...[
-              const BotLoading(message: '準備中...'),
+              const BotLoading(messages: ['準備中...', 'ちょっと待っててね😘', '丁寧にWebから情報を集めてるよ🦾']),
             ],
           ],
         ),
