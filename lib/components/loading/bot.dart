@@ -13,8 +13,8 @@ class BotLoading extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.5),
         ),
-        child: const Center(
-          child: BotChat(message: '準備中...'),
+        child: Center(
+          child: BotChat(message: message),
         ),
       ),
     );
