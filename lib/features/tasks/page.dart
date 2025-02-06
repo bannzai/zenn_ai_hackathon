@@ -72,6 +72,9 @@ class TasksPageSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).colorScheme.primary;
 
+    final definitionAITextResponse = task.definitionAITextResponse;
+    final todosGroundings = task.todosGroundings;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
@@ -119,19 +122,23 @@ class TasksPageSection extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            Text(
-              task.definitionAITextResponse,
-              style: const TextStyle(fontSize: 14),
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-            ),
-            const SizedBox(height: 10),
+            if (definitionAITextResponse != null) ...[
+              Text(
+                definitionAITextResponse,
+                style: const TextStyle(fontSize: 14),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 10),
+            ],
             const Divider(height: 1, color: Colors.black),
             const SizedBox(height: 20),
             TasksTodoList(taskID: task.id, limit: 3),
             const Divider(height: 1, color: Colors.black),
             const SizedBox(height: 16),
-            GroundingDataList(groundings: task.todosGroundings),
+            if (todosGroundings != null) ...[
+              GroundingDataList(groundings: todosGroundings),
+            ],
           ],
         ),
       ),

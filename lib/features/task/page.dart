@@ -34,28 +34,50 @@ class TaskPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).colorScheme.primary;
+
+    final topic = task.topic;
+    final definitionAITextResponse = task.definitionAITextResponse;
+    final todosGroundings = task.todosGroundings;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(task.question),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(task.topic, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: primaryColor)),
-              const SizedBox(height: 10),
-              MarkdownBody(data: task.definitionAITextResponse),
-              Text(task.definitionAITextResponse, style: const TextStyle(fontSize: 14)),
-              const SizedBox(height: 20),
-              TasksTodoList(taskID: task.id),
-              const SizedBox(height: 10),
-              const Divider(height: 1, color: Colors.black),
-              const SizedBox(height: 16),
-              GroundingDataList(groundings: task.todosGroundings),
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (topic != null) ...[
+                    Text(topic, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: primaryColor)),
+                    const SizedBox(height: 10),
+                  ],
+                  if (definitionAITextResponse != null) ...[
+                    MarkdownBody(data: definitionAITextResponse),
+                  ],
+                  TasksTodoList(taskID: task.id),
+                  const SizedBox(height: 20),
+                  if (todosGroundings != null) ...[
+                    const Divider(height: 1, color: Colors.black),
+                    const SizedBox(height: 16),
+                    GroundingDataList(groundings: todosGroundings),
+                  ],
+                ],
+              ),
+            ),
+            if (task is TaskPreparing) ...[
+              const Positioned(
+                bottom: 0,
+                child: SizedBox(
+                  height: 100,
+                  child: Center(child: Text('準備中...')),
+                ),
+              ),
             ],
-          ),
+          ],
         ),
       ),
     );
