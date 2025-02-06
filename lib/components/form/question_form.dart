@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:todomaker/components/error/error_alert.dart';
-import 'package:todomaker/utils/functions/firebase_functions.dart';
 
 class QuestionFormSheet extends HookWidget {
-  const QuestionFormSheet({super.key});
+  final String text;
+  final FormFieldValidator<String>? validator;
+
+  const QuestionFormSheet({super.key, required this.text, this.validator});
 
   @override
   Widget build(BuildContext context) {
-    final question = useState('');
+    final text = useState(this.text);
     final focusNode = useFocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -32,7 +33,8 @@ class QuestionFormSheet extends HookWidget {
                   padding: const EdgeInsets.only(bottom: 20, top: 40, left: 16, right: 16),
                   child: TextFormField(
                     focusNode: focusNode,
-                    initialValue: question.value,
+                    initialValue: text.value,
+                    validator: validator,
                     minLines: 1,
                     maxLines: 10,
                     decoration: const InputDecoration(
@@ -43,7 +45,7 @@ class QuestionFormSheet extends HookWidget {
                       labelText: '手順がわからないものをご記入ください',
                     ),
                     onChanged: (value) {
-                      question.value = value;
+                      text.value = value;
                     },
                   ),
                 ),
@@ -52,21 +54,8 @@ class QuestionFormSheet extends HookWidget {
                 top: 10,
                 right: 10,
                 child: TextButton(
-                  onPressed: () async {
-                    if (question.value.isEmpty) {
-                      return;
-                    }
-
-                    try {
-                      await functions.taskCreate(question: question.value);
-                      if (context.mounted) {
-                        Navigator.of(context).pop(question.value);
-                      }
-                    } catch (e) {
-                      if (context.mounted) {
-                        showErrorAlert(context, e);
-                      }
-                    }
+                  onPressed: () {
+                    Navigator.of(context).pop(text.value);
                   },
                   child: const Text('🤖に聞く'),
                 ),
@@ -79,14 +68,12 @@ class QuestionFormSheet extends HookWidget {
   }
 }
 
-Future<void> showQuestionFormSheet(
-  BuildContext context,
-) async {
-  return await showModalBottomSheet<void>(
+Future<String?> showQuestionFormSheet(BuildContext context, {required String text, FormFieldValidator<String>? validator}) async {
+  return await showModalBottomSheet<String?>(
     useSafeArea: true,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     context: context,
-    builder: (context) => const QuestionFormSheet(),
+    builder: (context) => QuestionFormSheet(text: text, validator: validator),
   );
 }
