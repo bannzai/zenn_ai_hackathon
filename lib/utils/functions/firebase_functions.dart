@@ -1,6 +1,5 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:todomaker/entity/task.dart';
 
 // GenKitがus-central1のサポートになる
 final functions = FirebaseFunctions.instanceFor(region: 'us-central1');
