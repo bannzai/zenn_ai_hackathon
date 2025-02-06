@@ -1,6 +1,26 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
+class BotLoading extends StatelessWidget {
+  final String message;
+
+  const BotLoading({super.key, required this.message});
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned.fill(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.5),
+        ),
+        child: const Center(
+          child: BotChat(message: '準備中...'),
+        ),
+      ),
+    );
+  }
+}
+
 class BotChat extends StatelessWidget {
   final String message;
 

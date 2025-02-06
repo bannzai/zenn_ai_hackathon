@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:todomaker/components/text/bot_chat.dart';
+import 'package:todomaker/components/loading/bot.dart';
 import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/retry/page.dart';
@@ -147,19 +147,7 @@ class TasksPageSection extends StatelessWidget {
           ),
         ),
         if (task is TaskPreparing) ...[
-          Positioned.fill(
-            child: Container(
-              height: 100,
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: AppColors.border),
-              ),
-              child: const Center(
-                child: BotChat(message: '準備中...'),
-              ),
-            ),
-          ),
+          const BotLoading(message: '準備中...'),
         ],
       ],
     );
