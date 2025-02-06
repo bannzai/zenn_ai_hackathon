@@ -54,7 +54,7 @@ class TasksPageBody extends HookConsumerWidget {
             }
           }
         },
-        child: const Icon(Icons.add),
+        child: const Text('🤖'),
       ),
     );
   }
