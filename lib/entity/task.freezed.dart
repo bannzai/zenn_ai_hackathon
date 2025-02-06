@@ -15,21 +15,28 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Task _$TaskFromJson(Map<String, dynamic> json) {
-  return _Task.fromJson(json);
+  switch (json['runtimeType']) {
+    case 'prepared':
+      return TaskPrepared.fromJson(json);
+    case 'preparing':
+      return TaskPreparing.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'runtimeType', 'Task', 'Invalid union type "${json['runtimeType']}"!');
+  }
 }
 
 /// @nodoc
 mixin _$Task {
   String get id => throw _privateConstructorUsedError;
   String get userID => throw _privateConstructorUsedError;
-  String get question => throw _privateConstructorUsedError;
-  String get todosAITextResponseMarkdown => throw _privateConstructorUsedError;
-  List<GroundingData> get todosGroundings => throw _privateConstructorUsedError;
-  String get shortAnswer => throw _privateConstructorUsedError;
-  String get topic => throw _privateConstructorUsedError;
-  String get definitionAITextResponse => throw _privateConstructorUsedError;
-  List<GroundingData> get definitionGroundings => throw _privateConstructorUsedError;
-  bool get completed => throw _privateConstructorUsedError;
+  String? get question => throw _privateConstructorUsedError;
+  String? get todosAITextResponseMarkdown => throw _privateConstructorUsedError;
+  List<GroundingData>? get todosGroundings => throw _privateConstructorUsedError;
+  String? get shortAnswer => throw _privateConstructorUsedError;
+  String? get topic => throw _privateConstructorUsedError;
+  String? get definitionAITextResponse => throw _privateConstructorUsedError;
+  List<GroundingData>? get definitionGroundings => throw _privateConstructorUsedError;
   @ClientCreatedTimestamp()
   DateTime? get createdDateTime => throw _privateConstructorUsedError;
   @ClientUpdatedTimestamp()
@@ -38,6 +45,134 @@ mixin _$Task {
   DateTime? get serverCreatedDateTime => throw _privateConstructorUsedError;
   @ServerUpdatedTimestamp()
   DateTime? get serverUpdatedDateTime => throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String id,
+            String userID,
+            String question,
+            String todosAITextResponseMarkdown,
+            List<GroundingData> todosGroundings,
+            String shortAnswer,
+            String topic,
+            String definitionAITextResponse,
+            List<GroundingData> definitionGroundings,
+            bool completed,
+            @NullableTimestampConverter() DateTime? fullFilledDateTime,
+            @ClientCreatedTimestamp() DateTime? createdDateTime,
+            @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+            @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+            @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)
+        prepared,
+    required TResult Function(
+            String id,
+            String userID,
+            String? question,
+            String? todosAITextResponseMarkdown,
+            List<GroundingData>? todosGroundings,
+            String? shortAnswer,
+            String? topic,
+            String? definitionAITextResponse,
+            List<GroundingData>? definitionGroundings,
+            @ClientCreatedTimestamp() DateTime? createdDateTime,
+            @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+            @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+            @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)
+        preparing,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            String id,
+            String userID,
+            String question,
+            String todosAITextResponseMarkdown,
+            List<GroundingData> todosGroundings,
+            String shortAnswer,
+            String topic,
+            String definitionAITextResponse,
+            List<GroundingData> definitionGroundings,
+            bool completed,
+            @NullableTimestampConverter() DateTime? fullFilledDateTime,
+            @ClientCreatedTimestamp() DateTime? createdDateTime,
+            @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+            @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+            @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)?
+        prepared,
+    TResult? Function(
+            String id,
+            String userID,
+            String? question,
+            String? todosAITextResponseMarkdown,
+            List<GroundingData>? todosGroundings,
+            String? shortAnswer,
+            String? topic,
+            String? definitionAITextResponse,
+            List<GroundingData>? definitionGroundings,
+            @ClientCreatedTimestamp() DateTime? createdDateTime,
+            @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+            @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+            @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)?
+        preparing,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String id,
+            String userID,
+            String question,
+            String todosAITextResponseMarkdown,
+            List<GroundingData> todosGroundings,
+            String shortAnswer,
+            String topic,
+            String definitionAITextResponse,
+            List<GroundingData> definitionGroundings,
+            bool completed,
+            @NullableTimestampConverter() DateTime? fullFilledDateTime,
+            @ClientCreatedTimestamp() DateTime? createdDateTime,
+            @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+            @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+            @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)?
+        prepared,
+    TResult Function(
+            String id,
+            String userID,
+            String? question,
+            String? todosAITextResponseMarkdown,
+            List<GroundingData>? todosGroundings,
+            String? shortAnswer,
+            String? topic,
+            String? definitionAITextResponse,
+            List<GroundingData>? definitionGroundings,
+            @ClientCreatedTimestamp() DateTime? createdDateTime,
+            @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+            @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+            @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)?
+        preparing,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(TaskPrepared value) prepared,
+    required TResult Function(TaskPreparing value) preparing,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(TaskPrepared value)? prepared,
+    TResult? Function(TaskPreparing value)? preparing,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(TaskPrepared value)? prepared,
+    TResult Function(TaskPreparing value)? preparing,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 
   /// Serializes this Task to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -62,7 +197,6 @@ abstract class $TaskCopyWith<$Res> {
       String topic,
       String definitionAITextResponse,
       List<GroundingData> definitionGroundings,
-      bool completed,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
       @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
@@ -92,7 +226,6 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task> implements $TaskCopyWith<$Res>
     Object? topic = null,
     Object? definitionAITextResponse = null,
     Object? definitionGroundings = null,
-    Object? completed = null,
     Object? createdDateTime = freezed,
     Object? updatedDateTime = freezed,
     Object? serverCreatedDateTime = freezed,
@@ -108,37 +241,33 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task> implements $TaskCopyWith<$Res>
           : userID // ignore: cast_nullable_to_non_nullable
               as String,
       question: null == question
-          ? _value.question
+          ? _value.question!
           : question // ignore: cast_nullable_to_non_nullable
               as String,
       todosAITextResponseMarkdown: null == todosAITextResponseMarkdown
-          ? _value.todosAITextResponseMarkdown
+          ? _value.todosAITextResponseMarkdown!
           : todosAITextResponseMarkdown // ignore: cast_nullable_to_non_nullable
               as String,
       todosGroundings: null == todosGroundings
-          ? _value.todosGroundings
+          ? _value.todosGroundings!
           : todosGroundings // ignore: cast_nullable_to_non_nullable
               as List<GroundingData>,
       shortAnswer: null == shortAnswer
-          ? _value.shortAnswer
+          ? _value.shortAnswer!
           : shortAnswer // ignore: cast_nullable_to_non_nullable
               as String,
       topic: null == topic
-          ? _value.topic
+          ? _value.topic!
           : topic // ignore: cast_nullable_to_non_nullable
               as String,
       definitionAITextResponse: null == definitionAITextResponse
-          ? _value.definitionAITextResponse
+          ? _value.definitionAITextResponse!
           : definitionAITextResponse // ignore: cast_nullable_to_non_nullable
               as String,
       definitionGroundings: null == definitionGroundings
-          ? _value.definitionGroundings
+          ? _value.definitionGroundings!
           : definitionGroundings // ignore: cast_nullable_to_non_nullable
               as List<GroundingData>,
-      completed: null == completed
-          ? _value.completed
-          : completed // ignore: cast_nullable_to_non_nullable
-              as bool,
       createdDateTime: freezed == createdDateTime
           ? _value.createdDateTime
           : createdDateTime // ignore: cast_nullable_to_non_nullable
@@ -160,8 +289,8 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task> implements $TaskCopyWith<$Res>
 }
 
 /// @nodoc
-abstract class _$$TaskImplCopyWith<$Res> implements $TaskCopyWith<$Res> {
-  factory _$$TaskImplCopyWith(_$TaskImpl value, $Res Function(_$TaskImpl) then) = __$$TaskImplCopyWithImpl<$Res>;
+abstract class _$$TaskPreparedImplCopyWith<$Res> implements $TaskCopyWith<$Res> {
+  factory _$$TaskPreparedImplCopyWith(_$TaskPreparedImpl value, $Res Function(_$TaskPreparedImpl) then) = __$$TaskPreparedImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -175,6 +304,7 @@ abstract class _$$TaskImplCopyWith<$Res> implements $TaskCopyWith<$Res> {
       String definitionAITextResponse,
       List<GroundingData> definitionGroundings,
       bool completed,
+      @NullableTimestampConverter() DateTime? fullFilledDateTime,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
       @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
@@ -182,8 +312,8 @@ abstract class _$$TaskImplCopyWith<$Res> implements $TaskCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$TaskImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$TaskImpl> implements _$$TaskImplCopyWith<$Res> {
-  __$$TaskImplCopyWithImpl(_$TaskImpl _value, $Res Function(_$TaskImpl) _then) : super(_value, _then);
+class __$$TaskPreparedImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$TaskPreparedImpl> implements _$$TaskPreparedImplCopyWith<$Res> {
+  __$$TaskPreparedImplCopyWithImpl(_$TaskPreparedImpl _value, $Res Function(_$TaskPreparedImpl) _then) : super(_value, _then);
 
   /// Create a copy of Task
   /// with the given fields replaced by the non-null parameter values.
@@ -200,12 +330,13 @@ class __$$TaskImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$TaskImpl
     Object? definitionAITextResponse = null,
     Object? definitionGroundings = null,
     Object? completed = null,
+    Object? fullFilledDateTime = freezed,
     Object? createdDateTime = freezed,
     Object? updatedDateTime = freezed,
     Object? serverCreatedDateTime = freezed,
     Object? serverUpdatedDateTime = freezed,
   }) {
-    return _then(_$TaskImpl(
+    return _then(_$TaskPreparedImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -246,6 +377,10 @@ class __$$TaskImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$TaskImpl
           ? _value.completed
           : completed // ignore: cast_nullable_to_non_nullable
               as bool,
+      fullFilledDateTime: freezed == fullFilledDateTime
+          ? _value.fullFilledDateTime
+          : fullFilledDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       createdDateTime: freezed == createdDateTime
           ? _value.createdDateTime
           : createdDateTime // ignore: cast_nullable_to_non_nullable
@@ -269,8 +404,8 @@ class __$$TaskImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$TaskImpl
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$TaskImpl extends _Task {
-  const _$TaskImpl(
+class _$TaskPreparedImpl extends TaskPrepared {
+  const _$TaskPreparedImpl(
       {required this.id,
       required this.userID,
       required this.question,
@@ -281,15 +416,18 @@ class _$TaskImpl extends _Task {
       required this.definitionAITextResponse,
       required final List<GroundingData> definitionGroundings,
       required this.completed,
+      @NullableTimestampConverter() required this.fullFilledDateTime,
       @ClientCreatedTimestamp() this.createdDateTime,
       @ClientUpdatedTimestamp() this.updatedDateTime,
       @ServerCreatedTimestamp() this.serverCreatedDateTime,
-      @ServerUpdatedTimestamp() this.serverUpdatedDateTime})
+      @ServerUpdatedTimestamp() this.serverUpdatedDateTime,
+      final String? $type})
       : _todosGroundings = todosGroundings,
         _definitionGroundings = definitionGroundings,
+        $type = $type ?? 'prepared',
         super._();
 
-  factory _$TaskImpl.fromJson(Map<String, dynamic> json) => _$$TaskImplFromJson(json);
+  factory _$TaskPreparedImpl.fromJson(Map<String, dynamic> json) => _$$TaskPreparedImplFromJson(json);
 
   @override
   final String id;
@@ -324,6 +462,9 @@ class _$TaskImpl extends _Task {
   @override
   final bool completed;
   @override
+  @NullableTimestampConverter()
+  final DateTime? fullFilledDateTime;
+  @override
   @ClientCreatedTimestamp()
   final DateTime? createdDateTime;
   @override
@@ -336,16 +477,19 @@ class _$TaskImpl extends _Task {
   @ServerUpdatedTimestamp()
   final DateTime? serverUpdatedDateTime;
 
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
   @override
   String toString() {
-    return 'Task(id: $id, userID: $userID, question: $question, todosAITextResponseMarkdown: $todosAITextResponseMarkdown, todosGroundings: $todosGroundings, shortAnswer: $shortAnswer, topic: $topic, definitionAITextResponse: $definitionAITextResponse, definitionGroundings: $definitionGroundings, completed: $completed, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
+    return 'Task.prepared(id: $id, userID: $userID, question: $question, todosAITextResponseMarkdown: $todosAITextResponseMarkdown, todosGroundings: $todosGroundings, shortAnswer: $shortAnswer, topic: $topic, definitionAITextResponse: $definitionAITextResponse, definitionGroundings: $definitionGroundings, completed: $completed, fullFilledDateTime: $fullFilledDateTime, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TaskImpl &&
+            other is _$TaskPreparedImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userID, userID) || other.userID == userID) &&
             (identical(other.question, question) || other.question == question) &&
@@ -357,6 +501,7 @@ class _$TaskImpl extends _Task {
             (identical(other.definitionAITextResponse, definitionAITextResponse) || other.definitionAITextResponse == definitionAITextResponse) &&
             const DeepCollectionEquality().equals(other._definitionGroundings, _definitionGroundings) &&
             (identical(other.completed, completed) || other.completed == completed) &&
+            (identical(other.fullFilledDateTime, fullFilledDateTime) || other.fullFilledDateTime == fullFilledDateTime) &&
             (identical(other.createdDateTime, createdDateTime) || other.createdDateTime == createdDateTime) &&
             (identical(other.updatedDateTime, updatedDateTime) || other.updatedDateTime == updatedDateTime) &&
             (identical(other.serverCreatedDateTime, serverCreatedDateTime) || other.serverCreatedDateTime == serverCreatedDateTime) &&
@@ -377,6 +522,7 @@ class _$TaskImpl extends _Task {
       definitionAITextResponse,
       const DeepCollectionEquality().hash(_definitionGroundings),
       completed,
+      fullFilledDateTime,
       createdDateTime,
       updatedDateTime,
       serverCreatedDateTime,
@@ -387,18 +533,173 @@ class _$TaskImpl extends _Task {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$TaskImplCopyWith<_$TaskImpl> get copyWith => __$$TaskImplCopyWithImpl<_$TaskImpl>(this, _$identity);
+  _$$TaskPreparedImplCopyWith<_$TaskPreparedImpl> get copyWith => __$$TaskPreparedImplCopyWithImpl<_$TaskPreparedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String id,
+            String userID,
+            String question,
+            String todosAITextResponseMarkdown,
+            List<GroundingData> todosGroundings,
+            String shortAnswer,
+            String topic,
+            String definitionAITextResponse,
+            List<GroundingData> definitionGroundings,
+            bool completed,
+            @NullableTimestampConverter() DateTime? fullFilledDateTime,
+            @ClientCreatedTimestamp() DateTime? createdDateTime,
+            @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+            @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+            @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)
+        prepared,
+    required TResult Function(
+            String id,
+            String userID,
+            String? question,
+            String? todosAITextResponseMarkdown,
+            List<GroundingData>? todosGroundings,
+            String? shortAnswer,
+            String? topic,
+            String? definitionAITextResponse,
+            List<GroundingData>? definitionGroundings,
+            @ClientCreatedTimestamp() DateTime? createdDateTime,
+            @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+            @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+            @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)
+        preparing,
+  }) {
+    return prepared(id, userID, question, todosAITextResponseMarkdown, todosGroundings, shortAnswer, topic, definitionAITextResponse,
+        definitionGroundings, completed, fullFilledDateTime, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            String id,
+            String userID,
+            String question,
+            String todosAITextResponseMarkdown,
+            List<GroundingData> todosGroundings,
+            String shortAnswer,
+            String topic,
+            String definitionAITextResponse,
+            List<GroundingData> definitionGroundings,
+            bool completed,
+            @NullableTimestampConverter() DateTime? fullFilledDateTime,
+            @ClientCreatedTimestamp() DateTime? createdDateTime,
+            @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+            @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+            @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)?
+        prepared,
+    TResult? Function(
+            String id,
+            String userID,
+            String? question,
+            String? todosAITextResponseMarkdown,
+            List<GroundingData>? todosGroundings,
+            String? shortAnswer,
+            String? topic,
+            String? definitionAITextResponse,
+            List<GroundingData>? definitionGroundings,
+            @ClientCreatedTimestamp() DateTime? createdDateTime,
+            @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+            @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+            @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)?
+        preparing,
+  }) {
+    return prepared?.call(id, userID, question, todosAITextResponseMarkdown, todosGroundings, shortAnswer, topic, definitionAITextResponse,
+        definitionGroundings, completed, fullFilledDateTime, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String id,
+            String userID,
+            String question,
+            String todosAITextResponseMarkdown,
+            List<GroundingData> todosGroundings,
+            String shortAnswer,
+            String topic,
+            String definitionAITextResponse,
+            List<GroundingData> definitionGroundings,
+            bool completed,
+            @NullableTimestampConverter() DateTime? fullFilledDateTime,
+            @ClientCreatedTimestamp() DateTime? createdDateTime,
+            @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+            @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+            @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)?
+        prepared,
+    TResult Function(
+            String id,
+            String userID,
+            String? question,
+            String? todosAITextResponseMarkdown,
+            List<GroundingData>? todosGroundings,
+            String? shortAnswer,
+            String? topic,
+            String? definitionAITextResponse,
+            List<GroundingData>? definitionGroundings,
+            @ClientCreatedTimestamp() DateTime? createdDateTime,
+            @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+            @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+            @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)?
+        preparing,
+    required TResult orElse(),
+  }) {
+    if (prepared != null) {
+      return prepared(id, userID, question, todosAITextResponseMarkdown, todosGroundings, shortAnswer, topic, definitionAITextResponse,
+          definitionGroundings, completed, fullFilledDateTime, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(TaskPrepared value) prepared,
+    required TResult Function(TaskPreparing value) preparing,
+  }) {
+    return prepared(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(TaskPrepared value)? prepared,
+    TResult? Function(TaskPreparing value)? preparing,
+  }) {
+    return prepared?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(TaskPrepared value)? prepared,
+    TResult Function(TaskPreparing value)? preparing,
+    required TResult orElse(),
+  }) {
+    if (prepared != null) {
+      return prepared(this);
+    }
+    return orElse();
+  }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TaskImplToJson(
+    return _$$TaskPreparedImplToJson(
       this,
     );
   }
 }
 
-abstract class _Task extends Task {
-  const factory _Task(
+abstract class TaskPrepared extends Task {
+  const factory TaskPrepared(
       {required final String id,
       required final String userID,
       required final String question,
@@ -409,13 +710,14 @@ abstract class _Task extends Task {
       required final String definitionAITextResponse,
       required final List<GroundingData> definitionGroundings,
       required final bool completed,
+      @NullableTimestampConverter() required final DateTime? fullFilledDateTime,
       @ClientCreatedTimestamp() final DateTime? createdDateTime,
       @ClientUpdatedTimestamp() final DateTime? updatedDateTime,
       @ServerCreatedTimestamp() final DateTime? serverCreatedDateTime,
-      @ServerUpdatedTimestamp() final DateTime? serverUpdatedDateTime}) = _$TaskImpl;
-  const _Task._() : super._();
+      @ServerUpdatedTimestamp() final DateTime? serverUpdatedDateTime}) = _$TaskPreparedImpl;
+  const TaskPrepared._() : super._();
 
-  factory _Task.fromJson(Map<String, dynamic> json) = _$TaskImpl.fromJson;
+  factory TaskPrepared.fromJson(Map<String, dynamic> json) = _$TaskPreparedImpl.fromJson;
 
   @override
   String get id;
@@ -435,8 +737,9 @@ abstract class _Task extends Task {
   String get definitionAITextResponse;
   @override
   List<GroundingData> get definitionGroundings;
-  @override
   bool get completed;
+  @NullableTimestampConverter()
+  DateTime? get fullFilledDateTime;
   @override
   @ClientCreatedTimestamp()
   DateTime? get createdDateTime;
@@ -454,5 +757,453 @@ abstract class _Task extends Task {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$TaskImplCopyWith<_$TaskImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$TaskPreparedImplCopyWith<_$TaskPreparedImpl> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$TaskPreparingImplCopyWith<$Res> implements $TaskCopyWith<$Res> {
+  factory _$$TaskPreparingImplCopyWith(_$TaskPreparingImpl value, $Res Function(_$TaskPreparingImpl) then) = __$$TaskPreparingImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String id,
+      String userID,
+      String? question,
+      String? todosAITextResponseMarkdown,
+      List<GroundingData>? todosGroundings,
+      String? shortAnswer,
+      String? topic,
+      String? definitionAITextResponse,
+      List<GroundingData>? definitionGroundings,
+      @ClientCreatedTimestamp() DateTime? createdDateTime,
+      @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+      @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+      @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime});
+}
+
+/// @nodoc
+class __$$TaskPreparingImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$TaskPreparingImpl> implements _$$TaskPreparingImplCopyWith<$Res> {
+  __$$TaskPreparingImplCopyWithImpl(_$TaskPreparingImpl _value, $Res Function(_$TaskPreparingImpl) _then) : super(_value, _then);
+
+  /// Create a copy of Task
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? userID = null,
+    Object? question = freezed,
+    Object? todosAITextResponseMarkdown = freezed,
+    Object? todosGroundings = freezed,
+    Object? shortAnswer = freezed,
+    Object? topic = freezed,
+    Object? definitionAITextResponse = freezed,
+    Object? definitionGroundings = freezed,
+    Object? createdDateTime = freezed,
+    Object? updatedDateTime = freezed,
+    Object? serverCreatedDateTime = freezed,
+    Object? serverUpdatedDateTime = freezed,
+  }) {
+    return _then(_$TaskPreparingImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      userID: null == userID
+          ? _value.userID
+          : userID // ignore: cast_nullable_to_non_nullable
+              as String,
+      question: freezed == question
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as String?,
+      todosAITextResponseMarkdown: freezed == todosAITextResponseMarkdown
+          ? _value.todosAITextResponseMarkdown
+          : todosAITextResponseMarkdown // ignore: cast_nullable_to_non_nullable
+              as String?,
+      todosGroundings: freezed == todosGroundings
+          ? _value._todosGroundings
+          : todosGroundings // ignore: cast_nullable_to_non_nullable
+              as List<GroundingData>?,
+      shortAnswer: freezed == shortAnswer
+          ? _value.shortAnswer
+          : shortAnswer // ignore: cast_nullable_to_non_nullable
+              as String?,
+      topic: freezed == topic
+          ? _value.topic
+          : topic // ignore: cast_nullable_to_non_nullable
+              as String?,
+      definitionAITextResponse: freezed == definitionAITextResponse
+          ? _value.definitionAITextResponse
+          : definitionAITextResponse // ignore: cast_nullable_to_non_nullable
+              as String?,
+      definitionGroundings: freezed == definitionGroundings
+          ? _value._definitionGroundings
+          : definitionGroundings // ignore: cast_nullable_to_non_nullable
+              as List<GroundingData>?,
+      createdDateTime: freezed == createdDateTime
+          ? _value.createdDateTime
+          : createdDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedDateTime: freezed == updatedDateTime
+          ? _value.updatedDateTime
+          : updatedDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      serverCreatedDateTime: freezed == serverCreatedDateTime
+          ? _value.serverCreatedDateTime
+          : serverCreatedDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      serverUpdatedDateTime: freezed == serverUpdatedDateTime
+          ? _value.serverUpdatedDateTime
+          : serverUpdatedDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _$TaskPreparingImpl extends TaskPreparing {
+  const _$TaskPreparingImpl(
+      {required this.id,
+      required this.userID,
+      required this.question,
+      required this.todosAITextResponseMarkdown,
+      required final List<GroundingData>? todosGroundings,
+      required this.shortAnswer,
+      required this.topic,
+      required this.definitionAITextResponse,
+      required final List<GroundingData>? definitionGroundings,
+      @ClientCreatedTimestamp() this.createdDateTime,
+      @ClientUpdatedTimestamp() this.updatedDateTime,
+      @ServerCreatedTimestamp() this.serverCreatedDateTime,
+      @ServerUpdatedTimestamp() this.serverUpdatedDateTime,
+      final String? $type})
+      : _todosGroundings = todosGroundings,
+        _definitionGroundings = definitionGroundings,
+        $type = $type ?? 'preparing',
+        super._();
+
+  factory _$TaskPreparingImpl.fromJson(Map<String, dynamic> json) => _$$TaskPreparingImplFromJson(json);
+
+  @override
+  final String id;
+  @override
+  final String userID;
+  @override
+  final String? question;
+  @override
+  final String? todosAITextResponseMarkdown;
+  final List<GroundingData>? _todosGroundings;
+  @override
+  List<GroundingData>? get todosGroundings {
+    final value = _todosGroundings;
+    if (value == null) return null;
+    if (_todosGroundings is EqualUnmodifiableListView) return _todosGroundings;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final String? shortAnswer;
+  @override
+  final String? topic;
+  @override
+  final String? definitionAITextResponse;
+  final List<GroundingData>? _definitionGroundings;
+  @override
+  List<GroundingData>? get definitionGroundings {
+    final value = _definitionGroundings;
+    if (value == null) return null;
+    if (_definitionGroundings is EqualUnmodifiableListView) return _definitionGroundings;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @ClientCreatedTimestamp()
+  final DateTime? createdDateTime;
+  @override
+  @ClientUpdatedTimestamp()
+  final DateTime? updatedDateTime;
+  @override
+  @ServerCreatedTimestamp()
+  final DateTime? serverCreatedDateTime;
+  @override
+  @ServerUpdatedTimestamp()
+  final DateTime? serverUpdatedDateTime;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'Task.preparing(id: $id, userID: $userID, question: $question, todosAITextResponseMarkdown: $todosAITextResponseMarkdown, todosGroundings: $todosGroundings, shortAnswer: $shortAnswer, topic: $topic, definitionAITextResponse: $definitionAITextResponse, definitionGroundings: $definitionGroundings, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TaskPreparingImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.userID, userID) || other.userID == userID) &&
+            (identical(other.question, question) || other.question == question) &&
+            (identical(other.todosAITextResponseMarkdown, todosAITextResponseMarkdown) ||
+                other.todosAITextResponseMarkdown == todosAITextResponseMarkdown) &&
+            const DeepCollectionEquality().equals(other._todosGroundings, _todosGroundings) &&
+            (identical(other.shortAnswer, shortAnswer) || other.shortAnswer == shortAnswer) &&
+            (identical(other.topic, topic) || other.topic == topic) &&
+            (identical(other.definitionAITextResponse, definitionAITextResponse) || other.definitionAITextResponse == definitionAITextResponse) &&
+            const DeepCollectionEquality().equals(other._definitionGroundings, _definitionGroundings) &&
+            (identical(other.createdDateTime, createdDateTime) || other.createdDateTime == createdDateTime) &&
+            (identical(other.updatedDateTime, updatedDateTime) || other.updatedDateTime == updatedDateTime) &&
+            (identical(other.serverCreatedDateTime, serverCreatedDateTime) || other.serverCreatedDateTime == serverCreatedDateTime) &&
+            (identical(other.serverUpdatedDateTime, serverUpdatedDateTime) || other.serverUpdatedDateTime == serverUpdatedDateTime));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      userID,
+      question,
+      todosAITextResponseMarkdown,
+      const DeepCollectionEquality().hash(_todosGroundings),
+      shortAnswer,
+      topic,
+      definitionAITextResponse,
+      const DeepCollectionEquality().hash(_definitionGroundings),
+      createdDateTime,
+      updatedDateTime,
+      serverCreatedDateTime,
+      serverUpdatedDateTime);
+
+  /// Create a copy of Task
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TaskPreparingImplCopyWith<_$TaskPreparingImpl> get copyWith => __$$TaskPreparingImplCopyWithImpl<_$TaskPreparingImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String id,
+            String userID,
+            String question,
+            String todosAITextResponseMarkdown,
+            List<GroundingData> todosGroundings,
+            String shortAnswer,
+            String topic,
+            String definitionAITextResponse,
+            List<GroundingData> definitionGroundings,
+            bool completed,
+            @NullableTimestampConverter() DateTime? fullFilledDateTime,
+            @ClientCreatedTimestamp() DateTime? createdDateTime,
+            @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+            @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+            @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)
+        prepared,
+    required TResult Function(
+            String id,
+            String userID,
+            String? question,
+            String? todosAITextResponseMarkdown,
+            List<GroundingData>? todosGroundings,
+            String? shortAnswer,
+            String? topic,
+            String? definitionAITextResponse,
+            List<GroundingData>? definitionGroundings,
+            @ClientCreatedTimestamp() DateTime? createdDateTime,
+            @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+            @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+            @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)
+        preparing,
+  }) {
+    return preparing(id, userID, question, todosAITextResponseMarkdown, todosGroundings, shortAnswer, topic, definitionAITextResponse,
+        definitionGroundings, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            String id,
+            String userID,
+            String question,
+            String todosAITextResponseMarkdown,
+            List<GroundingData> todosGroundings,
+            String shortAnswer,
+            String topic,
+            String definitionAITextResponse,
+            List<GroundingData> definitionGroundings,
+            bool completed,
+            @NullableTimestampConverter() DateTime? fullFilledDateTime,
+            @ClientCreatedTimestamp() DateTime? createdDateTime,
+            @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+            @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+            @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)?
+        prepared,
+    TResult? Function(
+            String id,
+            String userID,
+            String? question,
+            String? todosAITextResponseMarkdown,
+            List<GroundingData>? todosGroundings,
+            String? shortAnswer,
+            String? topic,
+            String? definitionAITextResponse,
+            List<GroundingData>? definitionGroundings,
+            @ClientCreatedTimestamp() DateTime? createdDateTime,
+            @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+            @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+            @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)?
+        preparing,
+  }) {
+    return preparing?.call(id, userID, question, todosAITextResponseMarkdown, todosGroundings, shortAnswer, topic, definitionAITextResponse,
+        definitionGroundings, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String id,
+            String userID,
+            String question,
+            String todosAITextResponseMarkdown,
+            List<GroundingData> todosGroundings,
+            String shortAnswer,
+            String topic,
+            String definitionAITextResponse,
+            List<GroundingData> definitionGroundings,
+            bool completed,
+            @NullableTimestampConverter() DateTime? fullFilledDateTime,
+            @ClientCreatedTimestamp() DateTime? createdDateTime,
+            @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+            @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+            @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)?
+        prepared,
+    TResult Function(
+            String id,
+            String userID,
+            String? question,
+            String? todosAITextResponseMarkdown,
+            List<GroundingData>? todosGroundings,
+            String? shortAnswer,
+            String? topic,
+            String? definitionAITextResponse,
+            List<GroundingData>? definitionGroundings,
+            @ClientCreatedTimestamp() DateTime? createdDateTime,
+            @ClientUpdatedTimestamp() DateTime? updatedDateTime,
+            @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
+            @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)?
+        preparing,
+    required TResult orElse(),
+  }) {
+    if (preparing != null) {
+      return preparing(id, userID, question, todosAITextResponseMarkdown, todosGroundings, shortAnswer, topic, definitionAITextResponse,
+          definitionGroundings, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(TaskPrepared value) prepared,
+    required TResult Function(TaskPreparing value) preparing,
+  }) {
+    return preparing(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(TaskPrepared value)? prepared,
+    TResult? Function(TaskPreparing value)? preparing,
+  }) {
+    return preparing?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(TaskPrepared value)? prepared,
+    TResult Function(TaskPreparing value)? preparing,
+    required TResult orElse(),
+  }) {
+    if (preparing != null) {
+      return preparing(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TaskPreparingImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class TaskPreparing extends Task {
+  const factory TaskPreparing(
+      {required final String id,
+      required final String userID,
+      required final String? question,
+      required final String? todosAITextResponseMarkdown,
+      required final List<GroundingData>? todosGroundings,
+      required final String? shortAnswer,
+      required final String? topic,
+      required final String? definitionAITextResponse,
+      required final List<GroundingData>? definitionGroundings,
+      @ClientCreatedTimestamp() final DateTime? createdDateTime,
+      @ClientUpdatedTimestamp() final DateTime? updatedDateTime,
+      @ServerCreatedTimestamp() final DateTime? serverCreatedDateTime,
+      @ServerUpdatedTimestamp() final DateTime? serverUpdatedDateTime}) = _$TaskPreparingImpl;
+  const TaskPreparing._() : super._();
+
+  factory TaskPreparing.fromJson(Map<String, dynamic> json) = _$TaskPreparingImpl.fromJson;
+
+  @override
+  String get id;
+  @override
+  String get userID;
+  @override
+  String? get question;
+  @override
+  String? get todosAITextResponseMarkdown;
+  @override
+  List<GroundingData>? get todosGroundings;
+  @override
+  String? get shortAnswer;
+  @override
+  String? get topic;
+  @override
+  String? get definitionAITextResponse;
+  @override
+  List<GroundingData>? get definitionGroundings;
+  @override
+  @ClientCreatedTimestamp()
+  DateTime? get createdDateTime;
+  @override
+  @ClientUpdatedTimestamp()
+  DateTime? get updatedDateTime;
+  @override
+  @ServerCreatedTimestamp()
+  DateTime? get serverCreatedDateTime;
+  @override
+  @ServerUpdatedTimestamp()
+  DateTime? get serverUpdatedDateTime;
+
+  /// Create a copy of Task
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$TaskPreparingImplCopyWith<_$TaskPreparingImpl> get copyWith => throw _privateConstructorUsedError;
 }
