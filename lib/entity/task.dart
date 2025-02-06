@@ -33,7 +33,7 @@ sealed class Task with _$Task {
   const factory Task.preparing({
     required String id,
     required String userID,
-    required String? question,
+    required String question,
     required String? todosAITextResponseMarkdown,
     required List<GroundingData>? todosGroundings,
     required String? shortAnswer,
