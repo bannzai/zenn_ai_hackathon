@@ -43,16 +43,7 @@ class TasksPageBody extends HookConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final question = await showQuestionFormSheet(context, text: '');
-          if (question != null) {
-            try {
-              await functions.taskCreate(question: question);
-            } catch (e) {
-              if (context.mounted) {
-                showErrorAlert(context, e);
-              }
-            }
-          }
+          await showQuestionFormSheet(context);
         },
         child: const Icon(Icons.add),
       ),

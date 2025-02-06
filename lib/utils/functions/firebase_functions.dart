@@ -6,12 +6,6 @@ final functions = FirebaseFunctions.instanceFor(region: 'us-central1');
 
 extension FirebaseFunctionsExt on FirebaseFunctions {
   Future<void> taskCreate({required String question}) async {
-    // {
-    //   "question": "",
-    //   "userRequest": {
-    //       "userID": "",
-    //   }
-    // }
     final result = await httpsCallable('enqueueTaskCreate').call(
       {
         'question': question,
