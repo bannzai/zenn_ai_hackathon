@@ -22,34 +22,34 @@ class BotLoading extends StatelessWidget {
   }
 }
 
-class BotChat extends HookWidget {
+class BotChat extends StatelessWidget {
   final List<String> messages;
 
   const BotChat({super.key, required this.messages});
 
   @override
   Widget build(BuildContext context) {
-    final count = useState(0);
-    final message = messages[count.value % messages.length];
-
-    return DefaultTextStyle(
-      style: const TextStyle(fontSize: 24, color: Colors.black),
-      child: Row(
-        children: [
-          const Spacer(),
-          const Text('🤖'),
-          const SizedBox(width: 2),
-          AnimatedTextKit(
-            repeatForever: true,
-            animatedTexts: [
-              TyperAnimatedText(message),
-            ],
-            onNext: (_, __) {
-              count.value += 1;
-            },
-          ),
-          const Spacer(),
-        ],
+    return SizedBox(
+      width: double.infinity,
+      child: DefaultTextStyle(
+        style: const TextStyle(fontSize: 24, color: Colors.black),
+        child: Row(
+          children: [
+            const Spacer(),
+            const Text('🤖'),
+            const SizedBox(width: 2),
+            Container(
+              constraints: const BoxConstraints(maxWidth: 300),
+              child: AnimatedTextKit(
+                repeatForever: true,
+                animatedTexts: [
+                  for (var message in messages) TyperAnimatedText(message, speed: const Duration(milliseconds: 60)),
+                ],
+              ),
+            ),
+            const Spacer(),
+          ],
+        ),
       ),
     );
   }

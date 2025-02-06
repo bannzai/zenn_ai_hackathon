@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/form/question_form.dart';
+import 'package:todomaker/components/loading/bot.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/retry/page.dart';
 import 'package:todomaker/entity/task.dart';
@@ -38,19 +39,7 @@ class TasksPageBody extends HookConsumerWidget {
         title: const Text('やること一覧'),
       ),
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.symmetric(vertical: 20.0),
-          children: tasks
-              .map(
-                (task) => Column(
-                  children: [
-                    TasksPageSection(task: task),
-                    const SizedBox(height: 10),
-                  ],
-                ),
-              )
-              .toList(),
-        ),
+        child: tasks.isEmpty ? TasksPageBodyEmpty() : TasksPageBodyListView(tasks: tasks),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -65,3 +54,44 @@ class TasksPageBody extends HookConsumerWidget {
   }
 }
 
+class TasksPageBodyEmpty extends HookConsumerWidget {
+  const TasksPageBodyEmpty({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return const Center(
+      child: BotChat(
+        messages: [
+          'こんにちは',
+          'TODOMakerアシスタントです',
+          'やることを自動でまとめてくれるよ',
+          '右下の + ボタンから聞いてね',
+          '例えば「確定申告の方法」',
+          '「結婚の手続き」などなど',
+        ],
+      ),
+    );
+  }
+}
+
+class TasksPageBodyListView extends HookConsumerWidget {
+  final List<Task> tasks;
+  const TasksPageBodyListView({super.key, required this.tasks});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ListView(
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
+      children: tasks
+          .map(
+            (task) => Column(
+              children: [
+                TasksPageSection(task: task),
+                const SizedBox(height: 10),
+              ],
+            ),
+          )
+          .toList(),
+    );
+  }
+}
