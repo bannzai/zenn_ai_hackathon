@@ -75,11 +75,13 @@ class TasksPageSection extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                 ],
-                const Divider(height: 1, color: Colors.black),
-                const SizedBox(height: 20),
-                TasksTodoList(taskID: task.id, limit: 3),
-                const Divider(height: 1, color: Colors.black),
-                const SizedBox(height: 16),
+                if (task is TaskPrepared) ...[
+                  const Divider(height: 1, color: Colors.black),
+                  const SizedBox(height: 20),
+                  TasksTodoList(taskID: task.id, limit: 3),
+                  const Divider(height: 1, color: Colors.black),
+                  const SizedBox(height: 16),
+                ],
                 if (todosGroundings != null) ...[
                   GroundingDataList(groundings: todosGroundings),
                 ],
