@@ -1,6 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
 class BotLoading extends StatelessWidget {
   final List<String> messages;
@@ -12,7 +11,7 @@ class BotLoading extends StatelessWidget {
     return Positioned.fill(
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.5),
+          color: Colors.white.withOpacity(0.78),
         ),
         child: Center(
           child: BotChat(messages: messages),
@@ -32,7 +31,14 @@ class BotChat extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: DefaultTextStyle(
-        style: const TextStyle(fontSize: 24, color: Colors.black),
+        style: const TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.w500,
+          color: Colors.black,
+          shadows: [
+            Shadow(color: Colors.blueGrey, blurRadius: 2),
+          ],
+        ),
         child: Row(
           children: [
             const Spacer(),

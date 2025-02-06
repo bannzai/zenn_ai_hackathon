@@ -90,7 +90,7 @@ class TasksPageSection extends StatelessWidget {
           ),
         ),
         if (task is TaskPreparing) ...[
-          const BotLoading(messages: ['準備中...', 'ちょっと待っててね😘', '丁寧にWebから情報を集めてるよ🦾']),
+          const BotLoading(messages: ['準備中...', 'ちょっと待っててね😘', '手順が多いと数分かかることがあるよ☠️', '丁寧にWebから情報を集めてるよ🦾']),
         ],
       ],
     );
