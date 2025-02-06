@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:todomaker/components/bot_chat.dart';
 import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/retry/page.dart';
@@ -79,7 +80,7 @@ class TaskPageBody extends StatelessWidget {
                     border: Border.all(color: AppColors.border),
                   ),
                   child: const Center(
-                    child: Text('準備中...'),
+                    child: BotChat(message: '準備中...'),
                   ),
                 ),
               ),
