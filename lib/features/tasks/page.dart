@@ -92,52 +92,71 @@ class TasksPageSection extends StatelessWidget {
             ),
           ],
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
           children: [
-            Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  task.question,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: primaryColor,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      task.question,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: primaryColor,
+                      ),
+                    ),
+                    const Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPage(taskID: task.id)));
+                      },
+                      child: const Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text('詳細を見る', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: TextColor.link)),
+                          SizedBox(width: 2),
+                          Icon(Icons.chevron_right, color: TextColor.link, size: 16),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                const Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPage(taskID: task.id)));
-                  },
-                  child: const Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text('詳細を見る', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: TextColor.link)),
-                      SizedBox(width: 2),
-                      Icon(Icons.chevron_right, color: TextColor.link, size: 16),
-                    ],
+                const SizedBox(height: 10),
+                if (definitionAITextResponse != null) ...[
+                  Text(
+                    definitionAITextResponse,
+                    style: const TextStyle(fontSize: 14),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
+                  const SizedBox(height: 10),
+                ],
+                const Divider(height: 1, color: Colors.black),
+                const SizedBox(height: 20),
+                TasksTodoList(taskID: task.id, limit: 3),
+                const Divider(height: 1, color: Colors.black),
+                const SizedBox(height: 16),
+                if (todosGroundings != null) ...[
+                  GroundingDataList(groundings: todosGroundings),
+                ],
               ],
             ),
-            const SizedBox(height: 10),
-            if (definitionAITextResponse != null) ...[
-              Text(
-                definitionAITextResponse,
-                style: const TextStyle(fontSize: 14),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
+            if (task is TaskPreparing) ...[
+              Center(
+                child: Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: AppColors.border),
+                  ),
+                  child: Center(
+                    child: Text('準備中...'),
+                  ),
+                ),
               ),
-              const SizedBox(height: 10),
-            ],
-            const Divider(height: 1, color: Colors.black),
-            const SizedBox(height: 20),
-            TasksTodoList(taskID: task.id, limit: 3),
-            const Divider(height: 1, color: Colors.black),
-            const SizedBox(height: 16),
-            if (todosGroundings != null) ...[
-              GroundingDataList(groundings: todosGroundings),
             ],
           ],
         ),
