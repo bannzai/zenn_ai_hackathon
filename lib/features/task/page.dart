@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:todomaker/components/bot_chat.dart';
+import 'package:todomaker/components/text/bot_chat.dart';
 import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/retry/page.dart';

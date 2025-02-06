@@ -8,17 +8,22 @@ class BotChat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Text('🤖'),
-        const SizedBox(width: 2),
-        AnimatedTextKit(
-          totalRepeatCount: 1,
-          animatedTexts: [
-            TypewriterAnimatedText(message),
-          ],
-        ),
-      ],
+    return DefaultTextStyle(
+      style: const TextStyle(fontSize: 24, color: Colors.black),
+      child: Row(
+        children: [
+          const Spacer(),
+          const Text('🤖'),
+          const SizedBox(width: 2),
+          AnimatedTextKit(
+            repeatForever: true,
+            animatedTexts: [
+              TyperAnimatedText(message),
+            ],
+          ),
+          const Spacer(),
+        ],
+      ),
     );
   }
 }
