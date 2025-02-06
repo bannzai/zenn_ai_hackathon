@@ -6,7 +6,7 @@ import 'package:todomaker/entity/task.dart';
 final functions = FirebaseFunctions.instanceFor(region: 'us-central1');
 
 extension FirebaseFunctionsExt on FirebaseFunctions {
-  Future<Task> taskCreate({required String question}) async {
+  Future<void> taskCreate({required String question}) async {
     // {
     //   "question": "",
     //   "userRequest": {
@@ -29,7 +29,7 @@ extension FirebaseFunctionsExt on FirebaseFunctions {
     if (response['result'] != 'OK') {
       throw Exception(response['error']['message']);
     }
-    return Task.fromJson(response['data']['task']);
+    return;
   }
 }
 
