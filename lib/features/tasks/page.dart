@@ -152,7 +152,7 @@ class TasksPageSection extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: AppColors.border),
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text('準備中...'),
                   ),
                 ),

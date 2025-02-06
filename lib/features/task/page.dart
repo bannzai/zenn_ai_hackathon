@@ -7,6 +7,7 @@ import 'package:todomaker/components/retry/page.dart';
 import 'package:todomaker/components/todo/list.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/provider/task.dart';
+import 'package:todomaker/style/color.dart';
 
 class TaskPage extends HookConsumerWidget {
   final String taskID;
@@ -69,11 +70,17 @@ class TaskPageBody extends StatelessWidget {
               ),
             ),
             if (task is TaskPreparing) ...[
-              const Positioned(
-                bottom: 0,
-                child: SizedBox(
+              Center(
+                child: Container(
                   height: 100,
-                  child: Center(child: Text('準備中...')),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: AppColors.border),
+                  ),
+                  child: const Center(
+                    child: Text('準備中...'),
+                  ),
                 ),
               ),
             ],
