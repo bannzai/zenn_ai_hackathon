@@ -6,7 +6,7 @@ import 'package:todomaker/entity/timestamp.dart';
 part 'task.g.dart';
 part 'task.freezed.dart';
 
-@freezed
+@Freezed(unionKey: 'status')
 sealed class Task with _$Task {
   const Task._();
 

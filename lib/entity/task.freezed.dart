@@ -15,14 +15,14 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Task _$TaskFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType']) {
+  switch (json['status']) {
     case 'prepared':
       return TaskPrepared.fromJson(json);
     case 'preparing':
       return TaskPreparing.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'Task', 'Invalid union type "${json['runtimeType']}"!');
+      throw CheckedFromJsonException(json, 'status', 'Task', 'Invalid union type "${json['status']}"!');
   }
 }
 
@@ -30,7 +30,7 @@ Task _$TaskFromJson(Map<String, dynamic> json) {
 mixin _$Task {
   String get id => throw _privateConstructorUsedError;
   String get userID => throw _privateConstructorUsedError;
-  String? get question => throw _privateConstructorUsedError;
+  String get question => throw _privateConstructorUsedError;
   String? get todosAITextResponseMarkdown => throw _privateConstructorUsedError;
   List<GroundingData>? get todosGroundings => throw _privateConstructorUsedError;
   String? get shortAnswer => throw _privateConstructorUsedError;
@@ -67,7 +67,7 @@ mixin _$Task {
     required TResult Function(
             String id,
             String userID,
-            String? question,
+            String question,
             String? todosAITextResponseMarkdown,
             List<GroundingData>? todosGroundings,
             String? shortAnswer,
@@ -103,7 +103,7 @@ mixin _$Task {
     TResult? Function(
             String id,
             String userID,
-            String? question,
+            String question,
             String? todosAITextResponseMarkdown,
             List<GroundingData>? todosGroundings,
             String? shortAnswer,
@@ -139,7 +139,7 @@ mixin _$Task {
     TResult Function(
             String id,
             String userID,
-            String? question,
+            String question,
             String? todosAITextResponseMarkdown,
             List<GroundingData>? todosGroundings,
             String? shortAnswer,
@@ -241,7 +241,7 @@ class _$TaskCopyWithImpl<$Res, $Val extends Task> implements $TaskCopyWith<$Res>
           : userID // ignore: cast_nullable_to_non_nullable
               as String,
       question: null == question
-          ? _value.question!
+          ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
               as String,
       todosAITextResponseMarkdown: null == todosAITextResponseMarkdown
@@ -477,7 +477,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
   @ServerUpdatedTimestamp()
   final DateTime? serverUpdatedDateTime;
 
-  @JsonKey(name: 'runtimeType')
+  @JsonKey(name: 'status')
   final String $type;
 
   @override
@@ -558,7 +558,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
     required TResult Function(
             String id,
             String userID,
-            String? question,
+            String question,
             String? todosAITextResponseMarkdown,
             List<GroundingData>? todosGroundings,
             String? shortAnswer,
@@ -598,7 +598,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
     TResult? Function(
             String id,
             String userID,
-            String? question,
+            String question,
             String? todosAITextResponseMarkdown,
             List<GroundingData>? todosGroundings,
             String? shortAnswer,
@@ -638,7 +638,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
     TResult Function(
             String id,
             String userID,
-            String? question,
+            String question,
             String? todosAITextResponseMarkdown,
             List<GroundingData>? todosGroundings,
             String? shortAnswer,
@@ -768,7 +768,7 @@ abstract class _$$TaskPreparingImplCopyWith<$Res> implements $TaskCopyWith<$Res>
   $Res call(
       {String id,
       String userID,
-      String? question,
+      String question,
       String? todosAITextResponseMarkdown,
       List<GroundingData>? todosGroundings,
       String? shortAnswer,
@@ -792,7 +792,7 @@ class __$$TaskPreparingImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _
   $Res call({
     Object? id = null,
     Object? userID = null,
-    Object? question = freezed,
+    Object? question = null,
     Object? todosAITextResponseMarkdown = freezed,
     Object? todosGroundings = freezed,
     Object? shortAnswer = freezed,
@@ -813,10 +813,10 @@ class __$$TaskPreparingImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _
           ? _value.userID
           : userID // ignore: cast_nullable_to_non_nullable
               as String,
-      question: freezed == question
+      question: null == question
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       todosAITextResponseMarkdown: freezed == todosAITextResponseMarkdown
           ? _value.todosAITextResponseMarkdown
           : todosAITextResponseMarkdown // ignore: cast_nullable_to_non_nullable
@@ -892,7 +892,7 @@ class _$TaskPreparingImpl extends TaskPreparing {
   @override
   final String userID;
   @override
-  final String? question;
+  final String question;
   @override
   final String? todosAITextResponseMarkdown;
   final List<GroundingData>? _todosGroundings;
@@ -934,7 +934,7 @@ class _$TaskPreparingImpl extends TaskPreparing {
   @ServerUpdatedTimestamp()
   final DateTime? serverUpdatedDateTime;
 
-  @JsonKey(name: 'runtimeType')
+  @JsonKey(name: 'status')
   final String $type;
 
   @override
@@ -1011,7 +1011,7 @@ class _$TaskPreparingImpl extends TaskPreparing {
     required TResult Function(
             String id,
             String userID,
-            String? question,
+            String question,
             String? todosAITextResponseMarkdown,
             List<GroundingData>? todosGroundings,
             String? shortAnswer,
@@ -1051,7 +1051,7 @@ class _$TaskPreparingImpl extends TaskPreparing {
     TResult? Function(
             String id,
             String userID,
-            String? question,
+            String question,
             String? todosAITextResponseMarkdown,
             List<GroundingData>? todosGroundings,
             String? shortAnswer,
@@ -1091,7 +1091,7 @@ class _$TaskPreparingImpl extends TaskPreparing {
     TResult Function(
             String id,
             String userID,
-            String? question,
+            String question,
             String? todosAITextResponseMarkdown,
             List<GroundingData>? todosGroundings,
             String? shortAnswer,
@@ -1155,7 +1155,7 @@ abstract class TaskPreparing extends Task {
   const factory TaskPreparing(
       {required final String id,
       required final String userID,
-      required final String? question,
+      required final String question,
       required final String? todosAITextResponseMarkdown,
       required final List<GroundingData>? todosGroundings,
       required final String? shortAnswer,
@@ -1175,7 +1175,7 @@ abstract class TaskPreparing extends Task {
   @override
   String get userID;
   @override
-  String? get question;
+  String get question;
   @override
   String? get todosAITextResponseMarkdown;
   @override

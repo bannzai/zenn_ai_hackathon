@@ -22,7 +22,7 @@ _$TaskPreparedImpl _$$TaskPreparedImplFromJson(Map<String, dynamic> json) => _$T
       updatedDateTime: const ClientUpdatedTimestamp().fromJson(json['updatedDateTime'] as Timestamp?),
       serverCreatedDateTime: const ServerCreatedTimestamp().fromJson(json['serverCreatedDateTime']),
       serverUpdatedDateTime: const ServerUpdatedTimestamp().fromJson(json['serverUpdatedDateTime']),
-      $type: json['runtimeType'] as String?,
+      $type: json['status'] as String?,
     );
 
 Map<String, dynamic> _$$TaskPreparedImplToJson(_$TaskPreparedImpl instance) => <String, dynamic>{
@@ -41,13 +41,13 @@ Map<String, dynamic> _$$TaskPreparedImplToJson(_$TaskPreparedImpl instance) => <
       'updatedDateTime': const ClientUpdatedTimestamp().toJson(instance.updatedDateTime),
       'serverCreatedDateTime': const ServerCreatedTimestamp().toJson(instance.serverCreatedDateTime),
       'serverUpdatedDateTime': const ServerUpdatedTimestamp().toJson(instance.serverUpdatedDateTime),
-      'runtimeType': instance.$type,
+      'status': instance.$type,
     };
 
 _$TaskPreparingImpl _$$TaskPreparingImplFromJson(Map<String, dynamic> json) => _$TaskPreparingImpl(
       id: json['id'] as String,
       userID: json['userID'] as String,
-      question: json['question'] as String?,
+      question: json['question'] as String,
       todosAITextResponseMarkdown: json['todosAITextResponseMarkdown'] as String?,
       todosGroundings: (json['todosGroundings'] as List<dynamic>?)?.map((e) => GroundingData.fromJson(e as Map<String, dynamic>)).toList(),
       shortAnswer: json['shortAnswer'] as String?,
@@ -58,7 +58,7 @@ _$TaskPreparingImpl _$$TaskPreparingImplFromJson(Map<String, dynamic> json) => _
       updatedDateTime: const ClientUpdatedTimestamp().fromJson(json['updatedDateTime'] as Timestamp?),
       serverCreatedDateTime: const ServerCreatedTimestamp().fromJson(json['serverCreatedDateTime']),
       serverUpdatedDateTime: const ServerUpdatedTimestamp().fromJson(json['serverUpdatedDateTime']),
-      $type: json['runtimeType'] as String?,
+      $type: json['status'] as String?,
     );
 
 Map<String, dynamic> _$$TaskPreparingImplToJson(_$TaskPreparingImpl instance) => <String, dynamic>{
@@ -75,5 +75,5 @@ Map<String, dynamic> _$$TaskPreparingImplToJson(_$TaskPreparingImpl instance) =>
       'updatedDateTime': const ClientUpdatedTimestamp().toJson(instance.updatedDateTime),
       'serverCreatedDateTime': const ServerCreatedTimestamp().toJson(instance.serverCreatedDateTime),
       'serverUpdatedDateTime': const ServerUpdatedTimestamp().toJson(instance.serverUpdatedDateTime),
-      'runtimeType': instance.$type,
+      'status': instance.$type,
     };
