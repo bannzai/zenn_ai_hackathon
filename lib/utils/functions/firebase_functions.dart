@@ -14,11 +14,9 @@ extension FirebaseFunctionsExt on FirebaseFunctions {
     // }
     final result = await httpsCallable('enqueueTaskCreate').call(
       {
-        'data': {
-          'question': question,
-          'userRequest': {
-            'userID': FirebaseAuth.instance.currentUser?.uid,
-          },
+        'question': question,
+        'userRequest': {
+          'userID': FirebaseAuth.instance.currentUser?.uid,
         },
       },
     );
