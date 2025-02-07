@@ -13,6 +13,8 @@ class TodoPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final supplement = todo.supplement;
+    final aiTextResponseMarkdown = todo.aiTextResponseMarkdown;
+    final groundings = todo.groundings;
 
     final primaryColor = Theme.of(context).colorScheme.primary;
 
@@ -80,23 +82,27 @@ class TodoPage extends HookConsumerWidget {
                 ],
               ),
               const SizedBox(height: 20),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('詳細', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: primaryColor)),
-                  const SizedBox(height: 10),
-                  MarkdownBody(
-                    data: todo.aiTextResponseMarkdown,
-                  ),
-                ],
-              ),
+              if (aiTextResponseMarkdown != null) ...[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('詳細', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: primaryColor)),
+                    const SizedBox(height: 10),
+                    MarkdownBody(
+                      data: aiTextResponseMarkdown,
+                    ),
+                  ],
+                ),
+              ],
               const SizedBox(height: 20),
               const Divider(
                 height: 1,
                 color: Colors.black,
               ),
-              const SizedBox(height: 10),
-              GroundingDataList(groundings: todo.groundings),
+              if (groundings != null) ...[
+                const SizedBox(height: 10),
+                GroundingDataList(groundings: groundings),
+              ],
             ],
           ),
         ),

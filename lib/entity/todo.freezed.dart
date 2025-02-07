@@ -24,8 +24,8 @@ mixin _$Todo {
   String get taskID => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   String? get supplement => throw _privateConstructorUsedError;
-  String get aiTextResponseMarkdown => throw _privateConstructorUsedError;
-  List<GroundingData> get groundings => throw _privateConstructorUsedError;
+  String? get aiTextResponseMarkdown => throw _privateConstructorUsedError;
+  List<GroundingData>? get groundings => throw _privateConstructorUsedError;
   @NullableTimestampConverter()
   DateTime? get completedDateTime => throw _privateConstructorUsedError;
   @ClientCreatedTimestamp()
@@ -55,8 +55,8 @@ abstract class $TodoCopyWith<$Res> {
       String taskID,
       String content,
       String? supplement,
-      String aiTextResponseMarkdown,
-      List<GroundingData> groundings,
+      String? aiTextResponseMarkdown,
+      List<GroundingData>? groundings,
       @NullableTimestampConverter() DateTime? completedDateTime,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
@@ -82,8 +82,8 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
     Object? taskID = null,
     Object? content = null,
     Object? supplement = freezed,
-    Object? aiTextResponseMarkdown = null,
-    Object? groundings = null,
+    Object? aiTextResponseMarkdown = freezed,
+    Object? groundings = freezed,
     Object? completedDateTime = freezed,
     Object? createdDateTime = freezed,
     Object? updatedDateTime = freezed,
@@ -107,14 +107,14 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
           ? _value.supplement
           : supplement // ignore: cast_nullable_to_non_nullable
               as String?,
-      aiTextResponseMarkdown: null == aiTextResponseMarkdown
+      aiTextResponseMarkdown: freezed == aiTextResponseMarkdown
           ? _value.aiTextResponseMarkdown
           : aiTextResponseMarkdown // ignore: cast_nullable_to_non_nullable
-              as String,
-      groundings: null == groundings
+              as String?,
+      groundings: freezed == groundings
           ? _value.groundings
           : groundings // ignore: cast_nullable_to_non_nullable
-              as List<GroundingData>,
+              as List<GroundingData>?,
       completedDateTime: freezed == completedDateTime
           ? _value.completedDateTime
           : completedDateTime // ignore: cast_nullable_to_non_nullable
@@ -149,8 +149,8 @@ abstract class _$$TodoImplCopyWith<$Res> implements $TodoCopyWith<$Res> {
       String taskID,
       String content,
       String? supplement,
-      String aiTextResponseMarkdown,
-      List<GroundingData> groundings,
+      String? aiTextResponseMarkdown,
+      List<GroundingData>? groundings,
       @NullableTimestampConverter() DateTime? completedDateTime,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
@@ -171,8 +171,8 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
     Object? taskID = null,
     Object? content = null,
     Object? supplement = freezed,
-    Object? aiTextResponseMarkdown = null,
-    Object? groundings = null,
+    Object? aiTextResponseMarkdown = freezed,
+    Object? groundings = freezed,
     Object? completedDateTime = freezed,
     Object? createdDateTime = freezed,
     Object? updatedDateTime = freezed,
@@ -196,14 +196,14 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
           ? _value.supplement
           : supplement // ignore: cast_nullable_to_non_nullable
               as String?,
-      aiTextResponseMarkdown: null == aiTextResponseMarkdown
+      aiTextResponseMarkdown: freezed == aiTextResponseMarkdown
           ? _value.aiTextResponseMarkdown
           : aiTextResponseMarkdown // ignore: cast_nullable_to_non_nullable
-              as String,
-      groundings: null == groundings
+              as String?,
+      groundings: freezed == groundings
           ? _value._groundings
           : groundings // ignore: cast_nullable_to_non_nullable
-              as List<GroundingData>,
+              as List<GroundingData>?,
       completedDateTime: freezed == completedDateTime
           ? _value.completedDateTime
           : completedDateTime // ignore: cast_nullable_to_non_nullable
@@ -238,7 +238,7 @@ class _$TodoImpl extends _Todo {
       required this.content,
       required this.supplement,
       required this.aiTextResponseMarkdown,
-      required final List<GroundingData> groundings,
+      required final List<GroundingData>? groundings,
       @NullableTimestampConverter() this.completedDateTime,
       @ClientCreatedTimestamp() this.createdDateTime,
       @ClientUpdatedTimestamp() this.updatedDateTime,
@@ -258,13 +258,15 @@ class _$TodoImpl extends _Todo {
   @override
   final String? supplement;
   @override
-  final String aiTextResponseMarkdown;
-  final List<GroundingData> _groundings;
+  final String? aiTextResponseMarkdown;
+  final List<GroundingData>? _groundings;
   @override
-  List<GroundingData> get groundings {
+  List<GroundingData>? get groundings {
+    final value = _groundings;
+    if (value == null) return null;
     if (_groundings is EqualUnmodifiableListView) return _groundings;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_groundings);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -343,8 +345,8 @@ abstract class _Todo extends Todo {
       required final String taskID,
       required final String content,
       required final String? supplement,
-      required final String aiTextResponseMarkdown,
-      required final List<GroundingData> groundings,
+      required final String? aiTextResponseMarkdown,
+      required final List<GroundingData>? groundings,
       @NullableTimestampConverter() final DateTime? completedDateTime,
       @ClientCreatedTimestamp() final DateTime? createdDateTime,
       @ClientUpdatedTimestamp() final DateTime? updatedDateTime,
@@ -363,9 +365,9 @@ abstract class _Todo extends Todo {
   @override
   String? get supplement;
   @override
-  String get aiTextResponseMarkdown;
+  String? get aiTextResponseMarkdown;
   @override
-  List<GroundingData> get groundings;
+  List<GroundingData>? get groundings;
   @override
   @NullableTimestampConverter()
   DateTime? get completedDateTime;
