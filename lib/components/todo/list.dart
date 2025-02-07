@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/retry/button.dart';
 import 'package:todomaker/components/retry/page.dart';
+import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/features/task/page.dart';
 import 'package:todomaker/features/todo/page.dart';
@@ -11,18 +12,18 @@ import 'package:todomaker/provider/todo.dart';
 import 'package:todomaker/style/color.dart';
 
 class TasksTodoList extends HookConsumerWidget {
-  final String taskID;
+  final TaskPrepared task;
   // 表示するTodoの数を制限する。オンメモリで制限。クエリでは大した件数ではないので全権取得。コンポーネント分けるほどでもないので引数にする
   final int? limit;
-  const TasksTodoList({super.key, required this.taskID, this.limit});
+  const TasksTodoList({super.key, required this.task, this.limit});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final limit = this.limit;
-    final todos = ref.watch(todosProvider(taskID: taskID));
+    final todos = ref.watch(todosProvider(taskID: task.id));
 
     return Retry(
-      retry: () => ref.invalidate(todosProvider(taskID: taskID)),
+      retry: () => ref.invalidate(todosProvider(taskID: task.id)),
       child: todos.when(
         data: (todos) {
           final sortedTodos = todos
@@ -43,7 +44,7 @@ class TasksTodoList extends HookConsumerWidget {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: TextButton(
-                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPage(taskID: taskID))),
+                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPage(task: task))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [

@@ -12,6 +12,7 @@ class TasksPageSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final task = this.task;
     final primaryColor = Theme.of(context).colorScheme.primary;
 
     final definitionAITextResponse = task.definitionAITextResponse;
@@ -52,7 +53,9 @@ class TasksPageSection extends StatelessWidget {
                     const Spacer(),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPage(taskID: task.id)));
+                        if (task is TaskPrepared) {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPage(task: task)));
+                        }
                       },
                       child: const Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -78,7 +81,7 @@ class TasksPageSection extends StatelessWidget {
                 if (task is TaskPrepared) ...[
                   const Divider(height: 1, color: Colors.black),
                   const SizedBox(height: 20),
-                  TasksTodoList(taskID: task.id, limit: 3),
+                  TasksTodoList(task: task, limit: 3),
                   const Divider(height: 1, color: Colors.black),
                   const SizedBox(height: 16),
                 ],
