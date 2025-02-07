@@ -10,6 +10,11 @@ class AIPlanningDialog extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final focusNode = useFocusNode();
+    final placemark = useState<Placemark?>(null);
+    final textFormEditController = useTextEditingController(text: '');
+    placemark.addListener(() {
+      textFormEditController.text = placemark.value?.name ?? '';
+    });
 
     return AlertDialog(
       title: const Column(
@@ -29,6 +34,7 @@ class AIPlanningDialog extends HookWidget {
               children: [
                 SizedBox(
                   child: TextFormField(
+                    controller: textFormEditController,
                     focusNode: focusNode,
                     decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
@@ -42,8 +48,11 @@ class AIPlanningDialog extends HookWidget {
                       focusNode.unfocus();
 
                       List<Location> locations = await locationFromAddress(value);
-
-                      debugPrint(locations.toString());
+                      final firstLocation = locations.firstOrNull;
+                      if (firstLocation != null) {
+                        final placemarks = await placemarkFromCoordinates(firstLocation.latitude, firstLocation.longitude);
+                        placemark.value = placemarks.firstOrNull;
+                      }
                     },
                   ),
                 ),
@@ -56,9 +65,10 @@ class AIPlanningDialog extends HookWidget {
                       if (permission == LocationPermission.denied) {
                         throw const FormatException('位置情報の許可が必要です');
                       }
-                      final position = await Geolocator.getCurrentPosition();
+                      final currentPosition = await Geolocator.getCurrentPosition();
 
-                      List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+                      List<Placemark> placemarks = await placemarkFromCoordinates(currentPosition.latitude, currentPosition.longitude);
+                      placemark.value = placemarks.firstOrNull;
 
                       debugPrint(placemarks.toString());
                     } catch (e) {
