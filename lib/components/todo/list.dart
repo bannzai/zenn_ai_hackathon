@@ -29,8 +29,11 @@ class TasksTodoList extends HookConsumerWidget {
         data: (todos) {
           // indentが崩れるので分ける
           int sortAlgorithm(Todo a, Todo b) {
-            if (a.completedDateTime != null && b.completedDateTime != null) {
-              return a.completedDateTime!.compareTo(b.completedDateTime!);
+            if (a.completedDateTime != null) {
+              return 1;
+            }
+            if (b.completedDateTime != null) {
+              return -1;
             }
             return 0;
           }
