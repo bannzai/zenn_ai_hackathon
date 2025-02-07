@@ -1,5 +1,6 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 // GenKitがus-central1のサポートになる
 final functions = FirebaseFunctions.instanceFor(region: 'us-central1');
@@ -54,11 +55,11 @@ extension FirebaseFunctionsExt on FirebaseFunctions {
     );
     // resultはGenKitのレスポンス構造
     final response = mapToJSON(result.data)['result'];
+    debugPrint('fillTODOLocation response: ${response.toString()}');
 
     if (response['result'] != 'OK') {
       throw Exception(response['error']['message']);
     }
-    return;
   }
 }
 

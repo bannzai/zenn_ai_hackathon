@@ -81,9 +81,11 @@ class AIPlanningDialog extends HookWidget {
                       final currentPosition = await Geolocator.getCurrentPosition();
                       final List<Placemark> placemarks = await placemarkFromCoordinates(currentPosition.latitude, currentPosition.longitude);
                       final firstPlacemark = placemarks.firstOrNull;
+                      debugPrint('firstPlacemark: ${firstPlacemark.toString()}');
                       if (firstPlacemark != null) {
                         final List<Location> locations = await locationFromAddress(firstPlacemark.name ?? '');
                         final firstLocation = locations.firstOrNull;
+                        debugPrint('firstLocation: ${firstLocation.toString()}');
                         if (firstLocation != null) {
                           geoInfo.value = (firstPlacemark, firstLocation);
                         }
@@ -105,8 +107,8 @@ class AIPlanningDialog extends HookWidget {
       actions: [
         TextButton(
           onPressed: geoInfoValue != null
-              ? () {
-                  functions.fillTODOLocation(
+              ? () async {
+                  await functions.fillTODOLocation(
                     taskID: taskID,
                     locationName: placeMarkDisplayName ?? '',
                     latitude: geoInfoValue.$2.latitude,
