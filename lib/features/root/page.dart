@@ -5,7 +5,6 @@ import 'package:todomaker/features/root/resolver/app_user_create.dart';
 import 'package:todomaker/features/root/resolver/auth.dart';
 import 'package:todomaker/features/root/resolver/database.dart';
 import 'package:todomaker/features/root/resolver/force_update.dart';
-import 'package:todomaker/features/root/resolver/purchase_setup.dart';
 
 class RootPage extends HookConsumerWidget {
   const RootPage({super.key});
@@ -16,12 +15,7 @@ class RootPage extends HookConsumerWidget {
       return UserDatabaseResolver(builder: (context) {
         return AppUserCreateResolver(builder: (context) {
           return ForceUpdateResolver(builder: (context) {
-            return PurchaseSetupResolver(
-              userID: user.uid,
-              builder: (context) {
-                return const HomePage();
-              },
-            );
+            return const HomePage();
           });
         });
       });
