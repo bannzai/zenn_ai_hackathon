@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:todomaker/components/alert/discard.dart';
-import 'package:todomaker/components/alert/ok.dart';
-import 'package:todomaker/components/error/error_alert.dart';
 import 'package:todomaker/components/loading/indicator.dart';
+import 'package:todomaker/components/planning/dialog.dart';
 import 'package:todomaker/components/retry/button.dart';
 import 'package:todomaker/components/retry/page.dart';
 import 'package:todomaker/entity/task.dart';
@@ -49,17 +46,7 @@ class TasksTodoList extends HookConsumerWidget {
                   const Spacer(),
                   TextButton(
                     onPressed: () async {
-                      try {
-                        final permission = await Geolocator.requestPermission();
-                        if (permission == LocationPermission.denied) {
-                          throw const FormatException('位置情報の許可が必要です');
-                        }
-                        final position = await Geolocator.getCurrentPosition();
-                      } catch (e) {
-                        if (context.mounted) {
-                          showErrorAlert(context, e.toString());
-                        }
-                      }
+                      showDialog(context: context, builder: (context) => const AIPlanningDialog());
                     },
                     child: const Row(
                       crossAxisAlignment: CrossAxisAlignment.baseline,
