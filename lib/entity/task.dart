@@ -22,7 +22,7 @@ sealed class Task with _$Task {
     required String definitionAITextResponse,
     required List<GroundingData> definitionGroundings,
     required bool completed,
-    @NullableTimestampConverter() required DateTime? fullFilledDateTime,
+    @NullableTimestampConverter() required DateTime? preparedDateTime,
     @ClientCreatedTimestamp() DateTime? createdDateTime,
     @ClientUpdatedTimestamp() DateTime? updatedDateTime,
     @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,

@@ -17,7 +17,7 @@ class Todo with _$Todo {
     required String? supplement,
     required String aiTextResponseMarkdown,
     required List<GroundingData> groundings,
-    @Default(false) bool completed,
+    @NullableTimestampConverter() DateTime? completedDateTime,
     @ClientCreatedTimestamp() DateTime? createdDateTime,
     @ClientUpdatedTimestamp() DateTime? updatedDateTime,
     @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
