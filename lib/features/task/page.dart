@@ -58,6 +58,7 @@ class TaskPageBody extends StatelessWidget {
                   ],
                   if (definitionAITextResponse != null) ...[
                     MarkdownBody(data: definitionAITextResponse),
+                    const SizedBox(height: 20),
                   ],
                   if (task is TaskPrepared) ...[
                     TasksTodoList(taskID: task.id),
