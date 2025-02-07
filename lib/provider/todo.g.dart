@@ -165,5 +165,31 @@ final todoDeleteProvider = AutoDisposeProvider<TodoDelete>.internal(
 );
 
 typedef TodoDeleteRef = AutoDisposeProviderRef<TodoDelete>;
+String _$todoCheckHash() => r'd5b767ec2767a21548f19d22abdf7fd615aa1bc8';
+
+/// See also [todoCheck].
+@ProviderFor(todoCheck)
+final todoCheckProvider = AutoDisposeProvider<TodoCheck>.internal(
+  todoCheck,
+  name: r'todoCheckProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$todoCheckHash,
+  dependencies: <ProviderOrFamily>[userDatabaseProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{userDatabaseProvider, ...?userDatabaseProvider.allTransitiveDependencies},
+);
+
+typedef TodoCheckRef = AutoDisposeProviderRef<TodoCheck>;
+String _$todoUncheckHash() => r'402144786c0425d87f48a1ca4b0419bea3017cb0';
+
+/// See also [todoUncheck].
+@ProviderFor(todoUncheck)
+final todoUncheckProvider = AutoDisposeProvider<TodoUncheck>.internal(
+  todoUncheck,
+  name: r'todoUncheckProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$todoUncheckHash,
+  dependencies: <ProviderOrFamily>[userDatabaseProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{userDatabaseProvider, ...?userDatabaseProvider.allTransitiveDependencies},
+);
+
+typedef TodoUncheckRef = AutoDisposeProviderRef<TodoUncheck>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
