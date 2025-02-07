@@ -67,7 +67,7 @@ class TaskComplete {
   TaskComplete({required this.database});
 
   Future<void> call({required String taskID}) {
-    return database.taskReference(taskID: taskID).update({'completed': true});
+    return database.taskReference(taskID: taskID).update({'completedDateTime': DateTime.now()});
   }
 }
 
@@ -83,7 +83,7 @@ class TaskRevertComplete {
   TaskRevertComplete({required this.database});
 
   Future<void> call({required String taskID}) {
-    return database.taskReference(taskID: taskID).update({'completed': false});
+    return database.taskReference(taskID: taskID).update({'completedDateTime': null});
   }
 }
 

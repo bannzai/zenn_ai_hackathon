@@ -31,7 +31,6 @@ class TaskPageBody extends HookConsumerWidget {
     final definitionAITextResponse = task.definitionAITextResponse;
     final todosGroundings = task.todosGroundings;
 
-    final todos = ref.watch(todosProvider(taskID: task.id)).asData?.value ?? [];
     final taskDelete = ref.watch(taskDeleteProvider);
     final taskComplete = ref.watch(taskCompleteProvider);
     final taskRevertComplete = ref.watch(taskRevertCompleteProvider);
@@ -60,22 +59,20 @@ class TaskPageBody extends HookConsumerWidget {
             },
             icon: const Icon(Icons.delete),
           ),
-          if (todos.isNotEmpty && todos.every((todo) => todo.completedDateTime != null)) ...[
-            if (task.completedDateTime == null)
-              IconButton(
-                onPressed: () async {
-                  await taskComplete(taskID: task.id);
-                },
-                icon: const Icon(Icons.check_box_outline_blank),
-              ),
-            if (task.completedDateTime != null)
-              IconButton(
-                onPressed: () async {
-                  await taskRevertComplete(taskID: task.id);
-                },
-                icon: const Icon(Icons.check_box),
-              ),
-          ],
+          if (task.completedDateTime == null)
+            IconButton(
+              onPressed: () async {
+                await taskComplete(taskID: task.id);
+              },
+              icon: const Icon(Icons.check_box_outline_blank),
+            ),
+          if (task.completedDateTime != null)
+            IconButton(
+              onPressed: () async {
+                await taskRevertComplete(taskID: task.id);
+              },
+              icon: const Icon(Icons.check_box),
+            ),
         ],
       ),
       body: SafeArea(

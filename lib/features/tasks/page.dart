@@ -1,4 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/error/error_alert.dart';
 import 'package:todomaker/components/form/question_form.dart';
@@ -88,14 +90,27 @@ class TasksPageBodyListView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final doneTasks = tasks.where((task) => task is TaskPrepared && task.completedDateTime != null).toList();
+    final undoneTasks = tasks.whereNot((task) => doneTasks.contains(task)).toList();
     return ListView(padding: const EdgeInsets.symmetric(vertical: 20.0), children: [
-      for (var task in tasks)
+      for (var task in undoneTasks)
         Column(
           children: [
             TasksPageSection(task: task),
             const SizedBox(height: 10),
           ],
         ),
+      if (doneTasks.isNotEmpty) ...[
+        const Divider(),
+        const Text('完了済み', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+        for (var task in doneTasks)
+          Column(
+            children: [
+              TasksPageSection(task: task),
+              const SizedBox(height: 10),
+            ],
+          ),
+      ],
     ]);
   }
 }
