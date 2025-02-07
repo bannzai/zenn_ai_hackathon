@@ -19,49 +19,58 @@ class AIPlanningDialog extends HookWidget {
         ],
       ),
       content: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           const Text('タスクの達成のために、AIが予定を組んでくれます。現在地を把握して最適な経路を提案したいので出発地点を入力してください'),
-          Row(
-            children: [
-              TextFormField(
-                focusNode: focusNode,
-                decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                  enabledBorder: UnderlineInputBorder(),
-                  focusedBorder: UnderlineInputBorder(),
-                  hintText: '東京都千代田区永田町1-7-1',
-                  labelText: '出発地点',
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                SizedBox(
+                  child: TextFormField(
+                    focusNode: focusNode,
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      enabledBorder: UnderlineInputBorder(),
+                      focusedBorder: UnderlineInputBorder(),
+                      hintText: '東京都千代田区永田町1-7-1',
+                      labelText: '出発地点',
+                      contentPadding: EdgeInsets.zero,
+                    ),
+                    onFieldSubmitted: (value) async {
+                      focusNode.unfocus();
+
+                      List<Location> locations = await locationFromAddress(value);
+
+                      debugPrint(locations.toString());
+                    },
+                  ),
                 ),
-                onFieldSubmitted: (value) async {
-                  focusNode.unfocus();
+                TextButton(
+                  onPressed: () async {
+                    focusNode.unfocus();
 
-                  List<Location> locations = await locationFromAddress(value);
-                  final location = locations.first;
+                    try {
+                      final permission = await Geolocator.requestPermission();
+                      if (permission == LocationPermission.denied) {
+                        throw const FormatException('位置情報の許可が必要です');
+                      }
+                      final position = await Geolocator.getCurrentPosition();
 
-                  debugPrint(location.toString());
-                },
-              ),
-              TextButton(
-                onPressed: () async {
-                  focusNode.unfocus();
+                      List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
 
-                  try {
-                    final permission = await Geolocator.requestPermission();
-                    if (permission == LocationPermission.denied) {
-                      throw const FormatException('位置情報の許可が必要です');
+                      debugPrint(placemarks.toString());
+                    } catch (e) {
+                      if (context.mounted) {
+                        showErrorAlert(context, e.toString());
+                      }
                     }
-                    final position = await Geolocator.getCurrentPosition();
-
-                    debugPrint(position.toString());
-                  } catch (e) {
-                    if (context.mounted) {
-                      showErrorAlert(context, e.toString());
-                    }
-                  }
-                },
-                child: const Text('現在地を使用'),
-              ),
-            ],
+                  },
+                  child: const Text('現在地を使用', style: TextStyle(fontSize: 10)),
+                ),
+              ],
+            ),
           ),
         ],
       ),
