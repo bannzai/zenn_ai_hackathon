@@ -8,7 +8,6 @@ import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/components/todo/list.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/provider/task.dart';
-import 'package:todomaker/provider/todo.dart';
 
 class TaskPage extends HookConsumerWidget {
   final TaskPrepared task;

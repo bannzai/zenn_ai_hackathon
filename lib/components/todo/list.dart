@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/planning/dialog.dart';
@@ -28,17 +27,17 @@ class TasksTodoList extends HookConsumerWidget {
       child: todos.when(
         data: (todos) {
           // indentが崩れるので分ける
-          int sortAlgorithm(Todo a, Todo b) {
-            if (a.completedDateTime != null) {
-              return 1;
-            }
-            if (b.completedDateTime != null) {
-              return -1;
-            }
-            return 0;
-          }
+          // int sortAlgorithm(Todo a, Todo b) {
+          //   if (a.completedDateTime != null) {
+          //     return 1;
+          //   }
+          //   if (b.completedDateTime != null) {
+          //     return -1;
+          //   }
+          //   return 0;
+          // }
 
-          final sortedTodos = todos..sort(sortAlgorithm);
+          // final sortedTodos = todos..sort(sortAlgorithm);
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +62,7 @@ class TasksTodoList extends HookConsumerWidget {
                   ),
                 ],
               ),
-              for (final todo in sortedTodos.take(limit ?? todos.length)) ...[
+              for (final todo in todos.take(limit ?? todos.length)) ...[
                 const SizedBox(height: 10),
                 TasksTodoRow(
                   key: Key(todo.id),
