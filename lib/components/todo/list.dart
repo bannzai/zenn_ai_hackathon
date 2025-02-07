@@ -26,12 +26,16 @@ class TasksTodoList extends HookConsumerWidget {
       retry: () => ref.invalidate(todosProvider(taskID: task.id)),
       child: todos.when(
         data: (todos) {
-          final sortedTodos = todos
-            ..sort((a, b) => a.completedDateTime != null
-                ? 1
-                : b.completedDateTime != null
-                    ? -1
-                    : 0);
+          // indentが崩れるので分ける
+          int sortAlgorithm(Todo a, Todo b) {
+            if (a.completedDateTime != null && b.completedDateTime != null) {
+              return a.completedDateTime!.compareTo(b.completedDateTime!);
+            }
+            return 0;
+          }
+
+          final sortedTodos = todos..sort(sortAlgorithm);
+
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
