@@ -34,6 +34,7 @@ class TasksPageBody extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final taskCreate = ref.watch(taskCreateProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('やること一覧'),
@@ -46,7 +47,8 @@ class TasksPageBody extends HookConsumerWidget {
           final question = await showQuestionFormSheet(context);
           if (question != null) {
             try {
-              await functions.taskCreate(question: question);
+              final task = await taskCreate(question: question);
+              await functions.enqueueTaskCreate(taskID: task.id, question: question);
             } catch (e) {
               if (context.mounted) {
                 showErrorAlert(context, e);

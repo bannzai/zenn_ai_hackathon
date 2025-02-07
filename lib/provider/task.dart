@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/features/root/resolver/database.dart';
@@ -19,6 +20,29 @@ Future<Task> task(TaskRef ref, {required String taskID}) async {
   final database = ref.watch(userDatabaseProvider);
   final task = await database.taskReference(taskID: taskID).get();
   return task.data()!;
+}
+
+class TaskCreate {
+  final UserDatabase database;
+
+  TaskCreate({required this.database});
+
+  Future<TaskPreparing> call({required String question}) async {
+    final docRef = database.tasksReference().doc();
+    final task = TaskPreparing(
+      id: docRef.id,
+      userID: database.userID,
+      question: question,
+    );
+    await database.taskReference(taskID: task.id).set(task, SetOptions(merge: true));
+    return task;
+  }
+}
+
+@Riverpod(dependencies: [userDatabase])
+TaskCreate taskCreate(TaskCreateRef ref) {
+  final database = ref.watch(userDatabaseProvider);
+  return TaskCreate(database: database);
 }
 
 class TaskDelete {

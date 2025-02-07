@@ -165,6 +165,19 @@ class _TaskProviderElement extends AutoDisposeFutureProviderElement<Task> with T
   String get taskID => (origin as TaskProvider).taskID;
 }
 
+String _$taskCreateHash() => r'551d1e5189d300c11bffd63d8d36600ad7abb22e';
+
+/// See also [taskCreate].
+@ProviderFor(taskCreate)
+final taskCreateProvider = AutoDisposeProvider<TaskCreate>.internal(
+  taskCreate,
+  name: r'taskCreateProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$taskCreateHash,
+  dependencies: <ProviderOrFamily>[userDatabaseProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{userDatabaseProvider, ...?userDatabaseProvider.allTransitiveDependencies},
+);
+
+typedef TaskCreateRef = AutoDisposeProviderRef<TaskCreate>;
 String _$taskDeleteHash() => r'8ebe4593ee12f1d11c88a85b5619c66d62d7a5cb';
 
 /// See also [taskDelete].

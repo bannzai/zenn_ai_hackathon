@@ -5,7 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 final functions = FirebaseFunctions.instanceFor(region: 'us-central1');
 
 extension FirebaseFunctionsExt on FirebaseFunctions {
-  Future<void> taskCreate({required String question}) async {
+  Future<void> enqueueTaskCreate({
+    required String taskID,
+    required String question,
+  }) async {
     // {
     //   "question": "",
     //   "userRequest": {
@@ -14,6 +17,7 @@ extension FirebaseFunctionsExt on FirebaseFunctions {
     // }
     final result = await httpsCallable('enqueueTaskCreate').call(
       {
+        'taskID': taskID,
         'question': question,
         'userRequest': {
           'userID': FirebaseAuth.instance.currentUser?.uid,
