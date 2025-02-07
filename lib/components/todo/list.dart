@@ -37,7 +37,7 @@ class TasksTodoList extends HookConsumerWidget {
               const Text('やること', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               for (final todo in sortedTodos.take(limit ?? todos.length)) ...[
                 const SizedBox(height: 10),
-                TasksPageTodoRow(todo: todo),
+                TasksTodoRow(todo: todo),
               ],
               if (limit != null && todos.length > limit) ...[
                 Align(
@@ -65,9 +65,9 @@ class TasksTodoList extends HookConsumerWidget {
   }
 }
 
-class TasksPageTodoRow extends HookConsumerWidget {
+class TasksTodoRow extends HookConsumerWidget {
   final Todo todo;
-  const TasksPageTodoRow({super.key, required this.todo});
+  const TasksTodoRow({super.key, required this.todo});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
