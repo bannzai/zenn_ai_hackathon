@@ -49,7 +49,7 @@ class TasksTodoList extends HookConsumerWidget {
                   const Spacer(),
                   TextButton(
                     onPressed: () async {
-                      showDialog(context: context, builder: (context) => const AIPlanningDialog());
+                      showDialog(context: context, builder: (context) => AIPlanningDialog(taskID: task.id));
                     },
                     child: const Row(
                       crossAxisAlignment: CrossAxisAlignment.baseline,
