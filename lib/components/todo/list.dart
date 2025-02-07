@@ -26,9 +26,9 @@ class TasksTodoList extends HookConsumerWidget {
       child: todos.when(
         data: (todos) {
           final sortedTodos = todos
-            ..sort((a, b) => a.completed
+            ..sort((a, b) => a.completedDateTime != null
                 ? 1
-                : b.completed
+                : b.completedDateTime != null
                     ? -1
                     : 0);
           return Column(
@@ -72,7 +72,7 @@ class TasksTodoRow extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final supplement = todo.supplement;
-    final completed = useState(todo.completed);
+    final completed = useState(todo.completedDateTime != null);
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
