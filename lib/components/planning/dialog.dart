@@ -62,6 +62,7 @@ class AIPlanningDialog extends HookWidget {
 
                       debugPrint(placemarks.toString());
                     } catch (e) {
+                      debugPrint(e.toString());
                       if (context.mounted) {
                         showErrorAlert(context, e.toString());
                       }
