@@ -151,5 +151,19 @@ class _TodosProviderElement extends AutoDisposeStreamProviderElement<List<Todo>>
   @override
   String get taskID => (origin as TodosProvider).taskID;
 }
+
+String _$todoDeleteHash() => r'20b8688330f0debb39c51f7487fdc36a63579ac2';
+
+/// See also [todoDelete].
+@ProviderFor(todoDelete)
+final todoDeleteProvider = AutoDisposeProvider<TodoDelete>.internal(
+  todoDelete,
+  name: r'todoDeleteProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$todoDeleteHash,
+  dependencies: <ProviderOrFamily>[userDatabaseProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{userDatabaseProvider, ...?userDatabaseProvider.allTransitiveDependencies},
+);
+
+typedef TodoDeleteRef = AutoDisposeProviderRef<TodoDelete>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

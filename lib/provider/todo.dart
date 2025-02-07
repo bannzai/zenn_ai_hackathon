@@ -13,3 +13,19 @@ Stream<List<Todo>> todos(TodosRef ref, {required String taskID}) {
       .snapshots()
       .map((event) => event.docs.map((doc) => doc.data()).toList());
 }
+
+class TodoDelete {
+  final UserDatabase database;
+
+  TodoDelete({required this.database});
+
+  Future<void> call({required String taskID, required String todoID}) {
+    return database.todosReference(taskID: taskID).doc(todoID).delete();
+  }
+}
+
+@Riverpod(dependencies: [userDatabase])
+TodoDelete todoDelete(TodoDeleteRef ref) {
+  final database = ref.watch(userDatabaseProvider);
+  return TodoDelete(database: database);
+}
