@@ -39,7 +39,26 @@ class TasksTodoList extends HookConsumerWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('やること', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              Row(
+                children: [
+                  const Text('やること', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  const Spacer(),
+                  TextButton(
+                    onPressed: () {
+                      return;
+                    },
+                    child: const Row(
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.ideographic,
+                      children: [
+                        Text('🤖'),
+                        SizedBox(width: 2),
+                        Text('AIで予定を組む'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
               for (final todo in sortedTodos.take(limit ?? todos.length)) ...[
                 const SizedBox(height: 10),
                 TasksTodoRow(
