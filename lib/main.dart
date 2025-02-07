@@ -5,6 +5,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/app.dart';
+import 'package:geocoding/geocoding.dart';
 
 void main() async {
   runZonedGuarded(() async {
@@ -13,6 +14,8 @@ void main() async {
 
     // MEMO: FirebaseCrashlytics#recordFlutterError called dumpErrorToConsole in function.
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+
+    setLocaleIdentifier('ja');
 
     runApp(const ProviderScope(child: App()));
   }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack));
