@@ -74,6 +74,10 @@ class TasksTodoRow extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final supplement = todo.supplement;
     final completed = useState(todo.completedDateTime != null);
+
+    final todoComplete = ref.watch(todoCompleteProvider);
+    final todoRevertComplete = ref.watch(todoRevertCompleteProvider);
+
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) => TodoPage(todo: todo)));
@@ -87,6 +91,11 @@ class TasksTodoRow extends HookConsumerWidget {
             child: Checkbox(
               value: completed.value,
               onChanged: (value) {
+                if (value == true) {
+                  todoComplete(taskID: todo.taskID, todoID: todo.id);
+                } else {
+                  todoRevertComplete(taskID: todo.taskID, todoID: todo.id);
+                }
                 completed.value = value ?? false;
               },
             ),
