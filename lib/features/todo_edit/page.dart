@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:todomaker/components/alert/discard.dart';
+import 'package:todomaker/components/todo/ellipsis.dart';
 import 'package:todomaker/entity/todo.dart';
-import 'package:todomaker/style/color.dart';
 
 class TodoEditPage extends HookConsumerWidget {
   final Todo todo;
@@ -36,93 +35,6 @@ class TodoEditPage extends HookConsumerWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class TodoListMemoTile extends StatelessWidget {
-  final Todo todo;
-  const TodoListMemoTile({
-    super.key,
-    required this.todo,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: const Icon(Icons.edit),
-      title: const Text('メモ'),
-      onTap: () async {},
-    );
-  }
-}
-
-class TodoDeleteListTile extends StatelessWidget {
-  final Todo todo;
-  const TodoDeleteListTile({
-    super.key,
-    required this.todo,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: const Icon(Icons.delete),
-      title: const Text(
-        '削除',
-        style: TextStyle(color: TextColor.danger),
-      ),
-      onTap: () async {
-        showDiscardDialog(
-          context,
-          title: '削除',
-          message: '本当に削除しますか？',
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-              child: const Text('削除'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(false);
-              },
-              child: const Text('キャンセル'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class TodoMoveUpListTile extends StatelessWidget {
-  final Todo todo;
-  const TodoMoveUpListTile({
-    super.key,
-    required this.todo,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: const Icon(Icons.arrow_upward),
-    );
-  }
-}
-
-class TodoMoveDownListTile extends StatelessWidget {
-  final Todo todo;
-  const TodoMoveDownListTile({
-    super.key,
-    required this.todo,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: const Icon(Icons.arrow_downward),
     );
   }
 }
