@@ -82,7 +82,7 @@ class TasksPageSection extends StatelessWidget {
                   ],
                   if (task is TaskPrepared) ...[
                     const Divider(height: 1, color: Colors.black),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     TasksTodoList(task: task, limit: 3),
                     const Divider(height: 1, color: Colors.black),
                     const SizedBox(height: 16),

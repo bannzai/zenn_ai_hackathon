@@ -88,18 +88,14 @@ class TasksPageBodyListView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ListView(
-      padding: const EdgeInsets.symmetric(vertical: 20.0),
-      children: tasks
-          .map(
-            (task) => Column(
-              children: [
-                TasksPageSection(task: task),
-                const SizedBox(height: 10),
-              ],
-            ),
-          )
-          .toList(),
-    );
+    return ListView(padding: const EdgeInsets.symmetric(vertical: 20.0), children: [
+      for (var task in tasks)
+        Column(
+          children: [
+            TasksPageSection(task: task),
+            const SizedBox(height: 10),
+          ],
+        ),
+    ]);
   }
 }
