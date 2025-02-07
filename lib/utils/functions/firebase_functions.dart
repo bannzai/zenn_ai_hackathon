@@ -32,6 +32,34 @@ extension FirebaseFunctionsExt on FirebaseFunctions {
     }
     return;
   }
+
+  Future<void> fillTODOLocation({
+    required String taskID,
+    required String locationName,
+    required double latitude,
+    required double longitude,
+  }) async {
+    final result = await httpsCallable('fillTODOLocation').call(
+      {
+        'taskID': taskID,
+        'userLocation': {
+          'name': locationName,
+          'latitude': latitude,
+          'longitude': longitude,
+        },
+        'userRequest': {
+          'userID': FirebaseAuth.instance.currentUser?.uid,
+        },
+      },
+    );
+    // resultはGenKitのレスポンス構造
+    final response = mapToJSON(result.data)['result'];
+
+    if (response['result'] != 'OK') {
+      throw Exception(response['error']['message']);
+    }
+    return;
+  }
 }
 
 // Map<String, dynamic>.fromだけだとネストした子要素が_Map<Object? Object?>のままになる
