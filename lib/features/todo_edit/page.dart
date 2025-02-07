@@ -30,8 +30,6 @@ class TodoEditPage extends HookConsumerWidget {
           children: [
             TodoListMemoTile(todo: todo),
             TodoDeleteListTile(todo: todo),
-            TodoMoveUpListTile(todo: todo),
-            TodoMoveDownListTile(todo: todo),
           ],
         ),
       ),
