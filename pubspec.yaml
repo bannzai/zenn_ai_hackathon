@@ -73,8 +73,6 @@ dependencies:
   widget_arrows: ^0.6.0
   flutter_markdown: ^0.7.6
   animated_text_kit: ^4.2.3
-  geocoding: ^3.0.0
-  geolocator: ^13.0.2
 
 dev_dependencies:
   flutter_test:
