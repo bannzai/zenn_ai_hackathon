@@ -4,9 +4,9 @@ import 'package:todomaker/components/alert/discard.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/style/color.dart';
 
-class TodoEllipsis extends HookConsumerWidget {
+class TodoEditPage extends HookConsumerWidget {
   final Todo todo;
-  const TodoEllipsis({super.key, required this.todo});
+  const TodoEditPage({super.key, required this.todo});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
