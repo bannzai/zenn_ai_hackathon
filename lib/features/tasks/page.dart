@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/error/error_alert.dart';
@@ -34,6 +35,7 @@ class TasksPageBody extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final taskCreate = ref.watch(taskCreateProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('やること一覧'),
@@ -46,7 +48,8 @@ class TasksPageBody extends HookConsumerWidget {
           final question = await showQuestionFormSheet(context);
           if (question != null) {
             try {
-              await functions.taskCreate(question: question);
+              final task = await taskCreate(question: question);
+              await functions.enqueueTaskCreate(taskID: task.id, question: question);
             } catch (e) {
               if (context.mounted) {
                 showErrorAlert(context, e);
@@ -86,18 +89,34 @@ class TasksPageBodyListView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ListView(
-      padding: const EdgeInsets.symmetric(vertical: 20.0),
-      children: tasks
-          .map(
-            (task) => Column(
-              children: [
-                TasksPageSection(task: task),
-                const SizedBox(height: 10),
-              ],
-            ),
-          )
-          .toList(),
-    );
+    final doneTasks = tasks.where((task) => task is TaskPrepared && task.completedDateTime != null).toList();
+    final undoneTasks = tasks.whereNot((task) => doneTasks.contains(task)).toList();
+    return ListView(padding: const EdgeInsets.symmetric(vertical: 20.0), children: [
+      for (var task in undoneTasks)
+        Column(
+          children: [
+            TasksPageSection(task: task),
+            const SizedBox(height: 10),
+          ],
+        ),
+      if (undoneTasks.isNotEmpty && doneTasks.isNotEmpty) ...[
+        const Divider(),
+        const SizedBox(height: 10),
+      ],
+      if (doneTasks.isNotEmpty) ...[
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: Text('完了済み', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+        ),
+        const SizedBox(height: 10),
+        for (var task in doneTasks)
+          Column(
+            children: [
+              TasksPageSection(task: task),
+              const SizedBox(height: 10),
+            ],
+          ),
+      ],
+    ]);
   }
 }

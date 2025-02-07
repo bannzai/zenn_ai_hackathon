@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/alert/discard.dart';
@@ -7,7 +8,6 @@ import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/components/todo/list.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/provider/task.dart';
-import 'package:todomaker/provider/todo.dart';
 
 class TaskPage extends HookConsumerWidget {
   final TaskPrepared task;
@@ -31,10 +31,11 @@ class TaskPageBody extends HookConsumerWidget {
     final definitionAITextResponse = task.definitionAITextResponse;
     final todosGroundings = task.todosGroundings;
 
-    final todos = ref.watch(todosProvider(taskID: task.id)).asData?.value ?? [];
     final taskDelete = ref.watch(taskDeleteProvider);
     final taskComplete = ref.watch(taskCompleteProvider);
     final taskRevertComplete = ref.watch(taskRevertCompleteProvider);
+
+    final completed = useState(task.completedDateTime != null);
 
     return Scaffold(
       appBar: AppBar(
@@ -45,10 +46,8 @@ class TaskPageBody extends HookConsumerWidget {
               showDiscardDialog(context, title: '削除', message: 'このタスクを削除しますか？', actions: [
                 TextButton(
                   onPressed: () async {
+                    Navigator.of(context).pop(true);
                     await taskDelete(taskID: task.id);
-                    if (context.mounted) {
-                      Navigator.of(context).pop(true);
-                    }
                   },
                   child: const Text('削除'),
                 ),
@@ -62,22 +61,22 @@ class TaskPageBody extends HookConsumerWidget {
             },
             icon: const Icon(Icons.delete),
           ),
-          if (todos.isNotEmpty && todos.every((todo) => todo.completedDateTime != null)) ...[
-            if (task.completedDateTime == null)
-              IconButton(
-                onPressed: () async {
-                  await taskComplete(taskID: task.id);
-                },
-                icon: const Icon(Icons.check_box_outline_blank),
-              ),
-            if (task.completedDateTime != null)
-              IconButton(
-                onPressed: () async {
-                  await taskRevertComplete(taskID: task.id);
-                },
-                icon: const Icon(Icons.check_box),
-              ),
-          ],
+          if (!completed.value)
+            IconButton(
+              onPressed: () async {
+                await taskComplete(taskID: task.id);
+                completed.value = true;
+              },
+              icon: const Icon(Icons.check_box_outline_blank),
+            ),
+          if (completed.value)
+            IconButton(
+              onPressed: () async {
+                await taskRevertComplete(taskID: task.id);
+                completed.value = false;
+              },
+              icon: const Icon(Icons.check_box),
+            ),
         ],
       ),
       body: SafeArea(

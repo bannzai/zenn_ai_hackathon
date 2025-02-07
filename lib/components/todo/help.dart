@@ -8,6 +8,11 @@ class TodoHelpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final aiTextResponseMarkdown = todo.aiTextResponseMarkdown;
+    final groundings = todo.groundings;
+    if (aiTextResponseMarkdown == null || groundings == null) {
+      return const SizedBox.shrink();
+    }
     return IconButton(
       onPressed: () {
         showDialog(
@@ -15,8 +20,8 @@ class TodoHelpButton extends StatelessWidget {
           builder: (context) => HelpAlertLayout(
             title: todo.content,
             subtitle: todo.supplement,
-            detailMarkdown: todo.aiTextResponseMarkdown,
-            groundings: todo.groundings,
+            detailMarkdown: aiTextResponseMarkdown,
+            groundings: groundings,
           ),
         );
       },

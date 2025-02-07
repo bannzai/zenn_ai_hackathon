@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/planning/dialog.dart';
@@ -28,14 +27,17 @@ class TasksTodoList extends HookConsumerWidget {
       child: todos.when(
         data: (todos) {
           // indentが崩れるので分ける
-          int sortAlgorithm(Todo a, Todo b) {
-            if (a.completedDateTime != null && b.completedDateTime != null) {
-              return a.completedDateTime!.compareTo(b.completedDateTime!);
-            }
-            return 0;
-          }
+          // int sortAlgorithm(Todo a, Todo b) {
+          //   if (a.completedDateTime != null) {
+          //     return 1;
+          //   }
+          //   if (b.completedDateTime != null) {
+          //     return -1;
+          //   }
+          //   return 0;
+          // }
 
-          final sortedTodos = todos..sort(sortAlgorithm);
+          // final sortedTodos = todos..sort(sortAlgorithm);
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +48,7 @@ class TasksTodoList extends HookConsumerWidget {
                   const Spacer(),
                   TextButton(
                     onPressed: () async {
-                      showDialog(context: context, builder: (context) => const AIPlanningDialog());
+                      showDialog(context: context, builder: (context) => AIPlanningDialog(taskID: task.id));
                     },
                     child: const Row(
                       crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -60,7 +62,7 @@ class TasksTodoList extends HookConsumerWidget {
                   ),
                 ],
               ),
-              for (final todo in sortedTodos.take(limit ?? todos.length)) ...[
+              for (final todo in todos.take(limit ?? todos.length)) ...[
                 const SizedBox(height: 10),
                 TasksTodoRow(
                   key: Key(todo.id),
@@ -100,7 +102,6 @@ class TasksTodoRow extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final supplement = todo.supplement;
-    final completed = useState(todo.completedDateTime != null);
 
     final todoComplete = ref.watch(todoCompleteProvider);
     final todoRevertComplete = ref.watch(todoRevertCompleteProvider);
@@ -116,14 +117,13 @@ class TasksTodoRow extends HookConsumerWidget {
             width: 24,
             height: 24,
             child: Checkbox(
-              value: completed.value,
+              value: todo.completedDateTime != null,
               onChanged: (value) {
                 if (value == true) {
                   todoComplete(taskID: todo.taskID, todoID: todo.id);
                 } else {
                   todoRevertComplete(taskID: todo.taskID, todoID: todo.id);
                 }
-                completed.value = value ?? false;
               },
             ),
           ),

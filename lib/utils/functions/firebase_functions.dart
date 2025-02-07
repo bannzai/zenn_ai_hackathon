@@ -1,11 +1,15 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 // GenKitがus-central1のサポートになる
 final functions = FirebaseFunctions.instanceFor(region: 'us-central1');
 
 extension FirebaseFunctionsExt on FirebaseFunctions {
-  Future<void> taskCreate({required String question}) async {
+  Future<void> enqueueTaskCreate({
+    required String taskID,
+    required String question,
+  }) async {
     // {
     //   "question": "",
     //   "userRequest": {
@@ -14,6 +18,7 @@ extension FirebaseFunctionsExt on FirebaseFunctions {
     // }
     final result = await httpsCallable('enqueueTaskCreate').call(
       {
+        'taskID': taskID,
         'question': question,
         'userRequest': {
           'userID': FirebaseAuth.instance.currentUser?.uid,
@@ -27,6 +32,34 @@ extension FirebaseFunctionsExt on FirebaseFunctions {
       throw Exception(response['error']['message']);
     }
     return;
+  }
+
+  Future<void> fillTODOLocation({
+    required String taskID,
+    required String locationName,
+    required double latitude,
+    required double longitude,
+  }) async {
+    final result = await httpsCallable('fillTODOLocation').call(
+      {
+        'taskID': taskID,
+        'userLocation': {
+          'name': locationName,
+          'latitude': latitude,
+          'longitude': longitude,
+        },
+        'userRequest': {
+          'userID': FirebaseAuth.instance.currentUser?.uid,
+        },
+      },
+    );
+    // resultはGenKitのレスポンス構造
+    final response = mapToJSON(result.data)['result'];
+    debugPrint('fillTODOLocation response: ${response.toString()}');
+
+    if (response['result'] != 'OK') {
+      throw Exception(response['error']['message']);
+    }
   }
 }
 

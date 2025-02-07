@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/alert/discard.dart';
@@ -13,12 +14,16 @@ class TodoPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final supplement = todo.supplement;
+    final aiTextResponseMarkdown = todo.aiTextResponseMarkdown;
+    final groundings = todo.groundings;
 
     final primaryColor = Theme.of(context).colorScheme.primary;
 
     final todoDelete = ref.watch(todoDeleteProvider);
     final todoComplete = ref.watch(todoCompleteProvider);
     final todoRevertComplete = ref.watch(todoRevertCompleteProvider);
+
+    final completed = useState(todo.completedDateTime != null);
 
     return Scaffold(
       appBar: AppBar(
@@ -47,17 +52,19 @@ class TodoPage extends HookConsumerWidget {
             },
             icon: const Icon(Icons.delete),
           ),
-          if (todo.completedDateTime == null)
+          if (!completed.value)
             IconButton(
               onPressed: () async {
                 await todoComplete(taskID: todo.taskID, todoID: todo.id);
+                completed.value = true;
               },
               icon: const Icon(Icons.check_box_outline_blank),
             ),
-          if (todo.completedDateTime != null)
+          if (completed.value)
             IconButton(
               onPressed: () async {
                 await todoRevertComplete(taskID: todo.taskID, todoID: todo.id);
+                completed.value = false;
               },
               icon: const Icon(Icons.check_box),
             ),
@@ -80,23 +87,27 @@ class TodoPage extends HookConsumerWidget {
                 ],
               ),
               const SizedBox(height: 20),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('詳細', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: primaryColor)),
-                  const SizedBox(height: 10),
-                  MarkdownBody(
-                    data: todo.aiTextResponseMarkdown,
-                  ),
-                ],
-              ),
+              if (aiTextResponseMarkdown != null) ...[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('詳細', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: primaryColor)),
+                    const SizedBox(height: 10),
+                    MarkdownBody(
+                      data: aiTextResponseMarkdown,
+                    ),
+                  ],
+                ),
+              ],
               const SizedBox(height: 20),
               const Divider(
                 height: 1,
                 color: Colors.black,
               ),
-              const SizedBox(height: 10),
-              GroundingDataList(groundings: todo.groundings),
+              if (groundings != null) ...[
+                const SizedBox(height: 10),
+                GroundingDataList(groundings: groundings),
+              ],
             ],
           ),
         ),
