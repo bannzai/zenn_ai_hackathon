@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/retry/button.dart';
 import 'package:todomaker/components/retry/page.dart';
-import 'package:todomaker/components/todo/help.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/features/task/page.dart';
+import 'package:todomaker/features/todo/page.dart';
 import 'package:todomaker/provider/todo.dart';
 import 'package:todomaker/style/color.dart';
 
@@ -73,38 +73,43 @@ class TasksTodoRow extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final supplement = todo.supplement;
     final completed = useState(todo.completedDateTime != null);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: 24,
-          height: 24,
-          child: Checkbox(
-            value: completed.value,
-            onChanged: (value) {
-              completed.value = value ?? false;
-            },
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => TodoPage(todo: todo)));
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 24,
+            height: 24,
+            child: Checkbox(
+              value: completed.value,
+              onChanged: (value) {
+                completed.value = value ?? false;
+              },
+            ),
           ),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(todo.content, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              if (supplement != null && supplement.isNotEmpty) ...[
-                Text(
-                  supplement,
-                  style: const TextStyle(fontSize: 14, color: TextColor.darkGray),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(todo.content, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                if (supplement != null && supplement.isNotEmpty) ...[
+                  Text(
+                    supplement,
+                    style: const TextStyle(fontSize: 14, color: TextColor.darkGray),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
               ],
-            ],
+            ),
           ),
-        ),
-        TodoHelpButton(todo: todo),
-      ],
+          const Icon(Icons.chevron_right, size: 24, color: TextColor.darkGray),
+        ],
+      ),
     );
   }
 }

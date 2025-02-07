@@ -17,40 +17,57 @@ class TodoPage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Column(
-          children: [
-            Text(todo.content, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 10),
-            if (supplement != null && supplement.isNotEmpty) ...[
-              Text(supplement, style: const TextStyle(fontSize: 14, color: TextColor.darkGray)),
-              const SizedBox(height: 10),
-            ],
-          ],
-        ),
+        centerTitle: true,
+        title: Text(todo.content, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        // title: RichText(
+        //   textAlign: TextAlign.center,
+        //   text: TextSpan(
+        //     children: [
+        //       TextSpan(text: '${todo.content}\n', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        //       if (supplement != null && supplement.isNotEmpty) ...[
+        //         TextSpan(text: supplement, style: const TextStyle(fontSize: 10)),
+        //       ],
+        //     ],
+        //   ),
+        // ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: Column(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(todo.content, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  if (supplement != null && supplement.isNotEmpty) ...[
+                    Text(supplement, style: const TextStyle(fontSize: 16)),
+                    const SizedBox(height: 10),
+                  ],
+                ],
+              ),
+              const SizedBox(height: 20),
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('詳細', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: primaryColor)),
                   const SizedBox(height: 10),
-                  MarkdownBody(data: todo.aiTextResponseMarkdown),
+                  MarkdownBody(
+                    data: todo.aiTextResponseMarkdown,
+                  ),
                 ],
               ),
-            ),
+              const SizedBox(height: 20),
+              const Divider(
+                height: 1,
+                color: Colors.black,
+              ),
+              const SizedBox(height: 10),
+              GroundingDataList(groundings: todo.groundings),
+            ],
           ),
-          const Divider(
-            height: 1,
-            color: Colors.black,
-          ),
-          const SizedBox(height: 10),
-          GroundingDataList(groundings: todo.groundings),
-        ],
+        ),
       ),
     );
   }
