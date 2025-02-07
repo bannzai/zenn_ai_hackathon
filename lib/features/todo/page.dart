@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:todomaker/components/alert/discard.dart';
 import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/entity/todo.dart';
+import 'package:todomaker/provider/todo.dart';
 import 'package:todomaker/style/color.dart';
 
 class TodoPage extends HookConsumerWidget {
@@ -15,21 +17,52 @@ class TodoPage extends HookConsumerWidget {
 
     final primaryColor = Theme.of(context).colorScheme.primary;
 
+    final todoDelete = ref.watch(todoDeleteProvider);
+    final todoCheck = ref.watch(todoCheckProvider);
+    final todoUncheck = ref.watch(todoUncheckProvider);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(todo.content, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        // title: RichText(
-        //   textAlign: TextAlign.center,
-        //   text: TextSpan(
-        //     children: [
-        //       TextSpan(text: '${todo.content}\n', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        //       if (supplement != null && supplement.isNotEmpty) ...[
-        //         TextSpan(text: supplement, style: const TextStyle(fontSize: 10)),
-        //       ],
-        //     ],
-        //   ),
-        // ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showDiscardDialog(context, title: '削除', message: 'このタスクを削除しますか？', actions: [
+                TextButton(
+                  onPressed: () async {
+                    await todoDelete(taskID: todo.taskID, todoID: todo.id);
+                    if (context.mounted) {
+                      Navigator.of(context).pop(true);
+                    }
+                  },
+                  child: const Text('削除'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  child: const Text('キャンセル'),
+                ),
+              ]);
+            },
+            icon: const Icon(Icons.delete),
+          ),
+          if (todo.completedDateTime == null)
+            IconButton(
+              onPressed: () async {
+                await todoCheck(taskID: todo.taskID, todoID: todo.id);
+              },
+              icon: const Icon(Icons.check_box_outline_blank),
+            ),
+          if (todo.completedDateTime != null)
+            IconButton(
+              onPressed: () async {
+                await todoUncheck(taskID: todo.taskID, todoID: todo.id);
+              },
+              icon: const Icon(Icons.check_box),
+            ),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
