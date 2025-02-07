@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/alert/discard.dart';
@@ -21,6 +22,8 @@ class TodoPage extends HookConsumerWidget {
     final todoDelete = ref.watch(todoDeleteProvider);
     final todoComplete = ref.watch(todoCompleteProvider);
     final todoRevertComplete = ref.watch(todoRevertCompleteProvider);
+
+    final completed = useState(todo.completedDateTime != null);
 
     return Scaffold(
       appBar: AppBar(
@@ -49,17 +52,19 @@ class TodoPage extends HookConsumerWidget {
             },
             icon: const Icon(Icons.delete),
           ),
-          if (todo.completedDateTime == null)
+          if (!completed.value)
             IconButton(
               onPressed: () async {
                 await todoComplete(taskID: todo.taskID, todoID: todo.id);
+                completed.value = true;
               },
               icon: const Icon(Icons.check_box_outline_blank),
             ),
-          if (todo.completedDateTime != null)
+          if (completed.value)
             IconButton(
               onPressed: () async {
                 await todoRevertComplete(taskID: todo.taskID, todoID: todo.id);
+                completed.value = false;
               },
               icon: const Icon(Icons.check_box),
             ),

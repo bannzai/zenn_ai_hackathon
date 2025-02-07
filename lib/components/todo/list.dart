@@ -103,7 +103,6 @@ class TasksTodoRow extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final supplement = todo.supplement;
-    final completed = useState(todo.completedDateTime != null);
 
     final todoComplete = ref.watch(todoCompleteProvider);
     final todoRevertComplete = ref.watch(todoRevertCompleteProvider);
@@ -119,14 +118,13 @@ class TasksTodoRow extends HookConsumerWidget {
             width: 24,
             height: 24,
             child: Checkbox(
-              value: completed.value,
+              value: todo.completedDateTime != null,
               onChanged: (value) {
                 if (value == true) {
                   todoComplete(taskID: todo.taskID, todoID: todo.id);
                 } else {
                   todoRevertComplete(taskID: todo.taskID, todoID: todo.id);
                 }
-                completed.value = value ?? false;
               },
             ),
           ),

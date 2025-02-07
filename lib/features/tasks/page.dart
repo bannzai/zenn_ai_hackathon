@@ -100,9 +100,16 @@ class TasksPageBodyListView extends HookConsumerWidget {
             const SizedBox(height: 10),
           ],
         ),
-      if (doneTasks.isNotEmpty) ...[
+      if (undoneTasks.isNotEmpty && doneTasks.isNotEmpty) ...[
         const Divider(),
-        const Text('完了済み', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+        const SizedBox(height: 10),
+      ],
+      if (doneTasks.isNotEmpty) ...[
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: Text('完了済み', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+        ),
+        const SizedBox(height: 10),
         for (var task in doneTasks)
           Column(
             children: [
