@@ -5,7 +5,6 @@ import 'package:todomaker/components/alert/discard.dart';
 import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/provider/todo.dart';
-import 'package:todomaker/style/color.dart';
 
 class TodoPage extends HookConsumerWidget {
   final Todo todo;
@@ -18,8 +17,8 @@ class TodoPage extends HookConsumerWidget {
     final primaryColor = Theme.of(context).colorScheme.primary;
 
     final todoDelete = ref.watch(todoDeleteProvider);
-    final todoCheck = ref.watch(todoCheckProvider);
-    final todoUncheck = ref.watch(todoUncheckProvider);
+    final todoComplete = ref.watch(todoCompleteProvider);
+    final todoRevertComplete = ref.watch(todoRevertCompleteProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -51,14 +50,14 @@ class TodoPage extends HookConsumerWidget {
           if (todo.completedDateTime == null)
             IconButton(
               onPressed: () async {
-                await todoCheck(taskID: todo.taskID, todoID: todo.id);
+                await todoComplete(taskID: todo.taskID, todoID: todo.id);
               },
               icon: const Icon(Icons.check_box_outline_blank),
             ),
           if (todo.completedDateTime != null)
             IconButton(
               onPressed: () async {
-                await todoUncheck(taskID: todo.taskID, todoID: todo.id);
+                await todoRevertComplete(taskID: todo.taskID, todoID: todo.id);
               },
               icon: const Icon(Icons.check_box),
             ),

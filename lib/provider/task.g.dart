@@ -164,5 +164,45 @@ class _TaskProviderElement extends AutoDisposeFutureProviderElement<Task> with T
   @override
   String get taskID => (origin as TaskProvider).taskID;
 }
+
+String _$taskDeleteHash() => r'8ebe4593ee12f1d11c88a85b5619c66d62d7a5cb';
+
+/// See also [taskDelete].
+@ProviderFor(taskDelete)
+final taskDeleteProvider = AutoDisposeProvider<TaskDelete>.internal(
+  taskDelete,
+  name: r'taskDeleteProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$taskDeleteHash,
+  dependencies: <ProviderOrFamily>[userDatabaseProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{userDatabaseProvider, ...?userDatabaseProvider.allTransitiveDependencies},
+);
+
+typedef TaskDeleteRef = AutoDisposeProviderRef<TaskDelete>;
+String _$taskCompleteHash() => r'f6a7a25cee5742e4a0bae345e086b6cac7d12eda';
+
+/// See also [taskComplete].
+@ProviderFor(taskComplete)
+final taskCompleteProvider = AutoDisposeProvider<TaskComplete>.internal(
+  taskComplete,
+  name: r'taskCompleteProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$taskCompleteHash,
+  dependencies: <ProviderOrFamily>[userDatabaseProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{userDatabaseProvider, ...?userDatabaseProvider.allTransitiveDependencies},
+);
+
+typedef TaskCompleteRef = AutoDisposeProviderRef<TaskComplete>;
+String _$taskRevertCompleteHash() => r'fc6c12ff14b0fe379e8629e5170d6fd489fed69d';
+
+/// See also [taskRevertComplete].
+@ProviderFor(taskRevertComplete)
+final taskRevertCompleteProvider = AutoDisposeProvider<TaskRevertComplete>.internal(
+  taskRevertComplete,
+  name: r'taskRevertCompleteProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$taskRevertCompleteHash,
+  dependencies: <ProviderOrFamily>[userDatabaseProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{userDatabaseProvider, ...?userDatabaseProvider.allTransitiveDependencies},
+);
+
+typedef TaskRevertCompleteRef = AutoDisposeProviderRef<TaskRevertComplete>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

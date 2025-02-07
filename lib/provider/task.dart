@@ -20,3 +20,51 @@ Future<Task> task(TaskRef ref, {required String taskID}) async {
   final task = await database.taskReference(taskID: taskID).get();
   return task.data()!;
 }
+
+class TaskDelete {
+  final UserDatabase database;
+
+  TaskDelete({required this.database});
+
+  Future<void> call({required String taskID}) {
+    return database.taskReference(taskID: taskID).delete();
+  }
+}
+
+@Riverpod(dependencies: [userDatabase])
+TaskDelete taskDelete(TaskDeleteRef ref) {
+  final database = ref.watch(userDatabaseProvider);
+  return TaskDelete(database: database);
+}
+
+class TaskComplete {
+  final UserDatabase database;
+
+  TaskComplete({required this.database});
+
+  Future<void> call({required String taskID}) {
+    return database.taskReference(taskID: taskID).update({'completed': true});
+  }
+}
+
+@Riverpod(dependencies: [userDatabase])
+TaskComplete taskComplete(TaskCompleteRef ref) {
+  final database = ref.watch(userDatabaseProvider);
+  return TaskComplete(database: database);
+}
+
+class TaskRevertComplete {
+  final UserDatabase database;
+
+  TaskRevertComplete({required this.database});
+
+  Future<void> call({required String taskID}) {
+    return database.taskReference(taskID: taskID).update({'completed': false});
+  }
+}
+
+@Riverpod(dependencies: [userDatabase])
+TaskRevertComplete taskRevertComplete(TaskRevertCompleteRef ref) {
+  final database = ref.watch(userDatabaseProvider);
+  return TaskRevertComplete(database: database);
+}

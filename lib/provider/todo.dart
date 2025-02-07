@@ -30,10 +30,10 @@ TodoDelete todoDelete(TodoDeleteRef ref) {
   return TodoDelete(database: database);
 }
 
-class TodoCheck {
+class TodoComplete {
   final UserDatabase database;
 
-  TodoCheck({required this.database});
+  TodoComplete({required this.database});
 
   Future<void> call({required String taskID, required String todoID}) {
     return database.todosReference(taskID: taskID).doc(todoID).update({'completedDateTime': DateTime.now()});
@@ -41,15 +41,15 @@ class TodoCheck {
 }
 
 @Riverpod(dependencies: [userDatabase])
-TodoCheck todoCheck(TodoCheckRef ref) {
+TodoComplete todoComplete(TodoCompleteRef ref) {
   final database = ref.watch(userDatabaseProvider);
-  return TodoCheck(database: database);
+  return TodoComplete(database: database);
 }
 
-class TodoUncheck {
+class TodoRevertComplete {
   final UserDatabase database;
 
-  TodoUncheck({required this.database});
+  TodoRevertComplete({required this.database});
 
   Future<void> call({required String taskID, required String todoID}) {
     return database.todosReference(taskID: taskID).doc(todoID).update({'completedDateTime': null});
@@ -57,7 +57,7 @@ class TodoUncheck {
 }
 
 @Riverpod(dependencies: [userDatabase])
-TodoUncheck todoUncheck(TodoUncheckRef ref) {
+TodoRevertComplete todoRevertComplete(TodoRevertCompleteRef ref) {
   final database = ref.watch(userDatabaseProvider);
-  return TodoUncheck(database: database);
+  return TodoRevertComplete(database: database);
 }

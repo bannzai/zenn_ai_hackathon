@@ -165,31 +165,31 @@ final todoDeleteProvider = AutoDisposeProvider<TodoDelete>.internal(
 );
 
 typedef TodoDeleteRef = AutoDisposeProviderRef<TodoDelete>;
-String _$todoCheckHash() => r'd5b767ec2767a21548f19d22abdf7fd615aa1bc8';
+String _$todoCompleteHash() => r'9579a92961a637d2c5fb8ad8c82090c5d2521096';
 
-/// See also [todoCheck].
-@ProviderFor(todoCheck)
-final todoCheckProvider = AutoDisposeProvider<TodoCheck>.internal(
-  todoCheck,
-  name: r'todoCheckProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$todoCheckHash,
+/// See also [todoComplete].
+@ProviderFor(todoComplete)
+final todoCompleteProvider = AutoDisposeProvider<TodoComplete>.internal(
+  todoComplete,
+  name: r'todoCompleteProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$todoCompleteHash,
   dependencies: <ProviderOrFamily>[userDatabaseProvider],
   allTransitiveDependencies: <ProviderOrFamily>{userDatabaseProvider, ...?userDatabaseProvider.allTransitiveDependencies},
 );
 
-typedef TodoCheckRef = AutoDisposeProviderRef<TodoCheck>;
-String _$todoUncheckHash() => r'402144786c0425d87f48a1ca4b0419bea3017cb0';
+typedef TodoCompleteRef = AutoDisposeProviderRef<TodoComplete>;
+String _$todoRevertCompleteHash() => r'c580dfd98b8d232fd722b1737e8921c7f95db4c0';
 
-/// See also [todoUncheck].
-@ProviderFor(todoUncheck)
-final todoUncheckProvider = AutoDisposeProvider<TodoUncheck>.internal(
-  todoUncheck,
-  name: r'todoUncheckProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$todoUncheckHash,
+/// See also [todoRevertComplete].
+@ProviderFor(todoRevertComplete)
+final todoRevertCompleteProvider = AutoDisposeProvider<TodoRevertComplete>.internal(
+  todoRevertComplete,
+  name: r'todoRevertCompleteProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$todoRevertCompleteHash,
   dependencies: <ProviderOrFamily>[userDatabaseProvider],
   allTransitiveDependencies: <ProviderOrFamily>{userDatabaseProvider, ...?userDatabaseProvider.allTransitiveDependencies},
 );
 
-typedef TodoUncheckRef = AutoDisposeProviderRef<TodoUncheck>;
+typedef TodoRevertCompleteRef = AutoDisposeProviderRef<TodoRevertComplete>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
