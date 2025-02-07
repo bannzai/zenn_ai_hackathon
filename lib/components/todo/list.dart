@@ -38,7 +38,10 @@ class TasksTodoList extends HookConsumerWidget {
               const Text('やること', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               for (final todo in sortedTodos.take(limit ?? todos.length)) ...[
                 const SizedBox(height: 10),
-                TasksTodoRow(todo: todo),
+                TasksTodoRow(
+                  key: Key(todo.id),
+                  todo: todo,
+                ),
               ],
               if (limit != null && todos.length > limit) ...[
                 Align(
