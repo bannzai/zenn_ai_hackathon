@@ -26,7 +26,8 @@ mixin _$Todo {
   String? get supplement => throw _privateConstructorUsedError;
   String get aiTextResponseMarkdown => throw _privateConstructorUsedError;
   List<GroundingData> get groundings => throw _privateConstructorUsedError;
-  bool get completed => throw _privateConstructorUsedError;
+  @NullableTimestampConverter()
+  DateTime? get completedDateTime => throw _privateConstructorUsedError;
   @ClientCreatedTimestamp()
   DateTime? get createdDateTime => throw _privateConstructorUsedError;
   @ClientUpdatedTimestamp()
@@ -56,7 +57,7 @@ abstract class $TodoCopyWith<$Res> {
       String? supplement,
       String aiTextResponseMarkdown,
       List<GroundingData> groundings,
-      bool completed,
+      @NullableTimestampConverter() DateTime? completedDateTime,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
       @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
@@ -83,7 +84,7 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
     Object? supplement = freezed,
     Object? aiTextResponseMarkdown = null,
     Object? groundings = null,
-    Object? completed = null,
+    Object? completedDateTime = freezed,
     Object? createdDateTime = freezed,
     Object? updatedDateTime = freezed,
     Object? serverCreatedDateTime = freezed,
@@ -114,10 +115,10 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
           ? _value.groundings
           : groundings // ignore: cast_nullable_to_non_nullable
               as List<GroundingData>,
-      completed: null == completed
-          ? _value.completed
-          : completed // ignore: cast_nullable_to_non_nullable
-              as bool,
+      completedDateTime: freezed == completedDateTime
+          ? _value.completedDateTime
+          : completedDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       createdDateTime: freezed == createdDateTime
           ? _value.createdDateTime
           : createdDateTime // ignore: cast_nullable_to_non_nullable
@@ -150,7 +151,7 @@ abstract class _$$TodoImplCopyWith<$Res> implements $TodoCopyWith<$Res> {
       String? supplement,
       String aiTextResponseMarkdown,
       List<GroundingData> groundings,
-      bool completed,
+      @NullableTimestampConverter() DateTime? completedDateTime,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
       @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
@@ -172,7 +173,7 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
     Object? supplement = freezed,
     Object? aiTextResponseMarkdown = null,
     Object? groundings = null,
-    Object? completed = null,
+    Object? completedDateTime = freezed,
     Object? createdDateTime = freezed,
     Object? updatedDateTime = freezed,
     Object? serverCreatedDateTime = freezed,
@@ -203,10 +204,10 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
           ? _value._groundings
           : groundings // ignore: cast_nullable_to_non_nullable
               as List<GroundingData>,
-      completed: null == completed
-          ? _value.completed
-          : completed // ignore: cast_nullable_to_non_nullable
-              as bool,
+      completedDateTime: freezed == completedDateTime
+          ? _value.completedDateTime
+          : completedDateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       createdDateTime: freezed == createdDateTime
           ? _value.createdDateTime
           : createdDateTime // ignore: cast_nullable_to_non_nullable
@@ -238,7 +239,7 @@ class _$TodoImpl extends _Todo {
       required this.supplement,
       required this.aiTextResponseMarkdown,
       required final List<GroundingData> groundings,
-      this.completed = false,
+      @NullableTimestampConverter() this.completedDateTime,
       @ClientCreatedTimestamp() this.createdDateTime,
       @ClientUpdatedTimestamp() this.updatedDateTime,
       @ServerCreatedTimestamp() this.serverCreatedDateTime,
@@ -267,8 +268,8 @@ class _$TodoImpl extends _Todo {
   }
 
   @override
-  @JsonKey()
-  final bool completed;
+  @NullableTimestampConverter()
+  final DateTime? completedDateTime;
   @override
   @ClientCreatedTimestamp()
   final DateTime? createdDateTime;
@@ -284,7 +285,7 @@ class _$TodoImpl extends _Todo {
 
   @override
   String toString() {
-    return 'Todo(id: $id, taskID: $taskID, content: $content, supplement: $supplement, aiTextResponseMarkdown: $aiTextResponseMarkdown, groundings: $groundings, completed: $completed, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
+    return 'Todo(id: $id, taskID: $taskID, content: $content, supplement: $supplement, aiTextResponseMarkdown: $aiTextResponseMarkdown, groundings: $groundings, completedDateTime: $completedDateTime, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
   }
 
   @override
@@ -298,7 +299,7 @@ class _$TodoImpl extends _Todo {
             (identical(other.supplement, supplement) || other.supplement == supplement) &&
             (identical(other.aiTextResponseMarkdown, aiTextResponseMarkdown) || other.aiTextResponseMarkdown == aiTextResponseMarkdown) &&
             const DeepCollectionEquality().equals(other._groundings, _groundings) &&
-            (identical(other.completed, completed) || other.completed == completed) &&
+            (identical(other.completedDateTime, completedDateTime) || other.completedDateTime == completedDateTime) &&
             (identical(other.createdDateTime, createdDateTime) || other.createdDateTime == createdDateTime) &&
             (identical(other.updatedDateTime, updatedDateTime) || other.updatedDateTime == updatedDateTime) &&
             (identical(other.serverCreatedDateTime, serverCreatedDateTime) || other.serverCreatedDateTime == serverCreatedDateTime) &&
@@ -307,8 +308,19 @@ class _$TodoImpl extends _Todo {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, taskID, content, supplement, aiTextResponseMarkdown,
-      const DeepCollectionEquality().hash(_groundings), completed, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      taskID,
+      content,
+      supplement,
+      aiTextResponseMarkdown,
+      const DeepCollectionEquality().hash(_groundings),
+      completedDateTime,
+      createdDateTime,
+      updatedDateTime,
+      serverCreatedDateTime,
+      serverUpdatedDateTime);
 
   /// Create a copy of Todo
   /// with the given fields replaced by the non-null parameter values.
@@ -333,7 +345,7 @@ abstract class _Todo extends Todo {
       required final String? supplement,
       required final String aiTextResponseMarkdown,
       required final List<GroundingData> groundings,
-      final bool completed,
+      @NullableTimestampConverter() final DateTime? completedDateTime,
       @ClientCreatedTimestamp() final DateTime? createdDateTime,
       @ClientUpdatedTimestamp() final DateTime? updatedDateTime,
       @ServerCreatedTimestamp() final DateTime? serverCreatedDateTime,
@@ -355,7 +367,8 @@ abstract class _Todo extends Todo {
   @override
   List<GroundingData> get groundings;
   @override
-  bool get completed;
+  @NullableTimestampConverter()
+  DateTime? get completedDateTime;
   @override
   @ClientCreatedTimestamp()
   DateTime? get createdDateTime;

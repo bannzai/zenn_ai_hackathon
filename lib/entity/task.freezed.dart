@@ -58,7 +58,7 @@ mixin _$Task {
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
             bool completed,
-            @NullableTimestampConverter() DateTime? fullFilledDateTime,
+            @NullableTimestampConverter() DateTime? preparedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
             @ClientUpdatedTimestamp() DateTime? updatedDateTime,
             @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
@@ -94,7 +94,7 @@ mixin _$Task {
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
             bool completed,
-            @NullableTimestampConverter() DateTime? fullFilledDateTime,
+            @NullableTimestampConverter() DateTime? preparedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
             @ClientUpdatedTimestamp() DateTime? updatedDateTime,
             @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
@@ -130,7 +130,7 @@ mixin _$Task {
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
             bool completed,
-            @NullableTimestampConverter() DateTime? fullFilledDateTime,
+            @NullableTimestampConverter() DateTime? preparedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
             @ClientUpdatedTimestamp() DateTime? updatedDateTime,
             @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
@@ -304,7 +304,7 @@ abstract class _$$TaskPreparedImplCopyWith<$Res> implements $TaskCopyWith<$Res> 
       String definitionAITextResponse,
       List<GroundingData> definitionGroundings,
       bool completed,
-      @NullableTimestampConverter() DateTime? fullFilledDateTime,
+      @NullableTimestampConverter() DateTime? preparedDateTime,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
       @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
@@ -330,7 +330,7 @@ class __$$TaskPreparedImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$
     Object? definitionAITextResponse = null,
     Object? definitionGroundings = null,
     Object? completed = null,
-    Object? fullFilledDateTime = freezed,
+    Object? preparedDateTime = freezed,
     Object? createdDateTime = freezed,
     Object? updatedDateTime = freezed,
     Object? serverCreatedDateTime = freezed,
@@ -377,9 +377,9 @@ class __$$TaskPreparedImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$
           ? _value.completed
           : completed // ignore: cast_nullable_to_non_nullable
               as bool,
-      fullFilledDateTime: freezed == fullFilledDateTime
-          ? _value.fullFilledDateTime
-          : fullFilledDateTime // ignore: cast_nullable_to_non_nullable
+      preparedDateTime: freezed == preparedDateTime
+          ? _value.preparedDateTime
+          : preparedDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       createdDateTime: freezed == createdDateTime
           ? _value.createdDateTime
@@ -416,7 +416,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
       required this.definitionAITextResponse,
       required final List<GroundingData> definitionGroundings,
       required this.completed,
-      @NullableTimestampConverter() required this.fullFilledDateTime,
+      @NullableTimestampConverter() required this.preparedDateTime,
       @ClientCreatedTimestamp() this.createdDateTime,
       @ClientUpdatedTimestamp() this.updatedDateTime,
       @ServerCreatedTimestamp() this.serverCreatedDateTime,
@@ -463,7 +463,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
   final bool completed;
   @override
   @NullableTimestampConverter()
-  final DateTime? fullFilledDateTime;
+  final DateTime? preparedDateTime;
   @override
   @ClientCreatedTimestamp()
   final DateTime? createdDateTime;
@@ -482,7 +482,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
 
   @override
   String toString() {
-    return 'Task.prepared(id: $id, userID: $userID, question: $question, todosAITextResponseMarkdown: $todosAITextResponseMarkdown, todosGroundings: $todosGroundings, shortAnswer: $shortAnswer, topic: $topic, definitionAITextResponse: $definitionAITextResponse, definitionGroundings: $definitionGroundings, completed: $completed, fullFilledDateTime: $fullFilledDateTime, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
+    return 'Task.prepared(id: $id, userID: $userID, question: $question, todosAITextResponseMarkdown: $todosAITextResponseMarkdown, todosGroundings: $todosGroundings, shortAnswer: $shortAnswer, topic: $topic, definitionAITextResponse: $definitionAITextResponse, definitionGroundings: $definitionGroundings, completed: $completed, preparedDateTime: $preparedDateTime, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
   }
 
   @override
@@ -501,7 +501,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
             (identical(other.definitionAITextResponse, definitionAITextResponse) || other.definitionAITextResponse == definitionAITextResponse) &&
             const DeepCollectionEquality().equals(other._definitionGroundings, _definitionGroundings) &&
             (identical(other.completed, completed) || other.completed == completed) &&
-            (identical(other.fullFilledDateTime, fullFilledDateTime) || other.fullFilledDateTime == fullFilledDateTime) &&
+            (identical(other.preparedDateTime, preparedDateTime) || other.preparedDateTime == preparedDateTime) &&
             (identical(other.createdDateTime, createdDateTime) || other.createdDateTime == createdDateTime) &&
             (identical(other.updatedDateTime, updatedDateTime) || other.updatedDateTime == updatedDateTime) &&
             (identical(other.serverCreatedDateTime, serverCreatedDateTime) || other.serverCreatedDateTime == serverCreatedDateTime) &&
@@ -522,7 +522,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
       definitionAITextResponse,
       const DeepCollectionEquality().hash(_definitionGroundings),
       completed,
-      fullFilledDateTime,
+      preparedDateTime,
       createdDateTime,
       updatedDateTime,
       serverCreatedDateTime,
@@ -549,7 +549,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
             bool completed,
-            @NullableTimestampConverter() DateTime? fullFilledDateTime,
+            @NullableTimestampConverter() DateTime? preparedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
             @ClientUpdatedTimestamp() DateTime? updatedDateTime,
             @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
@@ -572,7 +572,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
         preparing,
   }) {
     return prepared(id, userID, question, todosAITextResponseMarkdown, todosGroundings, shortAnswer, topic, definitionAITextResponse,
-        definitionGroundings, completed, fullFilledDateTime, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
+        definitionGroundings, completed, preparedDateTime, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
   }
 
   @override
@@ -589,7 +589,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
             bool completed,
-            @NullableTimestampConverter() DateTime? fullFilledDateTime,
+            @NullableTimestampConverter() DateTime? preparedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
             @ClientUpdatedTimestamp() DateTime? updatedDateTime,
             @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
@@ -612,7 +612,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
         preparing,
   }) {
     return prepared?.call(id, userID, question, todosAITextResponseMarkdown, todosGroundings, shortAnswer, topic, definitionAITextResponse,
-        definitionGroundings, completed, fullFilledDateTime, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
+        definitionGroundings, completed, preparedDateTime, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
   }
 
   @override
@@ -629,7 +629,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
             bool completed,
-            @NullableTimestampConverter() DateTime? fullFilledDateTime,
+            @NullableTimestampConverter() DateTime? preparedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
             @ClientUpdatedTimestamp() DateTime? updatedDateTime,
             @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
@@ -654,7 +654,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
   }) {
     if (prepared != null) {
       return prepared(id, userID, question, todosAITextResponseMarkdown, todosGroundings, shortAnswer, topic, definitionAITextResponse,
-          definitionGroundings, completed, fullFilledDateTime, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
+          definitionGroundings, completed, preparedDateTime, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
     }
     return orElse();
   }
@@ -710,7 +710,7 @@ abstract class TaskPrepared extends Task {
       required final String definitionAITextResponse,
       required final List<GroundingData> definitionGroundings,
       required final bool completed,
-      @NullableTimestampConverter() required final DateTime? fullFilledDateTime,
+      @NullableTimestampConverter() required final DateTime? preparedDateTime,
       @ClientCreatedTimestamp() final DateTime? createdDateTime,
       @ClientUpdatedTimestamp() final DateTime? updatedDateTime,
       @ServerCreatedTimestamp() final DateTime? serverCreatedDateTime,
@@ -739,7 +739,7 @@ abstract class TaskPrepared extends Task {
   List<GroundingData> get definitionGroundings;
   bool get completed;
   @NullableTimestampConverter()
-  DateTime? get fullFilledDateTime;
+  DateTime? get preparedDateTime;
   @override
   @ClientCreatedTimestamp()
   DateTime? get createdDateTime;
@@ -1002,7 +1002,7 @@ class _$TaskPreparingImpl extends TaskPreparing {
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
             bool completed,
-            @NullableTimestampConverter() DateTime? fullFilledDateTime,
+            @NullableTimestampConverter() DateTime? preparedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
             @ClientUpdatedTimestamp() DateTime? updatedDateTime,
             @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
@@ -1042,7 +1042,7 @@ class _$TaskPreparingImpl extends TaskPreparing {
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
             bool completed,
-            @NullableTimestampConverter() DateTime? fullFilledDateTime,
+            @NullableTimestampConverter() DateTime? preparedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
             @ClientUpdatedTimestamp() DateTime? updatedDateTime,
             @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
@@ -1082,7 +1082,7 @@ class _$TaskPreparingImpl extends TaskPreparing {
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
             bool completed,
-            @NullableTimestampConverter() DateTime? fullFilledDateTime,
+            @NullableTimestampConverter() DateTime? preparedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
             @ClientUpdatedTimestamp() DateTime? updatedDateTime,
             @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
