@@ -29,7 +29,7 @@ class OnboardingPage extends HookWidget {
           ],
         ),
         child: SafeArea(
-          child: OnboardingBody1(index: index, animationController: animationController, onNext: () => index.value = OnboardingEvent.secondPage),
+          child: OnboardingBody1(index: index, animationController: animationController),
         ),
       ),
     );

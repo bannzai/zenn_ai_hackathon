@@ -7,17 +7,15 @@ class OnboardingBody1 extends StatelessWidget {
     super.key,
     required this.index,
     required this.animationController,
-    required this.onNext,
   });
 
   final ValueNotifier<OnboardingEvent> index;
   final AnimationController animationController;
-  final VoidCallback onNext;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onNext,
+      onTap: () => index.value = OnboardingEvent.secondPage,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
