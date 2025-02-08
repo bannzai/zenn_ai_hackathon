@@ -26,39 +26,49 @@ class OnboardingPage extends HookWidget {
             Shadow(color: Colors.blueGrey, blurRadius: 2),
           ],
         ),
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+        child: SafeArea(
+          child: Stack(
+            alignment: Alignment.bottomCenter,
             children: [
-              const Spacer(),
-              OnboardingBot1(
-                messages: [
-                  'こんにちは！',
-                  'TODOMakerへようこそ',
-                ],
-                onFinished: () => index.value++,
-              ),
-              SizedBox(
-                height: 100,
-                child: FadeTransition(
-                  opacity: Tween<double>(begin: 0, end: 1).animate(
-                    CurvedAnimation(
-                      parent: animationController,
-                      curve: Curves.easeInOut,
-                    ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Spacer(),
+                  OnboardingBot1(
+                    messages: const [
+                      'こんにちは！',
+                      'TODOMakerへようこそ',
+                    ],
+                    onFinished: () => index.value++,
                   ),
-                  child: const Text(
-                    'タップして次へ',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black,
-                      shadows: [Shadow(color: Colors.blueGrey, blurRadius: 2)],
+                  const Spacer(),
+                ],
+              ),
+              if (index.value <= 1) ...[
+                Positioned(
+                  bottom: 20,
+                  child: SizedBox(
+                    height: 100,
+                    child: FadeTransition(
+                      opacity: Tween<double>(begin: 0, end: 1).animate(
+                        CurvedAnimation(
+                          parent: animationController,
+                          curve: Curves.easeInOut,
+                        ),
+                      ),
+                      child: const Text(
+                        'タップして次へ',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                          shadows: [Shadow(color: Colors.blueGrey, blurRadius: 2)],
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const Spacer(),
+              ],
             ],
           ),
         ),
