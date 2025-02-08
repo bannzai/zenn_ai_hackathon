@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:todomaker/components/error/error_alert.dart';
 import 'package:todomaker/utils/functions/firebase_functions.dart';
 
