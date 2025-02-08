@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:todomaker/features/onboarding/components/body_1.dart';
+import 'package:todomaker/features/onboarding/components/event.dart';
 
 class OnboardingPage extends HookWidget {
   final ValueNotifier<bool> isOnboardingResolved;
@@ -9,10 +10,10 @@ class OnboardingPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final index = useState(0);
+    final index = useState(OnboardingEvent.initial);
     final animationController = useAnimationController(duration: const Duration(milliseconds: 400));
     index.addListener(() {
-      if (index.value == 1) {
+      if (index.value == OnboardingEvent.showTapLabel) {
         animationController.forward();
       }
     });
@@ -28,7 +29,7 @@ class OnboardingPage extends HookWidget {
           ],
         ),
         child: SafeArea(
-          child: OnboardingBody1(index: index, animationController: animationController),
+          child: OnboardingBody1(index: index, animationController: animationController, onNext: () => index.value = OnboardingEvent.secondPage),
         ),
       ),
     );
