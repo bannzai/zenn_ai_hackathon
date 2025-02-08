@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class OnboardingPage extends StatelessWidget {
-  const OnboardingPage({super.key});
+  final ValueNotifier<bool> isOnboardingResolved;
+  const OnboardingPage({super.key, required this.isOnboardingResolved});
 
   @override
   Widget build(BuildContext context) {
