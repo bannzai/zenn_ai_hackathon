@@ -1,19 +1,24 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:todomaker/features/onboarding/components/event.dart';
 
-class OnboardingBody1 extends StatelessWidget {
+class OnboardingBody1 extends HookWidget {
   const OnboardingBody1({
     super.key,
     required this.index,
-    required this.animationController,
   });
 
   final ValueNotifier<OnboardingEvent> index;
-  final AnimationController animationController;
 
   @override
   Widget build(BuildContext context) {
+    final animationController = useAnimationController(duration: const Duration(milliseconds: 400));
+    index.addListener(() {
+      if (index.value == OnboardingEvent.showTapLabel) {
+        animationController.forward();
+      }
+    });
     return GestureDetector(
       onTap: () => index.value = OnboardingEvent.secondPage,
       child: Stack(

@@ -11,12 +11,6 @@ class OnboardingPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final index = useState(OnboardingEvent.initial);
-    final animationController = useAnimationController(duration: const Duration(milliseconds: 400));
-    index.addListener(() {
-      if (index.value == OnboardingEvent.showTapLabel) {
-        animationController.forward();
-      }
-    });
 
     return Scaffold(
       body: DefaultTextStyle(
@@ -29,7 +23,7 @@ class OnboardingPage extends HookWidget {
           ],
         ),
         child: SafeArea(
-          child: OnboardingBody1(index: index, animationController: animationController),
+          child: OnboardingBody1(index: index),
         ),
       ),
     );
