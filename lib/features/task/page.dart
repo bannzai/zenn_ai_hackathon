@@ -34,6 +34,7 @@ class TaskPageBody extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final task = ref.watch(taskProvider(taskID: this.task.id)).requireValue as TaskPrepared;
     final primaryColor = Theme.of(context).colorScheme.primary;
 
     final topic = task.topic;
@@ -105,7 +106,14 @@ class TaskPageBody extends HookConsumerWidget {
                   TasksTodoList(task: task),
                   const SizedBox(height: 20),
                   const Divider(height: 1, color: Colors.black),
-                  TaskLocation(task: task, todos: todos),
+                  Stack(
+                    children: [
+                      TaskLocation(task: task, todos: todos),
+                      if (task.userLocation != null && task.locations == null) ...[
+                        const BotLoading(messages: ['位置情報を取得中...', '少し待ってね😘', '丁寧にWebから情報を集めてるよ🦾']),
+                      ],
+                    ],
+                  ),
                   const Divider(height: 1, color: Colors.black),
                   const SizedBox(height: 16),
                   GroundingDataList(groundings: todosGroundings),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:todomaker/components/error/error_alert.dart';
 import 'package:todomaker/components/location/form.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/provider/task.dart';
@@ -19,11 +19,15 @@ class TaskLocationAskAI extends HookConsumerWidget {
           context: context,
           builder: (context) => LocationForm(
             onSubmit: (userLocation) async {
-              await taskFillLocation(taskID: task.id, userLocation: userLocation);
-              await functions.fillLocation(
-                taskID: task.id,
-                userLocation: userLocation,
-              );
+              try {
+                await taskFillLocation(taskID: task.id, userLocation: userLocation);
+                await functions.fillLocation(
+                  taskID: task.id,
+                  userLocation: userLocation,
+                );
+              } catch (e) {
+                showErrorAlert(context, e.toString());
+              }
             },
           ),
         );

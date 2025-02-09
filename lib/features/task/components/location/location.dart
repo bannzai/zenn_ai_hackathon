@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:todomaker/components/loading/bot.dart';
 import 'package:todomaker/entity/location.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/features/task/components/location/ask.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class TaskLocation extends StatelessWidget {
+class TaskLocation extends HookWidget {
   final TaskPrepared task;
   final List<Todo> todos;
   const TaskLocation({super.key, required this.task, required this.todos});
@@ -13,22 +15,28 @@ class TaskLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locations = task.locations;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
-      child: Builder(builder: (context) {
-        if (locations == null) {
-          return TaskLocationAskAI(task: task);
-        }
+      child: Stack(
+        children: [
+          Builder(builder: (context) {
+            if (locations == null) {
+              return TaskLocationAskAI(task: task);
+            }
 
-        return Column(
-          children: [
-            TaskLocationAskAI(task: task),
-            for (final location in locations) ...[
-              TaskLocationItem(task: task, location: location),
-            ],
-          ],
-        );
-      }),
+            return Column(
+              children: [
+                TaskLocationAskAI(task: task),
+                for (final location in locations) ...[
+                  TaskLocationItem(task: task, location: location),
+                ],
+              ],
+            );
+          }),
+          if (false) const BotLoading(messages: ['位置情報を取得中...', '少し待ってね😘', '丁寧にWebから情報を集めてるよ🦾']),
+        ],
+      ),
     );
   }
 }
