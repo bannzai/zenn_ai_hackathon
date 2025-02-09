@@ -63,7 +63,7 @@ class TasksTodoList extends HookConsumerWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text('+ 残り${todos.length - limit}件, 未完了:${remainingTodos.length}件', style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                        Text('未完了が:${remainingTodos.length}件あります', style: const TextStyle(fontSize: 12, color: Colors.grey)),
                         const SizedBox(width: 4),
                         const Icon(Icons.arrow_forward_ios, size: 10, color: Colors.grey),
                       ],
