@@ -44,6 +44,8 @@ class TaskPageBody extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // FIXME: ここでwatchしなおさないと変更検知できない。そのうち解決する
+    final task = ref.watch(taskProvider(taskID: this.task.id)).requireValue as TaskPrepared;
     debugPrint('TaskPageBody build: ${task.userLocation}, ${task.locations}');
     final primaryColor = Theme.of(context).colorScheme.primary;
 
