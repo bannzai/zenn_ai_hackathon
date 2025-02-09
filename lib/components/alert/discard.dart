@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todomaker/style/color.dart';
 
 class DiscardDialog extends StatelessWidget {
   final String title;
@@ -14,9 +15,7 @@ class DiscardDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Icon(
-        Icons.warning,
-      ),
+      title: const Icon(Icons.warning, color: TextColor.danger),
       content: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
