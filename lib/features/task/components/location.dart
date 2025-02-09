@@ -37,7 +37,7 @@ class TaskLocationEmpty extends StatelessWidget {
 
 class TaskLocationItem extends StatelessWidget {
   final TaskPrepared task;
-  final Location location;
+  final AppLocation location;
   const TaskLocationItem({
     super.key,
     required this.task,
@@ -64,7 +64,7 @@ class TaskLocationTODOLocationList extends StatelessWidget {
 class TaskLocationTODOLocationItem extends StatelessWidget {
   final TaskPrepared task;
   final Todo todo;
-  final Location todoLocation;
+  final AppLocation todoLocation;
   const TaskLocationTODOLocationItem({super.key, required this.task, required this.todo, required this.todoLocation});
 
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/loading/indicator.dart';
-import 'package:todomaker/components/planning/dialog.dart';
+import 'package:todomaker/components/location/form.dart';
 import 'package:todomaker/components/retry/button.dart';
 import 'package:todomaker/components/retry/page.dart';
 import 'package:todomaker/entity/task.dart';

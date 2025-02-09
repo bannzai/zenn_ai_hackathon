@@ -16,7 +16,7 @@ _$TaskPreparedImpl _$$TaskPreparedImplFromJson(Map<String, dynamic> json) => _$T
       topic: json['topic'] as String,
       definitionAITextResponse: json['definitionAITextResponse'] as String,
       definitionGroundings: (json['definitionGroundings'] as List<dynamic>).map((e) => GroundingData.fromJson(e as Map<String, dynamic>)).toList(),
-      locations: (json['locations'] as List<dynamic>?)?.map((e) => Location.fromJson(e as Map<String, dynamic>)).toList(),
+      locations: (json['locations'] as List<dynamic>?)?.map((e) => AppLocation.fromJson(e as Map<String, dynamic>)).toList(),
       locationsAITextResponse: json['locationsAITextResponse'] as String?,
       locationsGroundings: (json['locationsGroundings'] as List<dynamic>?)?.map((e) => GroundingData.fromJson(e as Map<String, dynamic>)).toList(),
       preparedDateTime: const NullableTimestampConverter().fromJson(json['preparedDateTime'] as Timestamp?),

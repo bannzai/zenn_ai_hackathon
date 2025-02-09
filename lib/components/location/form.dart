@@ -5,9 +5,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:todomaker/components/error/error_alert.dart';
 import 'package:todomaker/utils/functions/firebase_functions.dart';
 
-class AIPlanningDialog extends HookWidget {
-  final String taskID;
-  const AIPlanningDialog({super.key, required this.taskID});
+class LocationForm extends HookWidget {
+  final Function(String, double, double) onSubmit;
+  const LocationForm({super.key});
 
   @override
   Widget build(BuildContext context) {

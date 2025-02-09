@@ -57,7 +57,7 @@ mixin _$Task {
             String topic,
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
-            List<Location>? locations,
+            List<AppLocation>? locations,
             String? locationsAITextResponse,
             List<GroundingData>? locationsGroundings,
             @NullableTimestampConverter() DateTime? preparedDateTime,
@@ -96,7 +96,7 @@ mixin _$Task {
             String topic,
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
-            List<Location>? locations,
+            List<AppLocation>? locations,
             String? locationsAITextResponse,
             List<GroundingData>? locationsGroundings,
             @NullableTimestampConverter() DateTime? preparedDateTime,
@@ -135,7 +135,7 @@ mixin _$Task {
             String topic,
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
-            List<Location>? locations,
+            List<AppLocation>? locations,
             String? locationsAITextResponse,
             List<GroundingData>? locationsGroundings,
             @NullableTimestampConverter() DateTime? preparedDateTime,
@@ -312,7 +312,7 @@ abstract class _$$TaskPreparedImplCopyWith<$Res> implements $TaskCopyWith<$Res> 
       String topic,
       String definitionAITextResponse,
       List<GroundingData> definitionGroundings,
-      List<Location>? locations,
+      List<AppLocation>? locations,
       String? locationsAITextResponse,
       List<GroundingData>? locationsGroundings,
       @NullableTimestampConverter() DateTime? preparedDateTime,
@@ -391,7 +391,7 @@ class __$$TaskPreparedImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$
       locations: freezed == locations
           ? _value._locations
           : locations // ignore: cast_nullable_to_non_nullable
-              as List<Location>?,
+              as List<AppLocation>?,
       locationsAITextResponse: freezed == locationsAITextResponse
           ? _value.locationsAITextResponse
           : locationsAITextResponse // ignore: cast_nullable_to_non_nullable
@@ -442,7 +442,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
       required this.topic,
       required this.definitionAITextResponse,
       required final List<GroundingData> definitionGroundings,
-      final List<Location>? locations,
+      final List<AppLocation>? locations,
       this.locationsAITextResponse,
       final List<GroundingData>? locationsGroundings,
       @NullableTimestampConverter() required this.preparedDateTime,
@@ -491,9 +491,9 @@ class _$TaskPreparedImpl extends TaskPrepared {
     return EqualUnmodifiableListView(_definitionGroundings);
   }
 
-  final List<Location>? _locations;
+  final List<AppLocation>? _locations;
   @override
-  List<Location>? get locations {
+  List<AppLocation>? get locations {
     final value = _locations;
     if (value == null) return null;
     if (_locations is EqualUnmodifiableListView) return _locations;
@@ -609,7 +609,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
             String topic,
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
-            List<Location>? locations,
+            List<AppLocation>? locations,
             String? locationsAITextResponse,
             List<GroundingData>? locationsGroundings,
             @NullableTimestampConverter() DateTime? preparedDateTime,
@@ -669,7 +669,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
             String topic,
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
-            List<Location>? locations,
+            List<AppLocation>? locations,
             String? locationsAITextResponse,
             List<GroundingData>? locationsGroundings,
             @NullableTimestampConverter() DateTime? preparedDateTime,
@@ -729,7 +729,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
             String topic,
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
-            List<Location>? locations,
+            List<AppLocation>? locations,
             String? locationsAITextResponse,
             List<GroundingData>? locationsGroundings,
             @NullableTimestampConverter() DateTime? preparedDateTime,
@@ -830,7 +830,7 @@ abstract class TaskPrepared extends Task {
       required final String topic,
       required final String definitionAITextResponse,
       required final List<GroundingData> definitionGroundings,
-      final List<Location>? locations,
+      final List<AppLocation>? locations,
       final String? locationsAITextResponse,
       final List<GroundingData>? locationsGroundings,
       @NullableTimestampConverter() required final DateTime? preparedDateTime,
@@ -861,7 +861,7 @@ abstract class TaskPrepared extends Task {
   String get definitionAITextResponse;
   @override
   List<GroundingData> get definitionGroundings;
-  List<Location>? get locations;
+  List<AppLocation>? get locations;
   String? get locationsAITextResponse;
   List<GroundingData>? get locationsGroundings;
   @NullableTimestampConverter()
@@ -1129,7 +1129,7 @@ class _$TaskPreparingImpl extends TaskPreparing {
             String topic,
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
-            List<Location>? locations,
+            List<AppLocation>? locations,
             String? locationsAITextResponse,
             List<GroundingData>? locationsGroundings,
             @NullableTimestampConverter() DateTime? preparedDateTime,
@@ -1172,7 +1172,7 @@ class _$TaskPreparingImpl extends TaskPreparing {
             String topic,
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
-            List<Location>? locations,
+            List<AppLocation>? locations,
             String? locationsAITextResponse,
             List<GroundingData>? locationsGroundings,
             @NullableTimestampConverter() DateTime? preparedDateTime,
@@ -1215,7 +1215,7 @@ class _$TaskPreparingImpl extends TaskPreparing {
             String topic,
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
-            List<Location>? locations,
+            List<AppLocation>? locations,
             String? locationsAITextResponse,
             List<GroundingData>? locationsGroundings,
             @NullableTimestampConverter() DateTime? preparedDateTime,

@@ -26,7 +26,7 @@ mixin _$Todo {
   String? get supplement => throw _privateConstructorUsedError;
   String? get aiTextResponseMarkdown => throw _privateConstructorUsedError;
   List<GroundingData>? get groundings => throw _privateConstructorUsedError;
-  List<Location>? get locations => throw _privateConstructorUsedError;
+  List<AppLocation>? get locations => throw _privateConstructorUsedError;
   String? get locationsAITextResponse => throw _privateConstructorUsedError;
   List<GroundingData>? get locationsGroundings => throw _privateConstructorUsedError;
   @NullableTimestampConverter()
@@ -60,7 +60,7 @@ abstract class $TodoCopyWith<$Res> {
       String? supplement,
       String? aiTextResponseMarkdown,
       List<GroundingData>? groundings,
-      List<Location>? locations,
+      List<AppLocation>? locations,
       String? locationsAITextResponse,
       List<GroundingData>? locationsGroundings,
       @NullableTimestampConverter() DateTime? completedDateTime,
@@ -127,7 +127,7 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
       locations: freezed == locations
           ? _value.locations
           : locations // ignore: cast_nullable_to_non_nullable
-              as List<Location>?,
+              as List<AppLocation>?,
       locationsAITextResponse: freezed == locationsAITextResponse
           ? _value.locationsAITextResponse
           : locationsAITextResponse // ignore: cast_nullable_to_non_nullable
@@ -172,7 +172,7 @@ abstract class _$$TodoImplCopyWith<$Res> implements $TodoCopyWith<$Res> {
       String? supplement,
       String? aiTextResponseMarkdown,
       List<GroundingData>? groundings,
-      List<Location>? locations,
+      List<AppLocation>? locations,
       String? locationsAITextResponse,
       List<GroundingData>? locationsGroundings,
       @NullableTimestampConverter() DateTime? completedDateTime,
@@ -234,7 +234,7 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
       locations: freezed == locations
           ? _value._locations
           : locations // ignore: cast_nullable_to_non_nullable
-              as List<Location>?,
+              as List<AppLocation>?,
       locationsAITextResponse: freezed == locationsAITextResponse
           ? _value.locationsAITextResponse
           : locationsAITextResponse // ignore: cast_nullable_to_non_nullable
@@ -278,7 +278,7 @@ class _$TodoImpl extends _Todo {
       required this.supplement,
       required this.aiTextResponseMarkdown,
       required final List<GroundingData>? groundings,
-      final List<Location>? locations,
+      final List<AppLocation>? locations,
       this.locationsAITextResponse,
       final List<GroundingData>? locationsGroundings,
       @NullableTimestampConverter() this.completedDateTime,
@@ -313,9 +313,9 @@ class _$TodoImpl extends _Todo {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<Location>? _locations;
+  final List<AppLocation>? _locations;
   @override
-  List<Location>? get locations {
+  List<AppLocation>? get locations {
     final value = _locations;
     if (value == null) return null;
     if (_locations is EqualUnmodifiableListView) return _locations;
@@ -419,7 +419,7 @@ abstract class _Todo extends Todo {
       required final String? supplement,
       required final String? aiTextResponseMarkdown,
       required final List<GroundingData>? groundings,
-      final List<Location>? locations,
+      final List<AppLocation>? locations,
       final String? locationsAITextResponse,
       final List<GroundingData>? locationsGroundings,
       @NullableTimestampConverter() final DateTime? completedDateTime,
@@ -444,7 +444,7 @@ abstract class _Todo extends Todo {
   @override
   List<GroundingData>? get groundings;
   @override
-  List<Location>? get locations;
+  List<AppLocation>? get locations;
   @override
   String? get locationsAITextResponse;
   @override

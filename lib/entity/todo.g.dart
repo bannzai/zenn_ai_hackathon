@@ -13,7 +13,7 @@ _$TodoImpl _$$TodoImplFromJson(Map<String, dynamic> json) => _$TodoImpl(
       supplement: json['supplement'] as String?,
       aiTextResponseMarkdown: json['aiTextResponseMarkdown'] as String?,
       groundings: (json['groundings'] as List<dynamic>?)?.map((e) => GroundingData.fromJson(e as Map<String, dynamic>)).toList(),
-      locations: (json['locations'] as List<dynamic>?)?.map((e) => Location.fromJson(e as Map<String, dynamic>)).toList(),
+      locations: (json['locations'] as List<dynamic>?)?.map((e) => AppLocation.fromJson(e as Map<String, dynamic>)).toList(),
       locationsAITextResponse: json['locationsAITextResponse'] as String?,
       locationsGroundings: (json['locationsGroundings'] as List<dynamic>?)?.map((e) => GroundingData.fromJson(e as Map<String, dynamic>)).toList(),
       completedDateTime: const NullableTimestampConverter().fromJson(json['completedDateTime'] as Timestamp?),

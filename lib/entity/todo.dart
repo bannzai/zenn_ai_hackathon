@@ -18,7 +18,7 @@ class Todo with _$Todo {
     required String? supplement,
     required String? aiTextResponseMarkdown,
     required List<GroundingData>? groundings,
-    List<Location>? locations,
+    List<AppLocation>? locations,
     String? locationsAITextResponse,
     List<GroundingData>? locationsGroundings,
     @NullableTimestampConverter() DateTime? completedDateTime,

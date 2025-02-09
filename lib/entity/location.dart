@@ -7,18 +7,18 @@ part 'location.g.dart';
 part 'location.freezed.dart';
 
 @freezed
-class Location with _$Location {
-  const Location._();
+class AppLocation with _$AppLocation {
+  const AppLocation._();
   @JsonSerializable(explicitToJson: true)
-  const factory Location({
+  const factory AppLocation({
     required String name,
     required String? postalCode,
     required String? address,
     required String? tel,
     required String? email,
-  }) = _Location;
+  }) = _AppLocation;
 
-  factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
+  factory AppLocation.fromJson(Map<String, dynamic> json) => _$AppLocationFromJson(json);
 }
 
 /*

@@ -22,7 +22,7 @@ sealed class Task with _$Task {
     required String topic,
     required String definitionAITextResponse,
     required List<GroundingData> definitionGroundings,
-    List<Location>? locations,
+    List<AppLocation>? locations,
     String? locationsAITextResponse,
     List<GroundingData>? locationsGroundings,
     @NullableTimestampConverter() required DateTime? preparedDateTime,

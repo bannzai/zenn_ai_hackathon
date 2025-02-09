@@ -14,44 +14,44 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Location _$LocationFromJson(Map<String, dynamic> json) {
-  return _Location.fromJson(json);
+AppLocation _$AppLocationFromJson(Map<String, dynamic> json) {
+  return _AppLocation.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Location {
+mixin _$AppLocation {
   String get name => throw _privateConstructorUsedError;
   String? get postalCode => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
   String? get tel => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
 
-  /// Serializes this Location to a JSON map.
+  /// Serializes this AppLocation to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of Location
+  /// Create a copy of AppLocation
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $LocationCopyWith<Location> get copyWith => throw _privateConstructorUsedError;
+  $AppLocationCopyWith<AppLocation> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LocationCopyWith<$Res> {
-  factory $LocationCopyWith(Location value, $Res Function(Location) then) = _$LocationCopyWithImpl<$Res, Location>;
+abstract class $AppLocationCopyWith<$Res> {
+  factory $AppLocationCopyWith(AppLocation value, $Res Function(AppLocation) then) = _$AppLocationCopyWithImpl<$Res, AppLocation>;
   @useResult
   $Res call({String name, String? postalCode, String? address, String? tel, String? email});
 }
 
 /// @nodoc
-class _$LocationCopyWithImpl<$Res, $Val extends Location> implements $LocationCopyWith<$Res> {
-  _$LocationCopyWithImpl(this._value, this._then);
+class _$AppLocationCopyWithImpl<$Res, $Val extends AppLocation> implements $AppLocationCopyWith<$Res> {
+  _$AppLocationCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of Location
+  /// Create a copy of AppLocation
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -88,18 +88,18 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location> implements $LocationCo
 }
 
 /// @nodoc
-abstract class _$$LocationImplCopyWith<$Res> implements $LocationCopyWith<$Res> {
-  factory _$$LocationImplCopyWith(_$LocationImpl value, $Res Function(_$LocationImpl) then) = __$$LocationImplCopyWithImpl<$Res>;
+abstract class _$$AppLocationImplCopyWith<$Res> implements $AppLocationCopyWith<$Res> {
+  factory _$$AppLocationImplCopyWith(_$AppLocationImpl value, $Res Function(_$AppLocationImpl) then) = __$$AppLocationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String? postalCode, String? address, String? tel, String? email});
 }
 
 /// @nodoc
-class __$$LocationImplCopyWithImpl<$Res> extends _$LocationCopyWithImpl<$Res, _$LocationImpl> implements _$$LocationImplCopyWith<$Res> {
-  __$$LocationImplCopyWithImpl(_$LocationImpl _value, $Res Function(_$LocationImpl) _then) : super(_value, _then);
+class __$$AppLocationImplCopyWithImpl<$Res> extends _$AppLocationCopyWithImpl<$Res, _$AppLocationImpl> implements _$$AppLocationImplCopyWith<$Res> {
+  __$$AppLocationImplCopyWithImpl(_$AppLocationImpl _value, $Res Function(_$AppLocationImpl) _then) : super(_value, _then);
 
-  /// Create a copy of Location
+  /// Create a copy of AppLocation
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -110,7 +110,7 @@ class __$$LocationImplCopyWithImpl<$Res> extends _$LocationCopyWithImpl<$Res, _$
     Object? tel = freezed,
     Object? email = freezed,
   }) {
-    return _then(_$LocationImpl(
+    return _then(_$AppLocationImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -138,10 +138,10 @@ class __$$LocationImplCopyWithImpl<$Res> extends _$LocationCopyWithImpl<$Res, _$
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$LocationImpl extends _Location {
-  const _$LocationImpl({required this.name, required this.postalCode, required this.address, required this.tel, required this.email}) : super._();
+class _$AppLocationImpl extends _AppLocation {
+  const _$AppLocationImpl({required this.name, required this.postalCode, required this.address, required this.tel, required this.email}) : super._();
 
-  factory _$LocationImpl.fromJson(Map<String, dynamic> json) => _$$LocationImplFromJson(json);
+  factory _$AppLocationImpl.fromJson(Map<String, dynamic> json) => _$$AppLocationImplFromJson(json);
 
   @override
   final String name;
@@ -156,14 +156,14 @@ class _$LocationImpl extends _Location {
 
   @override
   String toString() {
-    return 'Location(name: $name, postalCode: $postalCode, address: $address, tel: $tel, email: $email)';
+    return 'AppLocation(name: $name, postalCode: $postalCode, address: $address, tel: $tel, email: $email)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LocationImpl &&
+            other is _$AppLocationImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.postalCode, postalCode) || other.postalCode == postalCode) &&
             (identical(other.address, address) || other.address == address) &&
@@ -175,31 +175,31 @@ class _$LocationImpl extends _Location {
   @override
   int get hashCode => Object.hash(runtimeType, name, postalCode, address, tel, email);
 
-  /// Create a copy of Location
+  /// Create a copy of AppLocation
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$LocationImplCopyWith<_$LocationImpl> get copyWith => __$$LocationImplCopyWithImpl<_$LocationImpl>(this, _$identity);
+  _$$AppLocationImplCopyWith<_$AppLocationImpl> get copyWith => __$$AppLocationImplCopyWithImpl<_$AppLocationImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LocationImplToJson(
+    return _$$AppLocationImplToJson(
       this,
     );
   }
 }
 
-abstract class _Location extends Location {
-  const factory _Location(
+abstract class _AppLocation extends AppLocation {
+  const factory _AppLocation(
       {required final String name,
       required final String? postalCode,
       required final String? address,
       required final String? tel,
-      required final String? email}) = _$LocationImpl;
-  const _Location._() : super._();
+      required final String? email}) = _$AppLocationImpl;
+  const _AppLocation._() : super._();
 
-  factory _Location.fromJson(Map<String, dynamic> json) = _$LocationImpl.fromJson;
+  factory _AppLocation.fromJson(Map<String, dynamic> json) = _$AppLocationImpl.fromJson;
 
   @override
   String get name;
@@ -212,9 +212,9 @@ abstract class _Location extends Location {
   @override
   String? get email;
 
-  /// Create a copy of Location
+  /// Create a copy of AppLocation
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LocationImplCopyWith<_$LocationImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$AppLocationImplCopyWith<_$AppLocationImpl> get copyWith => throw _privateConstructorUsedError;
 }
