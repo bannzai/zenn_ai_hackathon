@@ -72,9 +72,9 @@ class TasksPageBodyEmpty extends HookConsumerWidget {
       child: BotChat(
         messages: [
           'こんにちは',
-          'TODOMakerアシスタントです',
-          'やることを自動でまとめてくれるよ',
-          '右下の + ボタンから聞いてね',
+          'TODOMakerです',
+          '行動の手順を作成します',
+          '右下の 🤖 ボタンから質問してね',
           '例えば「確定申告の方法」',
           '「結婚の手続き」などなど',
         ],
