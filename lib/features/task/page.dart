@@ -7,7 +7,9 @@ import 'package:todomaker/components/loading/bot.dart';
 import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/components/todo/list.dart';
 import 'package:todomaker/entity/task.dart';
+import 'package:todomaker/features/task/components/location.dart';
 import 'package:todomaker/provider/task.dart';
+import 'package:todomaker/provider/todo.dart';
 import 'package:todomaker/style/color.dart';
 
 class TaskPage extends HookConsumerWidget {
@@ -37,6 +39,8 @@ class TaskPageBody extends HookConsumerWidget {
     final taskRevertComplete = ref.watch(taskRevertCompleteProvider);
 
     final completed = useState(task.completedDateTime != null);
+
+    final todos = ref.watch(todosProvider(taskID: task.id)).asData?.value ?? [];
 
     return Scaffold(
       appBar: AppBar(
@@ -94,6 +98,8 @@ class TaskPageBody extends HookConsumerWidget {
                   const SizedBox(height: 20),
                   TasksTodoList(task: task),
                   const SizedBox(height: 20),
+                  const Divider(height: 1, color: Colors.black),
+                  TaskLocation(task: task, todos: todos),
                   const Divider(height: 1, color: Colors.black),
                   const SizedBox(height: 16),
                   GroundingDataList(groundings: todosGroundings),

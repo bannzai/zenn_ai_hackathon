@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:todomaker/components/error/error_alert.dart';
-import 'package:todomaker/utils/functions/firebase_functions.dart';
+import 'package:todomaker/entity/location_form.dart';
 
 class LocationForm extends HookWidget {
   final Future<void> Function(LocationFormInfo) onSubmit;
@@ -31,7 +31,7 @@ class LocationForm extends HookWidget {
       title: const Column(
         children: [
           Text('🤖'),
-          Text('AIに会場を質問する'),
+          Text('関連する位置情報・会場・場所をAIに聞く'),
         ],
       ),
       content: Column(
@@ -58,7 +58,9 @@ class LocationForm extends HookWidget {
                     onFieldSubmitted: (value) async {
                       focusNode.unfocus();
 
-                      List<Location> locations = await locationFromAddress(value);
+                      debugPrint('value: $value');
+
+                      final List<Location> locations = await locationFromAddress(value);
                       final firstLocation = locations.firstOrNull;
                       if (firstLocation != null) {
                         final placemarks = await placemarkFromCoordinates(firstLocation.latitude, firstLocation.longitude);
@@ -114,7 +116,7 @@ class LocationForm extends HookWidget {
                   await onSubmit(LocationFormInfo(name: name, latitude: latitude, longitude: longitude));
                 }
               : null,
-          child: const Text('予定を組む'),
+          child: const Text('実行する'),
         ),
         TextButton(
           onPressed: () {
