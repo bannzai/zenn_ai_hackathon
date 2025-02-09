@@ -110,10 +110,7 @@ class TaskPageBody extends HookConsumerWidget {
                   const Divider(height: 1, color: Colors.black),
                   Stack(
                     children: [
-                      Container(
-                        constraints: BoxConstraints(minHeight: 200),
-                        child: TaskLocation(task: task, todos: todos),
-                      ),
+                      TaskLocation(task: task, todos: todos),
                       if (task.userLocation != null && task.locations == null) ...[
                         BotLoading(
                             messages: const ['情報を取得中...', '少し待ってね😘', '丁寧にWebから情報を収集中🦾'],

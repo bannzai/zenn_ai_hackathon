@@ -27,17 +27,21 @@ class TaskLocation extends StatelessWidget {
               return TaskLocationAskAI(task: task);
             }
 
-            return Column(
-              children: [
-                TaskLocationAskAI(task: task),
-                for (final location in locations) ...[
-                  TaskLocationItem(
-                    task: task,
-                    location: location,
-                    locationGroundings: locationGroundings ?? [],
-                  ),
+            // NOTE: FIXME: loading/bot の表示のために領域確保している
+            return Container(
+              constraints: const BoxConstraints(minHeight: 200),
+              child: Column(
+                children: [
+                  TaskLocationAskAI(task: task),
+                  for (final location in locations) ...[
+                    TaskLocationItem(
+                      task: task,
+                      location: location,
+                      locationGroundings: locationGroundings ?? [],
+                    ),
+                  ],
                 ],
-              ],
+              ),
             );
           }),
         ],
