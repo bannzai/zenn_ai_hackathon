@@ -17,10 +17,9 @@ Stream<List<Task>> tasks(TasksRef ref) {
 }
 
 @Riverpod(dependencies: [userDatabase])
-Future<Task> task(TaskRef ref, {required String taskID}) async {
+Stream<Task> task(TaskRef ref, {required String taskID}) {
   final database = ref.watch(userDatabaseProvider);
-  final task = await database.taskReference(taskID: taskID).get();
-  return task.data()!;
+  return database.taskReference(taskID: taskID).snapshots().map((event) => event.data()!);
 }
 
 class TaskCreate {

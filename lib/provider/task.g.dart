@@ -19,7 +19,7 @@ final tasksProvider = AutoDisposeStreamProvider<List<Task>>.internal(
 );
 
 typedef TasksRef = AutoDisposeStreamProviderRef<List<Task>>;
-String _$taskHash() => r'd955741c78919c8e67ee9c86514f6a93ea19bf1a';
+String _$taskHash() => r'839609bce83ce7ea21ebe37ceb23335c950c7aad';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -87,7 +87,7 @@ class TaskFamily extends Family<AsyncValue<Task>> {
 }
 
 /// See also [task].
-class TaskProvider extends AutoDisposeFutureProvider<Task> {
+class TaskProvider extends AutoDisposeStreamProvider<Task> {
   /// See also [task].
   TaskProvider({
     required String taskID,
@@ -118,7 +118,7 @@ class TaskProvider extends AutoDisposeFutureProvider<Task> {
 
   @override
   Override overrideWith(
-    FutureOr<Task> Function(TaskRef provider) create,
+    Stream<Task> Function(TaskRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -135,7 +135,7 @@ class TaskProvider extends AutoDisposeFutureProvider<Task> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<Task> createElement() {
+  AutoDisposeStreamProviderElement<Task> createElement() {
     return _TaskProviderElement(this);
   }
 
@@ -153,12 +153,12 @@ class TaskProvider extends AutoDisposeFutureProvider<Task> {
   }
 }
 
-mixin TaskRef on AutoDisposeFutureProviderRef<Task> {
+mixin TaskRef on AutoDisposeStreamProviderRef<Task> {
   /// The parameter `taskID` of this provider.
   String get taskID;
 }
 
-class _TaskProviderElement extends AutoDisposeFutureProviderElement<Task> with TaskRef {
+class _TaskProviderElement extends AutoDisposeStreamProviderElement<Task> with TaskRef {
   _TaskProviderElement(super.provider);
 
   @override
