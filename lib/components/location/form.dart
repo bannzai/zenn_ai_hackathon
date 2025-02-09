@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:todomaker/components/error/error_alert.dart';
+import 'package:todomaker/components/loading/loading.dart';
 import 'package:todomaker/entity/location_form.dart';
 
 class LocationForm extends HookWidget {
@@ -13,6 +14,7 @@ class LocationForm extends HookWidget {
   Widget build(BuildContext context) {
     final text = useState('');
     final focusNode = useFocusNode();
+    final submitting = useState(false);
 
     return AlertDialog(
       title: const Column(
@@ -88,43 +90,49 @@ class LocationForm extends HookWidget {
         ],
       ),
       actions: [
-        TextButton(
-          onPressed: text.value.isEmpty
-              ? () async {
-                  try {
-                    final List<Location> locations = await locationFromAddress(text.value);
-                    final firstLocation = locations.firstOrNull;
-                    final Placemark? firstPlacemark;
-                    if (firstLocation != null) {
-                      final placemarks = await placemarkFromCoordinates(firstLocation.latitude, firstLocation.longitude);
-                      firstPlacemark = placemarks.firstOrNull;
-                    } else {
-                      firstPlacemark = null;
-                    }
-                    if (firstPlacemark == null) {
-                      throw const FormatException('位置情報が取得できませんでした。入力した住所をご確認ください');
-                    }
+        Loading(
+          isLoading: submitting.value,
+          child: TextButton(
+            onPressed: text.value.isNotEmpty && !submitting.value
+                ? () async {
+                    submitting.value = true;
+                    try {
+                      final List<Location> locations = await locationFromAddress(text.value);
+                      final firstLocation = locations.firstOrNull;
+                      final Placemark? firstPlacemark;
+                      if (firstLocation != null) {
+                        final placemarks = await placemarkFromCoordinates(firstLocation.latitude, firstLocation.longitude);
+                        firstPlacemark = placemarks.firstOrNull;
+                      } else {
+                        firstPlacemark = null;
+                      }
+                      if (firstPlacemark == null) {
+                        throw const FormatException('位置情報が取得できませんでした。入力した住所をご確認ください');
+                      }
 
-                    final placeMarkDisplayName = firstPlacemark.name ??
-                        firstPlacemark.locality ??
-                        firstPlacemark.subLocality ??
-                        firstPlacemark.thoroughfare ??
-                        firstPlacemark.subThoroughfare ??
-                        firstPlacemark.postalCode;
+                      final placeMarkDisplayName = firstPlacemark.name ??
+                          firstPlacemark.locality ??
+                          firstPlacemark.subLocality ??
+                          firstPlacemark.thoroughfare ??
+                          firstPlacemark.subThoroughfare ??
+                          firstPlacemark.postalCode;
 
-                    final name = placeMarkDisplayName ?? '';
-                    final latitude = firstLocation?.latitude;
-                    final longitude = firstLocation?.longitude;
+                      final name = placeMarkDisplayName ?? '';
+                      final latitude = firstLocation?.latitude;
+                      final longitude = firstLocation?.longitude;
 
-                    await onSubmit(LocationFormInfo(name: name, latitude: latitude, longitude: longitude));
-                  } catch (e) {
-                    if (context.mounted) {
-                      showErrorAlert(context, e.toString());
+                      await onSubmit(LocationFormInfo(name: name, latitude: latitude, longitude: longitude));
+                    } catch (e) {
+                      if (context.mounted) {
+                        showErrorAlert(context, e.toString());
+                      }
+                    } finally {
+                      submitting.value = false;
                     }
                   }
-                }
-              : null,
-          child: const Text('実行する'),
+                : null,
+            child: const Text('実行する'),
+          ),
         ),
         TextButton(
           onPressed: () {

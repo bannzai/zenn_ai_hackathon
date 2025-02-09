@@ -39,7 +39,7 @@ extension FirebaseFunctionsExt on FirebaseFunctions {
     required String taskID,
     required LocationFormInfo userLocation,
   }) async {
-    final result = await httpsCallable('fillLocation').call(
+    final result = await httpsCallable('enqueueFillLocation').call(
       {
         'taskID': taskID,
         'userLocation': userLocation.toJson(),
@@ -50,7 +50,7 @@ extension FirebaseFunctionsExt on FirebaseFunctions {
     );
     // resultはGenKitのレスポンス構造
     final response = mapToJSON(result.data)['result'];
-    debugPrint('fillLocation response: ${response.toString()}');
+    debugPrint('enqueueFillLocation response: ${response.toString()}');
 
     if (response['result'] != 'OK') {
       throw Exception(response['error']['message']);

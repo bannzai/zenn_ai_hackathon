@@ -11,10 +11,15 @@ class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      alignment: Alignment.center,
       children: [
         child,
         if (isLoading) ...[
-          const Indicator(),
+          const SizedBox(
+            width: 20,
+            height: 20,
+            child: Indicator(),
+          ),
         ],
       ],
     );
