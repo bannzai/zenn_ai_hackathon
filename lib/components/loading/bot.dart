@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 class BotLoading extends StatelessWidget {
   final List<String> messages;
+  final VoidCallback onStop;
 
-  const BotLoading({super.key, required this.messages});
+  const BotLoading({super.key, required this.messages, required this.onStop});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,26 @@ class BotLoading extends StatelessWidget {
           color: Colors.white.withOpacity(0.78),
         ),
         child: Center(
-          child: BotChat(messages: messages),
+          child: Column(
+            children: [
+              BotChat(messages: messages),
+              const Text('※ 時間がかかり過ぎているようであれば、一度停止して再度実行してください。'),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    onStop();
+                  },
+                  child: const Row(
+                    children: [
+                      Icon(Icons.stop),
+                      Text('停止'),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

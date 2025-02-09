@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/loading/bot.dart';
 import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/components/todo/list.dart';
 import 'package:todomaker/entity/task.dart';
+import 'package:todomaker/features/root/resolver/database.dart';
 import 'package:todomaker/features/task/page.dart';
 import 'package:todomaker/style/color.dart';
 
-class TasksPageSection extends StatelessWidget {
+class TasksPageSection extends HookConsumerWidget {
   final Task task;
   const TasksPageSection({super.key, required this.task});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final task = this.task;
     final primaryColor = Theme.of(context).colorScheme.primary;
 
@@ -96,7 +98,13 @@ class TasksPageSection extends StatelessWidget {
           ),
         ),
         if (task is TaskPreparing) ...[
-          const BotLoading(messages: ['準備中...', 'ちょっと待っててね😘', '手順が多いと数分かかることがあるよ🏎️', '丁寧にWebから情報を集めてるよ🦾']),
+          BotLoading(
+            messages: const ['準備中...', 'ちょっと待っててね😘', '手順が多いと数分かかることがあるよ🏎️', '丁寧にWebから情報を集めてるよ🦾'],
+            onStop: () {
+              // TODO: Retry or エラーハンドリングの仕組みをちゃんと作る。ハッカソンだからとりあえず動くコードにしている
+              ref.read(userDatabaseProvider).taskReference(taskID: task.id).delete();
+            },
+          ),
         ],
       ],
     );

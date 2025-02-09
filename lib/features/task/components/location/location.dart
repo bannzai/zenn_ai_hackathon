@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:todomaker/components/loading/bot.dart';
 import 'package:todomaker/entity/grounding_data.dart';
 import 'package:todomaker/entity/location.dart';
 import 'package:todomaker/entity/task.dart';
@@ -10,7 +8,7 @@ import 'package:todomaker/style/color.dart';
 import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class TaskLocation extends HookWidget {
+class TaskLocation extends StatelessWidget {
   final TaskPrepared task;
   final List<Todo> todos;
   const TaskLocation({super.key, required this.task, required this.todos});
@@ -42,7 +40,6 @@ class TaskLocation extends HookWidget {
               ],
             );
           }),
-          if (false) const BotLoading(messages: ['位置情報を取得中...', '少し待ってね😘', '丁寧にWebから情報を集めてるよ🦾']),
         ],
       ),
     );
@@ -158,8 +155,10 @@ class TaskLocationItem extends StatelessWidget {
 
   Future<void> _openMap({required String nameOrAddress}) async {
     // FIXME: xxxlaunchUrl 系統でおそらくencodeされているが、その関係でうまくいかないので旧メソッドを使っている
-    final url = 'https://www.google.com/maps/search/?api=1&query=${nameOrAddress}';
+    final url = 'https://www.google.com/maps/search/?api=1&query=$nameOrAddress';
+    // ignore: deprecated_member_use
     if (await canLaunch(url)) {
+      // ignore: deprecated_member_use
       await launch(url, forceSafariVC: false);
     } else {
       final Error error = ArgumentError('Could not launch $url');

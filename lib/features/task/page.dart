@@ -8,6 +8,7 @@ import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/todo/list.dart';
 import 'package:todomaker/entity/task.dart';
+import 'package:todomaker/features/root/resolver/database.dart';
 import 'package:todomaker/features/task/components/location/location.dart';
 import 'package:todomaker/provider/task.dart';
 import 'package:todomaker/provider/todo.dart';
@@ -24,17 +25,18 @@ class TaskPage extends HookConsumerWidget {
       return const IndicatorPage();
     }
     // FIXME: そのうち.whenとか使う
-    return TaskPageBody(task: task as TaskPrepared);
+    return TaskPageBody(taskID: task.id);
   }
 }
 
 class TaskPageBody extends HookConsumerWidget {
-  final TaskPrepared task;
-  const TaskPageBody({super.key, required this.task});
+  final String taskID;
+  const TaskPageBody({super.key, required this.taskID});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final task = ref.watch(taskProvider(taskID: this.task.id)).requireValue as TaskPrepared;
+    final task = ref.watch(taskProvider(taskID: taskID)).requireValue as TaskPrepared;
+
     final primaryColor = Theme.of(context).colorScheme.primary;
 
     final topic = task.topic;
@@ -110,7 +112,14 @@ class TaskPageBody extends HookConsumerWidget {
                     children: [
                       TaskLocation(task: task, todos: todos),
                       if (task.userLocation != null && task.locations == null) ...[
-                        const BotLoading(messages: ['位置情報を取得中...', '少し待ってね😘', '丁寧にWebから情報を集めてるよ🦾']),
+                        BotLoading(
+                            messages: const ['位置情報を取得中...', '少し待ってね😘', '丁寧にWebから情報を集めてるよ🦾'],
+                            onStop: () {
+                              // TODO: Retry or エラーハンドリングの仕組みをちゃんと作る。ハッカソンだからとりあえず動くコードにしている
+                              ref.read(userDatabaseProvider).taskReference(taskID: taskID).update({
+                                'userLocation': null,
+                              });
+                            }),
                       ],
                     ],
                   ),
@@ -121,7 +130,13 @@ class TaskPageBody extends HookConsumerWidget {
               ),
             ),
             if (task is TaskPreparing) ...[
-              const BotLoading(messages: ['準備中...', 'ちょっと待っててね😘', '手順が多いと数分かかることがあるよ🏎️', '丁寧にWebから情報を集めてるよ🦾']),
+              BotLoading(
+                messages: const ['準備中...', 'ちょっと待っててね😘', '手順が多いと数分かかることがあるよ🏎️', '丁寧にWebから情報を集めてるよ🦾'],
+                onStop: () {
+                  // TODO: Retry or エラーハンドリングの仕組みをちゃんと作る。ハッカソンだからとりあえず動くコードにしている
+                  ref.read(userDatabaseProvider).taskReference(taskID: taskID).delete();
+                },
+              ),
             ],
           ],
         ),
