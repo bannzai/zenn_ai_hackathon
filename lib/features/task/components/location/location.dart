@@ -1,13 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:todomaker/components/loading/bot.dart';
+import 'package:todomaker/entity/grounding_data.dart';
 import 'package:todomaker/entity/location.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/features/task/components/location/ask.dart';
 import 'package:todomaker/style/color.dart';
+import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TaskLocation extends HookWidget {
@@ -18,6 +18,7 @@ class TaskLocation extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final locations = task.locations;
+    final locationGroundings = task.locationsGroundings;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
@@ -32,7 +33,11 @@ class TaskLocation extends HookWidget {
               children: [
                 TaskLocationAskAI(task: task),
                 for (final location in locations) ...[
-                  TaskLocationItem(task: task, location: location),
+                  TaskLocationItem(
+                    task: task,
+                    location: location,
+                    locationGroundings: locationGroundings ?? [],
+                  ),
                 ],
               ],
             );
@@ -47,10 +52,13 @@ class TaskLocation extends HookWidget {
 class TaskLocationItem extends StatelessWidget {
   final TaskPrepared task;
   final AppLocation location;
+  final List<GroundingData> locationGroundings;
+
   const TaskLocationItem({
     super.key,
     required this.task,
     required this.location,
+    required this.locationGroundings,
   });
 
   @override
@@ -114,6 +122,33 @@ class TaskLocationItem extends StatelessWidget {
                       fontSize: 14,
                     )),
               ),
+            ],
+          ),
+        ],
+        if (locationGroundings.isNotEmpty) ...[
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('参考URL', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                  for (final grounding in locationGroundings) ...[
+                    Link(
+                        uri: Uri.parse(grounding.url!),
+                        builder: (BuildContext ctx, FollowLink? openLink) {
+                          return GestureDetector(
+                            onTap: openLink,
+                            child: Text(
+                              grounding.title ?? '',
+                              style: const TextStyle(fontSize: 14, color: TextColor.link),
+                            ),
+                          );
+                        }),
+                  ],
+                ],
+              ),
+              const Spacer(),
             ],
           ),
         ],
