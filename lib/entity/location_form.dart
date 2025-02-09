@@ -1,8 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:todomaker/entity/grounding_data.dart';
-import 'package:todomaker/entity/location.dart';
-import 'package:todomaker/entity/timestamp.dart';
 
 part 'location_form.g.dart';
 part 'location_form.freezed.dart';
