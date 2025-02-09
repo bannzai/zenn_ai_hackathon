@@ -11,6 +11,7 @@ class BotLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned.fill(
       child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.78),
         ),

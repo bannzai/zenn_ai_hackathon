@@ -44,7 +44,7 @@ class TaskPageBody extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    debugPrint('TaskPageBody build: ${task.userLocation}');
+    debugPrint('TaskPageBody build: ${task.userLocation}, ${task.locations}');
     final primaryColor = Theme.of(context).colorScheme.primary;
 
     final topic = task.topic;
@@ -58,6 +58,8 @@ class TaskPageBody extends HookConsumerWidget {
     final completed = useState(task.completedDateTime != null);
 
     final todos = ref.watch(todosProvider(taskID: task.id)).asData?.value ?? [];
+
+    final locationProcessingIsRunning = task.locations == null && task.userLocation != null;
 
     return Scaffold(
       appBar: AppBar(
@@ -116,20 +118,23 @@ class TaskPageBody extends HookConsumerWidget {
                   TasksTodoList(task: task),
                   const SizedBox(height: 20),
                   const Divider(height: 1, color: Colors.black),
-                  Stack(
-                    children: [
-                      TaskLocation(task: task, todos: todos),
-                      if (task.userLocation != null && task.locations == null) ...[
-                        BotLoading(
-                            messages: const ['情報を取得中...', '少し待ってね😘', '丁寧にWebから情報を収集中🦾'],
-                            onStop: () {
-                              // TODO: Retry or エラーハンドリングの仕組みをちゃんと作る。ハッカソンだからとりあえず動くコードにしている
-                              ref.read(userDatabaseProvider).taskReference(taskID: task.id).update({
-                                'userLocation': null,
-                              });
-                            }),
+                  Container(
+                    constraints: BoxConstraints(minHeight: locationProcessingIsRunning ? 150 : 100),
+                    child: Stack(
+                      children: [
+                        TaskLocation(task: task, todos: todos),
+                        if (locationProcessingIsRunning) ...[
+                          BotLoading(
+                              messages: const ['情報を取得中...', '少し待ってね😘', '丁寧にWebから情報を収集中🦾'],
+                              onStop: () {
+                                // TODO: Retry or エラーハンドリングの仕組みをちゃんと作る。ハッカソンだからとりあえず動くコードにしている
+                                ref.read(userDatabaseProvider).taskReference(taskID: task.id).update({
+                                  'userLocation': null,
+                                });
+                              }),
+                        ],
                       ],
-                    ],
+                    ),
                   ),
                   const Divider(height: 1, color: Colors.black),
                   const SizedBox(height: 16),
