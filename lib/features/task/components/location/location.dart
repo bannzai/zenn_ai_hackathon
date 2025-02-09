@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:todomaker/components/loading/bot.dart';
@@ -5,6 +7,7 @@ import 'package:todomaker/entity/location.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/features/task/components/location/ask.dart';
+import 'package:todomaker/style/color.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TaskLocation extends HookWidget {
@@ -56,29 +59,77 @@ class TaskLocationItem extends StatelessWidget {
     final postalCode = location.postalCode;
     final tel = location.tel;
     final email = location.email;
+    final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+    final emailIsValid = emailRegex.hasMatch(email ?? '');
     return Column(
       children: [
-        Text(location.name),
+        Row(
+          children: [
+            const Text('🏠 名称:'),
+            GestureDetector(
+              onTap: () => _openMap(nameOrAddress: location.name),
+              child: Text(location.name, style: const TextStyle(fontSize: 14, color: TextColor.link)),
+            ),
+          ],
+        ),
         if (address != null) ...[
-          Text(location.address ?? ''),
+          Row(
+            children: [
+              const Text('📝 住所:'),
+              GestureDetector(
+                onTap: () => _openMap(nameOrAddress: location.address ?? ''),
+                child: Text(address, style: const TextStyle(fontSize: 14, color: TextColor.link)),
+              ),
+            ],
+          ),
         ],
         if (postalCode != null) ...[
-          Text(location.postalCode ?? ''),
+          Row(
+            children: [
+              const Text('📮 郵便番号:'),
+              Text(postalCode),
+            ],
+          ),
         ],
         if (tel != null) ...[
-          TextButton(
-            onPressed: () => _openPhoneApp(tel: tel),
-            child: Text(location.tel ?? ''),
+          Row(
+            children: [
+              const Text('📞 電話番号:'),
+              GestureDetector(
+                onTap: () => _openPhoneApp(tel: tel),
+                child: Text(tel, style: const TextStyle(fontSize: 14, color: TextColor.link)),
+              ),
+            ],
           ),
         ],
         if (email != null) ...[
-          TextButton(
-            onPressed: () => _openMailApp(mailAddress: email),
-            child: Text(location.email ?? ''),
+          Row(
+            children: [
+              const Text('📧 メールアドレス:'),
+              GestureDetector(
+                onTap: () => _openMailApp(mailAddress: email),
+                child: Text(email,
+                    style: TextStyle(
+                      color: emailIsValid ? TextColor.link : TextColor.black,
+                      fontSize: 14,
+                    )),
+              ),
+            ],
           ),
         ],
       ],
     );
+  }
+
+  Future<void> _openMap({required String nameOrAddress}) async {
+    // FIXME: xxxlaunchUrl 系統でおそらくencodeされているが、その関係でうまくいかないので旧メソッドを使っている
+    final url = 'https://www.google.com/maps/search/?api=1&query=${nameOrAddress}';
+    if (await canLaunch(url)) {
+      await launch(url, forceSafariVC: false);
+    } else {
+      final Error error = ArgumentError('Could not launch $url');
+      throw error;
+    }
   }
 
   Future<void> _openPhoneApp({required String tel}) async {
