@@ -26,6 +26,9 @@ mixin _$Todo {
   String? get supplement => throw _privateConstructorUsedError;
   String? get aiTextResponseMarkdown => throw _privateConstructorUsedError;
   List<GroundingData>? get groundings => throw _privateConstructorUsedError;
+  List<Location>? get locations => throw _privateConstructorUsedError;
+  String? get locationsAITextResponse => throw _privateConstructorUsedError;
+  List<GroundingData>? get locationsGroundings => throw _privateConstructorUsedError;
   @NullableTimestampConverter()
   DateTime? get completedDateTime => throw _privateConstructorUsedError;
   @ClientCreatedTimestamp()
@@ -57,6 +60,9 @@ abstract class $TodoCopyWith<$Res> {
       String? supplement,
       String? aiTextResponseMarkdown,
       List<GroundingData>? groundings,
+      List<Location>? locations,
+      String? locationsAITextResponse,
+      List<GroundingData>? locationsGroundings,
       @NullableTimestampConverter() DateTime? completedDateTime,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
@@ -84,6 +90,9 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
     Object? supplement = freezed,
     Object? aiTextResponseMarkdown = freezed,
     Object? groundings = freezed,
+    Object? locations = freezed,
+    Object? locationsAITextResponse = freezed,
+    Object? locationsGroundings = freezed,
     Object? completedDateTime = freezed,
     Object? createdDateTime = freezed,
     Object? updatedDateTime = freezed,
@@ -114,6 +123,18 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
       groundings: freezed == groundings
           ? _value.groundings
           : groundings // ignore: cast_nullable_to_non_nullable
+              as List<GroundingData>?,
+      locations: freezed == locations
+          ? _value.locations
+          : locations // ignore: cast_nullable_to_non_nullable
+              as List<Location>?,
+      locationsAITextResponse: freezed == locationsAITextResponse
+          ? _value.locationsAITextResponse
+          : locationsAITextResponse // ignore: cast_nullable_to_non_nullable
+              as String?,
+      locationsGroundings: freezed == locationsGroundings
+          ? _value.locationsGroundings
+          : locationsGroundings // ignore: cast_nullable_to_non_nullable
               as List<GroundingData>?,
       completedDateTime: freezed == completedDateTime
           ? _value.completedDateTime
@@ -151,6 +172,9 @@ abstract class _$$TodoImplCopyWith<$Res> implements $TodoCopyWith<$Res> {
       String? supplement,
       String? aiTextResponseMarkdown,
       List<GroundingData>? groundings,
+      List<Location>? locations,
+      String? locationsAITextResponse,
+      List<GroundingData>? locationsGroundings,
       @NullableTimestampConverter() DateTime? completedDateTime,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
@@ -173,6 +197,9 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
     Object? supplement = freezed,
     Object? aiTextResponseMarkdown = freezed,
     Object? groundings = freezed,
+    Object? locations = freezed,
+    Object? locationsAITextResponse = freezed,
+    Object? locationsGroundings = freezed,
     Object? completedDateTime = freezed,
     Object? createdDateTime = freezed,
     Object? updatedDateTime = freezed,
@@ -203,6 +230,18 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
       groundings: freezed == groundings
           ? _value._groundings
           : groundings // ignore: cast_nullable_to_non_nullable
+              as List<GroundingData>?,
+      locations: freezed == locations
+          ? _value._locations
+          : locations // ignore: cast_nullable_to_non_nullable
+              as List<Location>?,
+      locationsAITextResponse: freezed == locationsAITextResponse
+          ? _value.locationsAITextResponse
+          : locationsAITextResponse // ignore: cast_nullable_to_non_nullable
+              as String?,
+      locationsGroundings: freezed == locationsGroundings
+          ? _value._locationsGroundings
+          : locationsGroundings // ignore: cast_nullable_to_non_nullable
               as List<GroundingData>?,
       completedDateTime: freezed == completedDateTime
           ? _value.completedDateTime
@@ -239,12 +278,17 @@ class _$TodoImpl extends _Todo {
       required this.supplement,
       required this.aiTextResponseMarkdown,
       required final List<GroundingData>? groundings,
+      final List<Location>? locations,
+      this.locationsAITextResponse,
+      final List<GroundingData>? locationsGroundings,
       @NullableTimestampConverter() this.completedDateTime,
       @ClientCreatedTimestamp() this.createdDateTime,
       @ClientUpdatedTimestamp() this.updatedDateTime,
       @ServerCreatedTimestamp() this.serverCreatedDateTime,
       @ServerUpdatedTimestamp() this.serverUpdatedDateTime})
       : _groundings = groundings,
+        _locations = locations,
+        _locationsGroundings = locationsGroundings,
         super._();
 
   factory _$TodoImpl.fromJson(Map<String, dynamic> json) => _$$TodoImplFromJson(json);
@@ -269,6 +313,28 @@ class _$TodoImpl extends _Todo {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<Location>? _locations;
+  @override
+  List<Location>? get locations {
+    final value = _locations;
+    if (value == null) return null;
+    if (_locations is EqualUnmodifiableListView) return _locations;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final String? locationsAITextResponse;
+  final List<GroundingData>? _locationsGroundings;
+  @override
+  List<GroundingData>? get locationsGroundings {
+    final value = _locationsGroundings;
+    if (value == null) return null;
+    if (_locationsGroundings is EqualUnmodifiableListView) return _locationsGroundings;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   @NullableTimestampConverter()
   final DateTime? completedDateTime;
@@ -287,7 +353,7 @@ class _$TodoImpl extends _Todo {
 
   @override
   String toString() {
-    return 'Todo(id: $id, taskID: $taskID, content: $content, supplement: $supplement, aiTextResponseMarkdown: $aiTextResponseMarkdown, groundings: $groundings, completedDateTime: $completedDateTime, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
+    return 'Todo(id: $id, taskID: $taskID, content: $content, supplement: $supplement, aiTextResponseMarkdown: $aiTextResponseMarkdown, groundings: $groundings, locations: $locations, locationsAITextResponse: $locationsAITextResponse, locationsGroundings: $locationsGroundings, completedDateTime: $completedDateTime, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
   }
 
   @override
@@ -301,6 +367,9 @@ class _$TodoImpl extends _Todo {
             (identical(other.supplement, supplement) || other.supplement == supplement) &&
             (identical(other.aiTextResponseMarkdown, aiTextResponseMarkdown) || other.aiTextResponseMarkdown == aiTextResponseMarkdown) &&
             const DeepCollectionEquality().equals(other._groundings, _groundings) &&
+            const DeepCollectionEquality().equals(other._locations, _locations) &&
+            (identical(other.locationsAITextResponse, locationsAITextResponse) || other.locationsAITextResponse == locationsAITextResponse) &&
+            const DeepCollectionEquality().equals(other._locationsGroundings, _locationsGroundings) &&
             (identical(other.completedDateTime, completedDateTime) || other.completedDateTime == completedDateTime) &&
             (identical(other.createdDateTime, createdDateTime) || other.createdDateTime == createdDateTime) &&
             (identical(other.updatedDateTime, updatedDateTime) || other.updatedDateTime == updatedDateTime) &&
@@ -318,6 +387,9 @@ class _$TodoImpl extends _Todo {
       supplement,
       aiTextResponseMarkdown,
       const DeepCollectionEquality().hash(_groundings),
+      const DeepCollectionEquality().hash(_locations),
+      locationsAITextResponse,
+      const DeepCollectionEquality().hash(_locationsGroundings),
       completedDateTime,
       createdDateTime,
       updatedDateTime,
@@ -347,6 +419,9 @@ abstract class _Todo extends Todo {
       required final String? supplement,
       required final String? aiTextResponseMarkdown,
       required final List<GroundingData>? groundings,
+      final List<Location>? locations,
+      final String? locationsAITextResponse,
+      final List<GroundingData>? locationsGroundings,
       @NullableTimestampConverter() final DateTime? completedDateTime,
       @ClientCreatedTimestamp() final DateTime? createdDateTime,
       @ClientUpdatedTimestamp() final DateTime? updatedDateTime,
@@ -368,6 +443,12 @@ abstract class _Todo extends Todo {
   String? get aiTextResponseMarkdown;
   @override
   List<GroundingData>? get groundings;
+  @override
+  List<Location>? get locations;
+  @override
+  String? get locationsAITextResponse;
+  @override
+  List<GroundingData>? get locationsGroundings;
   @override
   @NullableTimestampConverter()
   DateTime? get completedDateTime;
