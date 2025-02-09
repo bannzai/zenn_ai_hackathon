@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:todomaker/components/location/form.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/utils/functions/firebase_functions.dart';
 
-class TaskLocationAskAI extends StatelessWidget {
+class TaskLocationAskAI extends HookWidget {
   final TaskPrepared task;
   const TaskLocationAskAI({super.key, required this.task});
 

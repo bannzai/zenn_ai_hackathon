@@ -26,9 +26,8 @@ extension FirebaseFunctionsExt on FirebaseFunctions {
         },
       },
     );
-    // resultはGenKitのレスポンス構造
-    final response = mapToJSON(result.data)['result'];
 
+    final response = mapToJSON(result.data);
     if (response['result'] != 'OK') {
       throw Exception(response['error']['message']);
     }
@@ -48,13 +47,13 @@ extension FirebaseFunctionsExt on FirebaseFunctions {
         },
       },
     );
-    // resultはGenKitのレスポンス構造
-    final response = mapToJSON(result.data)['result'];
+    final response = mapToJSON(result.data);
     debugPrint('enqueueFillLocation response: ${response.toString()}');
-
     if (response['result'] != 'OK') {
       throw Exception(response['error']['message']);
     }
+
+    return;
   }
 }
 

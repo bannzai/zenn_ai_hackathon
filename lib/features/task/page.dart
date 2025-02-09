@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/alert/discard.dart';
 import 'package:todomaker/components/loading/bot.dart';
 import 'package:todomaker/components/grounding_data/list.dart';
+import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/todo/list.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/features/task/components/location/location.dart';
@@ -18,7 +19,12 @@ class TaskPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return TaskPageBody(task: task);
+    final task = ref.watch(taskProvider(taskID: this.task.id)).valueOrNull;
+    if (task == null) {
+      return const IndicatorPage();
+    }
+    // FIXME: そのうち.whenとか使う
+    return TaskPageBody(task: task as TaskPrepared);
   }
 }
 
