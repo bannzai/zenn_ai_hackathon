@@ -122,6 +122,9 @@ class LocationForm extends HookWidget {
                       final longitude = firstLocation?.longitude;
 
                       await onSubmit(LocationFormInfo(name: name, latitude: latitude, longitude: longitude));
+                      if (context.mounted) {
+                        Navigator.of(context).pop();
+                      }
                     } catch (e) {
                       if (context.mounted) {
                         showErrorAlert(context, e.toString());
