@@ -11,20 +11,7 @@ class LocationForm extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final geoInfo = useState<(Placemark, Location)?>(null);
-    final geoInfoValue = geoInfo.value;
-
-    final placemarkValue = geoInfoValue?.$1;
     final text = useState('');
-    final placeMarkDisplayName = placemarkValue?.name ??
-        placemarkValue?.locality ??
-        placemarkValue?.subLocality ??
-        placemarkValue?.thoroughfare ??
-        placemarkValue?.subThoroughfare ??
-        placemarkValue?.postalCode;
-    geoInfo.addListener(() {
-      text.value = placeMarkDisplayName ?? '';
-    });
     final focusNode = useFocusNode();
 
     return AlertDialog(
@@ -64,15 +51,6 @@ class LocationForm extends HookWidget {
                       text.value = value;
 
                       debugPrint('value: $value');
-
-                      final List<Location> locations = await locationFromAddress(value);
-                      final firstLocation = locations.firstOrNull;
-                      if (firstLocation != null) {
-                        final placemarks = await placemarkFromCoordinates(firstLocation.latitude, firstLocation.longitude);
-                        if (placemarks.isNotEmpty) {
-                          geoInfo.value = (placemarks.first, firstLocation);
-                        }
-                      }
                     },
                   ),
                 ),
@@ -88,15 +66,13 @@ class LocationForm extends HookWidget {
                       final currentPosition = await Geolocator.getCurrentPosition();
                       final List<Placemark> placemarks = await placemarkFromCoordinates(currentPosition.latitude, currentPosition.longitude);
                       final firstPlacemark = placemarks.firstOrNull;
-                      debugPrint('firstPlacemark: ${firstPlacemark.toString()}');
-                      if (firstPlacemark != null) {
-                        final List<Location> locations = await locationFromAddress(firstPlacemark.name ?? '');
-                        final firstLocation = locations.firstOrNull;
-                        debugPrint('firstLocation: ${firstLocation.toString()}');
-                        if (firstLocation != null) {
-                          geoInfo.value = (firstPlacemark, firstLocation);
-                        }
+                      final name = firstPlacemark?.name ?? '';
+                      if (name.isEmpty) {
+                        debugPrint('firstPlacemark: ${firstPlacemark.toString()}');
+                        throw const FormatException('位置情報が取得できませんでした');
                       }
+
+                      text.value = name;
                     } catch (e) {
                       debugPrint(e.toString());
                       if (context.mounted) {
@@ -113,12 +89,39 @@ class LocationForm extends HookWidget {
       ),
       actions: [
         TextButton(
-          onPressed: geoInfoValue != null
+          onPressed: text.value.isEmpty
               ? () async {
-                  final name = placeMarkDisplayName ?? '';
-                  final latitude = geoInfoValue.$2.latitude;
-                  final longitude = geoInfoValue.$2.longitude;
-                  await onSubmit(LocationFormInfo(name: name, latitude: latitude, longitude: longitude));
+                  try {
+                    final List<Location> locations = await locationFromAddress(text.value);
+                    final firstLocation = locations.firstOrNull;
+                    final Placemark? firstPlacemark;
+                    if (firstLocation != null) {
+                      final placemarks = await placemarkFromCoordinates(firstLocation.latitude, firstLocation.longitude);
+                      firstPlacemark = placemarks.firstOrNull;
+                    } else {
+                      firstPlacemark = null;
+                    }
+                    if (firstPlacemark == null) {
+                      throw const FormatException('位置情報が取得できませんでした。入力した住所をご確認ください');
+                    }
+
+                    final placeMarkDisplayName = firstPlacemark.name ??
+                        firstPlacemark.locality ??
+                        firstPlacemark.subLocality ??
+                        firstPlacemark.thoroughfare ??
+                        firstPlacemark.subThoroughfare ??
+                        firstPlacemark.postalCode;
+
+                    final name = placeMarkDisplayName ?? '';
+                    final latitude = firstLocation?.latitude;
+                    final longitude = firstLocation?.longitude;
+
+                    await onSubmit(LocationFormInfo(name: name, latitude: latitude, longitude: longitude));
+                  } catch (e) {
+                    if (context.mounted) {
+                      showErrorAlert(context, e.toString());
+                    }
+                  }
                 }
               : null,
           child: const Text('実行する'),
