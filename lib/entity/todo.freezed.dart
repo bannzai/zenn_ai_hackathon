@@ -29,6 +29,9 @@ mixin _$Todo {
   List<AppLocation>? get locations => throw _privateConstructorUsedError;
   String? get locationsAITextResponse => throw _privateConstructorUsedError;
   List<GroundingData>? get locationsGroundings => throw _privateConstructorUsedError;
+  int? get timeRequired => throw _privateConstructorUsedError;
+  String? get timeRequiredAITextResponse => throw _privateConstructorUsedError;
+  List<GroundingData>? get timeRequiredGroundings => throw _privateConstructorUsedError;
   @NullableTimestampConverter()
   DateTime? get completedDateTime => throw _privateConstructorUsedError;
   @ClientCreatedTimestamp()
@@ -63,6 +66,9 @@ abstract class $TodoCopyWith<$Res> {
       List<AppLocation>? locations,
       String? locationsAITextResponse,
       List<GroundingData>? locationsGroundings,
+      int? timeRequired,
+      String? timeRequiredAITextResponse,
+      List<GroundingData>? timeRequiredGroundings,
       @NullableTimestampConverter() DateTime? completedDateTime,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
@@ -93,6 +99,9 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
     Object? locations = freezed,
     Object? locationsAITextResponse = freezed,
     Object? locationsGroundings = freezed,
+    Object? timeRequired = freezed,
+    Object? timeRequiredAITextResponse = freezed,
+    Object? timeRequiredGroundings = freezed,
     Object? completedDateTime = freezed,
     Object? createdDateTime = freezed,
     Object? updatedDateTime = freezed,
@@ -136,6 +145,18 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
           ? _value.locationsGroundings
           : locationsGroundings // ignore: cast_nullable_to_non_nullable
               as List<GroundingData>?,
+      timeRequired: freezed == timeRequired
+          ? _value.timeRequired
+          : timeRequired // ignore: cast_nullable_to_non_nullable
+              as int?,
+      timeRequiredAITextResponse: freezed == timeRequiredAITextResponse
+          ? _value.timeRequiredAITextResponse
+          : timeRequiredAITextResponse // ignore: cast_nullable_to_non_nullable
+              as String?,
+      timeRequiredGroundings: freezed == timeRequiredGroundings
+          ? _value.timeRequiredGroundings
+          : timeRequiredGroundings // ignore: cast_nullable_to_non_nullable
+              as List<GroundingData>?,
       completedDateTime: freezed == completedDateTime
           ? _value.completedDateTime
           : completedDateTime // ignore: cast_nullable_to_non_nullable
@@ -175,6 +196,9 @@ abstract class _$$TodoImplCopyWith<$Res> implements $TodoCopyWith<$Res> {
       List<AppLocation>? locations,
       String? locationsAITextResponse,
       List<GroundingData>? locationsGroundings,
+      int? timeRequired,
+      String? timeRequiredAITextResponse,
+      List<GroundingData>? timeRequiredGroundings,
       @NullableTimestampConverter() DateTime? completedDateTime,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
@@ -200,6 +224,9 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
     Object? locations = freezed,
     Object? locationsAITextResponse = freezed,
     Object? locationsGroundings = freezed,
+    Object? timeRequired = freezed,
+    Object? timeRequiredAITextResponse = freezed,
+    Object? timeRequiredGroundings = freezed,
     Object? completedDateTime = freezed,
     Object? createdDateTime = freezed,
     Object? updatedDateTime = freezed,
@@ -243,6 +270,18 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
           ? _value._locationsGroundings
           : locationsGroundings // ignore: cast_nullable_to_non_nullable
               as List<GroundingData>?,
+      timeRequired: freezed == timeRequired
+          ? _value.timeRequired
+          : timeRequired // ignore: cast_nullable_to_non_nullable
+              as int?,
+      timeRequiredAITextResponse: freezed == timeRequiredAITextResponse
+          ? _value.timeRequiredAITextResponse
+          : timeRequiredAITextResponse // ignore: cast_nullable_to_non_nullable
+              as String?,
+      timeRequiredGroundings: freezed == timeRequiredGroundings
+          ? _value._timeRequiredGroundings
+          : timeRequiredGroundings // ignore: cast_nullable_to_non_nullable
+              as List<GroundingData>?,
       completedDateTime: freezed == completedDateTime
           ? _value.completedDateTime
           : completedDateTime // ignore: cast_nullable_to_non_nullable
@@ -281,6 +320,9 @@ class _$TodoImpl extends _Todo {
       final List<AppLocation>? locations,
       this.locationsAITextResponse,
       final List<GroundingData>? locationsGroundings,
+      this.timeRequired,
+      this.timeRequiredAITextResponse,
+      final List<GroundingData>? timeRequiredGroundings,
       @NullableTimestampConverter() this.completedDateTime,
       @ClientCreatedTimestamp() this.createdDateTime,
       @ClientUpdatedTimestamp() this.updatedDateTime,
@@ -289,6 +331,7 @@ class _$TodoImpl extends _Todo {
       : _groundings = groundings,
         _locations = locations,
         _locationsGroundings = locationsGroundings,
+        _timeRequiredGroundings = timeRequiredGroundings,
         super._();
 
   factory _$TodoImpl.fromJson(Map<String, dynamic> json) => _$$TodoImplFromJson(json);
@@ -336,6 +379,20 @@ class _$TodoImpl extends _Todo {
   }
 
   @override
+  final int? timeRequired;
+  @override
+  final String? timeRequiredAITextResponse;
+  final List<GroundingData>? _timeRequiredGroundings;
+  @override
+  List<GroundingData>? get timeRequiredGroundings {
+    final value = _timeRequiredGroundings;
+    if (value == null) return null;
+    if (_timeRequiredGroundings is EqualUnmodifiableListView) return _timeRequiredGroundings;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
   @NullableTimestampConverter()
   final DateTime? completedDateTime;
   @override
@@ -353,7 +410,7 @@ class _$TodoImpl extends _Todo {
 
   @override
   String toString() {
-    return 'Todo(id: $id, taskID: $taskID, content: $content, supplement: $supplement, aiTextResponseMarkdown: $aiTextResponseMarkdown, groundings: $groundings, locations: $locations, locationsAITextResponse: $locationsAITextResponse, locationsGroundings: $locationsGroundings, completedDateTime: $completedDateTime, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
+    return 'Todo(id: $id, taskID: $taskID, content: $content, supplement: $supplement, aiTextResponseMarkdown: $aiTextResponseMarkdown, groundings: $groundings, locations: $locations, locationsAITextResponse: $locationsAITextResponse, locationsGroundings: $locationsGroundings, timeRequired: $timeRequired, timeRequiredAITextResponse: $timeRequiredAITextResponse, timeRequiredGroundings: $timeRequiredGroundings, completedDateTime: $completedDateTime, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
   }
 
   @override
@@ -370,6 +427,10 @@ class _$TodoImpl extends _Todo {
             const DeepCollectionEquality().equals(other._locations, _locations) &&
             (identical(other.locationsAITextResponse, locationsAITextResponse) || other.locationsAITextResponse == locationsAITextResponse) &&
             const DeepCollectionEquality().equals(other._locationsGroundings, _locationsGroundings) &&
+            (identical(other.timeRequired, timeRequired) || other.timeRequired == timeRequired) &&
+            (identical(other.timeRequiredAITextResponse, timeRequiredAITextResponse) ||
+                other.timeRequiredAITextResponse == timeRequiredAITextResponse) &&
+            const DeepCollectionEquality().equals(other._timeRequiredGroundings, _timeRequiredGroundings) &&
             (identical(other.completedDateTime, completedDateTime) || other.completedDateTime == completedDateTime) &&
             (identical(other.createdDateTime, createdDateTime) || other.createdDateTime == createdDateTime) &&
             (identical(other.updatedDateTime, updatedDateTime) || other.updatedDateTime == updatedDateTime) &&
@@ -390,6 +451,9 @@ class _$TodoImpl extends _Todo {
       const DeepCollectionEquality().hash(_locations),
       locationsAITextResponse,
       const DeepCollectionEquality().hash(_locationsGroundings),
+      timeRequired,
+      timeRequiredAITextResponse,
+      const DeepCollectionEquality().hash(_timeRequiredGroundings),
       completedDateTime,
       createdDateTime,
       updatedDateTime,
@@ -422,6 +486,9 @@ abstract class _Todo extends Todo {
       final List<AppLocation>? locations,
       final String? locationsAITextResponse,
       final List<GroundingData>? locationsGroundings,
+      final int? timeRequired,
+      final String? timeRequiredAITextResponse,
+      final List<GroundingData>? timeRequiredGroundings,
       @NullableTimestampConverter() final DateTime? completedDateTime,
       @ClientCreatedTimestamp() final DateTime? createdDateTime,
       @ClientUpdatedTimestamp() final DateTime? updatedDateTime,
@@ -449,6 +516,12 @@ abstract class _Todo extends Todo {
   String? get locationsAITextResponse;
   @override
   List<GroundingData>? get locationsGroundings;
+  @override
+  int? get timeRequired;
+  @override
+  String? get timeRequiredAITextResponse;
+  @override
+  List<GroundingData>? get timeRequiredGroundings;
   @override
   @NullableTimestampConverter()
   DateTime? get completedDateTime;
