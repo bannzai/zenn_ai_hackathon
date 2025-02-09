@@ -34,13 +34,13 @@ extension FirebaseFunctionsExt on FirebaseFunctions {
     return;
   }
 
-  Future<void> fillTODOLocation({
+  Future<void> fillLocation({
     required String taskID,
     required String locationName,
     required double latitude,
     required double longitude,
   }) async {
-    final result = await httpsCallable('fillTODOLocation').call(
+    final result = await httpsCallable('fillLocation').call(
       {
         'taskID': taskID,
         'userLocation': {
@@ -55,7 +55,7 @@ extension FirebaseFunctionsExt on FirebaseFunctions {
     );
     // resultはGenKitのレスポンス構造
     final response = mapToJSON(result.data)['result'];
-    debugPrint('fillTODOLocation response: ${response.toString()}');
+    debugPrint('fillLocation response: ${response.toString()}');
 
     if (response['result'] != 'OK') {
       throw Exception(response['error']['message']);
