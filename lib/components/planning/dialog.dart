@@ -108,7 +108,7 @@ class AIPlanningDialog extends HookWidget {
         TextButton(
           onPressed: geoInfoValue != null
               ? () async {
-                  await functions.fillTODOLocation(
+                  await functions.fillLocation(
                     taskID: taskID,
                     locationName: placeMarkDisplayName ?? '',
                     latitude: geoInfoValue.$2.latitude,
