@@ -23,7 +23,7 @@ class TasksPageSection extends HookConsumerWidget {
     return Stack(
       children: [
         Container(
-          constraints: const BoxConstraints(minHeight: 150),
+          constraints: const BoxConstraints(minHeight: 180),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Container(

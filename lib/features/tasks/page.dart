@@ -77,6 +77,7 @@ class TasksPageBodyEmpty extends HookConsumerWidget {
           '右下の 🤖 ボタンから質問してね',
           '例えば「確定申告の方法」',
           '「結婚の手続き」などなど',
+          'あなたの代わりにTODOリストを作成します',
         ],
       ),
     );
