@@ -38,14 +38,14 @@ class TodoPage extends HookConsumerWidget {
                   onPressed: () async {
                     await todoDelete(taskID: todo.taskID, todoID: todo.id);
                     if (context.mounted) {
-                      Navigator.of(context).pop(true);
+                      Navigator.of(context).pop();
                     }
                   },
                   child: const Text('削除', style: TextStyle(color: TextColor.danger)),
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pop(false);
+                    Navigator.of(context).pop();
                   },
                   child: const Text('キャンセル'),
                 ),
