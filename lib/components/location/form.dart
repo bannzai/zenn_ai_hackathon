@@ -15,7 +15,7 @@ class LocationForm extends HookWidget {
     final geoInfoValue = geoInfo.value;
 
     final placemarkValue = geoInfoValue?.$1;
-    final textFormEditController = useTextEditingController(text: '');
+    final text = useState('');
     final placeMarkDisplayName = placemarkValue?.name ??
         placemarkValue?.locality ??
         placemarkValue?.subLocality ??
@@ -23,7 +23,7 @@ class LocationForm extends HookWidget {
         placemarkValue?.subThoroughfare ??
         placemarkValue?.postalCode;
     geoInfo.addListener(() {
-      textFormEditController.text = placeMarkDisplayName ?? '';
+      text.value = placeMarkDisplayName ?? '';
     });
     final focusNode = useFocusNode();
 
@@ -45,7 +45,7 @@ class LocationForm extends HookWidget {
               children: [
                 SizedBox(
                   child: TextFormField(
-                    controller: textFormEditController,
+                    initialValue: text.value,
                     focusNode: focusNode,
                     decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
@@ -55,8 +55,13 @@ class LocationForm extends HookWidget {
                       labelText: '自宅・職場など',
                       contentPadding: EdgeInsets.zero,
                     ),
+                    onChanged: (value) {
+                      text.value = value;
+                    },
                     onFieldSubmitted: (value) async {
                       focusNode.unfocus();
+
+                      text.value = value;
 
                       debugPrint('value: $value');
 
