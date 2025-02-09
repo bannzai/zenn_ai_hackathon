@@ -110,10 +110,13 @@ class TaskPageBody extends HookConsumerWidget {
                   const Divider(height: 1, color: Colors.black),
                   Stack(
                     children: [
-                      TaskLocation(task: task, todos: todos),
+                      Container(
+                        constraints: BoxConstraints(minHeight: 200),
+                        child: TaskLocation(task: task, todos: todos),
+                      ),
                       if (task.userLocation != null && task.locations == null) ...[
                         BotLoading(
-                            messages: const ['位置情報を取得中...', '少し待ってね😘', '丁寧にWebから情報を集めてるよ🦾'],
+                            messages: const ['情報を取得中...', '少し待ってね😘', '丁寧にWebから情報を収集中🦾'],
                             onStop: () {
                               // TODO: Retry or エラーハンドリングの仕組みをちゃんと作る。ハッカソンだからとりあえず動くコードにしている
                               ref.read(userDatabaseProvider).taskReference(taskID: taskID).update({
@@ -131,7 +134,7 @@ class TaskPageBody extends HookConsumerWidget {
             ),
             if (task is TaskPreparing) ...[
               BotLoading(
-                messages: const ['準備中...', 'ちょっと待っててね😘', '手順が多いと数分かかることがあるよ🏎️', '丁寧にWebから情報を集めてるよ🦾'],
+                messages: const ['準備中...', 'ちょっと待っててね😘', '手順が多いと数分かかることがあるよ🏎️', '丁寧にWebから情報を収集中🦾'],
                 onStop: () {
                   // TODO: Retry or エラーハンドリングの仕組みをちゃんと作る。ハッカソンだからとりあえず動くコードにしている
                   ref.read(userDatabaseProvider).taskReference(taskID: taskID).delete();

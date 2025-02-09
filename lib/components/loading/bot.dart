@@ -18,19 +18,16 @@ class BotLoading extends StatelessWidget {
           child: Column(
             children: [
               BotChat(messages: messages),
-              const Text('※ 時間がかかり過ぎているようであれば、一度停止して再度実行してください。'),
+              const SizedBox(height: 12),
+              const Text('※ 時間がかかり過ぎているようであれば、一度停止して再度実行してください。', style: TextStyle(fontSize: 12)),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: ElevatedButton(
+                child: TextButton.icon(
                   onPressed: () {
                     onStop();
                   },
-                  child: const Row(
-                    children: [
-                      Icon(Icons.stop),
-                      Text('停止'),
-                    ],
-                  ),
+                  icon: const Icon(Icons.stop),
+                  label: const Text('停止'),
                 ),
               ),
             ],
@@ -52,7 +49,7 @@ class BotChat extends StatelessWidget {
       width: double.infinity,
       child: DefaultTextStyle(
         style: const TextStyle(
-          fontSize: 24,
+          fontSize: 22,
           fontWeight: FontWeight.w500,
           color: Colors.black,
           shadows: [
