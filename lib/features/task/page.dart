@@ -11,6 +11,7 @@ import 'package:todomaker/components/todo/list.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/features/root/resolver/database.dart';
 import 'package:todomaker/features/task/components/location/location.dart';
+import 'package:todomaker/features/task/components/time_required/todos.dart';
 import 'package:todomaker/provider/task.dart';
 import 'package:todomaker/provider/todo.dart';
 import 'package:todomaker/style/color.dart';
@@ -138,6 +139,9 @@ class TaskPageBody extends HookConsumerWidget {
                       ],
                     ),
                   ),
+                  const SizedBox(height: 20),
+                  const Divider(height: 1, color: Colors.black),
+                  TimeRequiredTodos(task: task, todos: todos),
                   const Divider(height: 1, color: Colors.black),
                   const SizedBox(height: 16),
                   GroundingDataList(groundings: todosGroundings),
@@ -146,7 +150,7 @@ class TaskPageBody extends HookConsumerWidget {
             ),
             if (task is TaskPreparing) ...[
               BotLoading(
-                messages: const ['準備中...', '1分ほど待ってね😘', '手順が多いと数分かかることがあるよ🏎️', '丁寧にWebから情報を収集中🦾'],
+                messages: const ['準備中...', '1分ほど待ってね😘', '丁寧にWebから情報を収集中🦾'],
                 onStop: () {
                   // TODO: Retry or エラーハンドリングの仕組みをちゃんと作る。ハッカソンだからとりあえず動くコードにしている
                   ref.read(userDatabaseProvider).taskReference(taskID: task.id).delete();
