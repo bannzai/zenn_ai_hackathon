@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/features/home/page.dart';
-import 'package:todomaker/features/onboarding/resolver.dart';
 import 'package:todomaker/features/root/resolver/app_user_create.dart';
 import 'package:todomaker/features/root/resolver/auth.dart';
 import 'package:todomaker/features/root/resolver/database.dart';
@@ -16,9 +15,9 @@ class RootPage extends HookConsumerWidget {
       return UserDatabaseResolver(builder: (context) {
         return AppUserCreateResolver(builder: (context) {
           return ForceUpdateResolver(builder: (context) {
-            return OnboardingResolver(builder: (context) {
-              return const HomePage();
-            });
+            // return OnboardingResolver(builder: (context) {
+            return const HomePage();
+            // });
           });
         });
       });

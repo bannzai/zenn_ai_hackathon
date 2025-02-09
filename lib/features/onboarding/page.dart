@@ -23,7 +23,13 @@ class OnboardingPage extends HookWidget {
           ],
         ),
         child: SafeArea(
-          child: OnboardingBody1(index: index),
+          child: Stack(
+            children: [
+              if (index.value.index <= OnboardingEvent.showTapLabel.index) ...[
+                OnboardingBody1(index: index),
+              ],
+            ],
+          ),
         ),
       ),
     );
