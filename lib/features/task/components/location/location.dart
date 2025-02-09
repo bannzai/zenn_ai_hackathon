@@ -81,23 +81,30 @@ class TaskLocationItem extends StatelessWidget {
     );
   }
 
-  void _openPhoneApp({required String tel}) {
-    _launchURL(
-      'tel:$tel',
+  Future<void> _openPhoneApp({required String tel}) async {
+    final telValue = tel.replaceAll(' ', '').replaceAll('-', '');
+    debugPrint('telValue: $telValue');
+    final Uri uri = Uri(
+      scheme: 'tel',
+      path: telValue,
     );
-  }
-
-  void _openMailApp({required String mailAddress}) async {
-    return _launchURL(
-      'mailto:$mailAddress',
-    );
-  }
-
-  Future<void> _launchURL(String url) async {
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
     } else {
-      final Error error = ArgumentError('Could not launch $url');
+      final Error error = ArgumentError('Could not launch $uri');
+      throw error;
+    }
+  }
+
+  Future<void> _openMailApp({required String mailAddress}) async {
+    final uri = Uri(
+      scheme: 'mailto',
+      path: mailAddress,
+    );
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      final Error error = ArgumentError('Could not launch $uri');
       throw error;
     }
   }
