@@ -99,7 +99,7 @@ class TasksPageSection extends HookConsumerWidget {
         ),
         if (task is TaskPreparing) ...[
           BotLoading(
-            messages: const ['準備中...', 'ちょっと待っててね😘', '手順が多いと数分かかることがあるよ🏎️', '丁寧にWebから情報を収集中🦾'],
+            messages: const ['準備中...', '1分ほど待ってね😘', '手順が多いと数分かかることがあるよ🏎️', '丁寧にWebから情報を収集中🦾'],
             onStop: () {
               // TODO: Retry or エラーハンドリングの仕組みをちゃんと作る。ハッカソンだからとりあえず動くコードにしている
               ref.read(userDatabaseProvider).taskReference(taskID: task.id).delete();
