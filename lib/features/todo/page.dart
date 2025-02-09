@@ -36,10 +36,8 @@ class TodoPage extends HookConsumerWidget {
               showDiscardDialog(context, title: '削除', message: 'このタスクを削除しますか？', actions: [
                 TextButton(
                   onPressed: () async {
+                    Navigator.of(context).popUntil((route) => route.isFirst);
                     await todoDelete(taskID: todo.taskID, todoID: todo.id);
-                    if (context.mounted) {
-                      Navigator.of(context).pop();
-                    }
                   },
                   child: const Text('削除', style: TextStyle(color: TextColor.danger)),
                 ),

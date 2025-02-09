@@ -47,7 +47,7 @@ class TaskPageBody extends HookConsumerWidget {
               showDiscardDialog(context, title: '削除', message: 'このタスクを削除しますか？', actions: [
                 TextButton(
                   onPressed: () async {
-                    Navigator.of(context).pop();
+                    Navigator.of(context).popUntil((route) => route.isFirst);
                     await taskDelete(taskID: task.id);
                   },
                   child: const Text('削除', style: TextStyle(color: TextColor.danger)),
