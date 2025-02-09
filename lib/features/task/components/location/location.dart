@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todomaker/entity/location.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/entity/todo.dart';
-import 'package:todomaker/features/task/components/location/empty.dart';
+import 'package:todomaker/features/task/components/location/ask.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TaskLocation extends StatelessWidget {
@@ -17,11 +17,12 @@ class TaskLocation extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Builder(builder: (context) {
         if (locations == null) {
-          return TaskLocationEmpty(task: task);
+          return TaskLocationAskAI(task: task);
         }
 
         return Column(
           children: [
+            TaskLocationAskAI(task: task),
             for (final location in locations) ...[
               TaskLocationItem(task: task, location: location),
             ],

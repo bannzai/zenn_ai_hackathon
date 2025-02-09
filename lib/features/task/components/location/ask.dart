@@ -3,9 +3,9 @@ import 'package:todomaker/components/location/form.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/utils/functions/firebase_functions.dart';
 
-class TaskLocationEmpty extends StatelessWidget {
+class TaskLocationAskAI extends StatelessWidget {
   final TaskPrepared task;
-  const TaskLocationEmpty({super.key, required this.task});
+  const TaskLocationAskAI({super.key, required this.task});
 
   @override
   Widget build(BuildContext context) {
