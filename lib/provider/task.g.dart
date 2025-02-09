@@ -217,5 +217,18 @@ final taskRevertCompleteProvider = AutoDisposeProvider<TaskRevertComplete>.inter
 );
 
 typedef TaskRevertCompleteRef = AutoDisposeProviderRef<TaskRevertComplete>;
+String _$taskFillLocationHash() => r'deccea29213fb3a7265a73ccb60f7625c84c95f3';
+
+/// See also [taskFillLocation].
+@ProviderFor(taskFillLocation)
+final taskFillLocationProvider = AutoDisposeProvider<TaskFillLocation>.internal(
+  taskFillLocation,
+  name: r'taskFillLocationProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$taskFillLocationHash,
+  dependencies: <ProviderOrFamily>[userDatabaseProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{userDatabaseProvider, ...?userDatabaseProvider.allTransitiveDependencies},
+);
+
+typedef TaskFillLocationRef = AutoDisposeProviderRef<TaskFillLocation>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

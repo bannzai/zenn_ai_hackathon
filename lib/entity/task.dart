@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:todomaker/entity/grounding_data.dart';
 import 'package:todomaker/entity/location.dart';
+import 'package:todomaker/entity/location_form.dart';
 import 'package:todomaker/entity/timestamp.dart';
 
 part 'task.g.dart';
@@ -25,6 +26,7 @@ sealed class Task with _$Task {
     List<AppLocation>? locations,
     String? locationsAITextResponse,
     List<GroundingData>? locationsGroundings,
+    LocationFormInfo? userLocation,
     @NullableTimestampConverter() required DateTime? preparedDateTime,
     @NullableTimestampConverter() required DateTime? completedDateTime,
     @ClientCreatedTimestamp() DateTime? createdDateTime,

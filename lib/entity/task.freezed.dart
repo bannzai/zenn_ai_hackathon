@@ -60,6 +60,7 @@ mixin _$Task {
             List<AppLocation>? locations,
             String? locationsAITextResponse,
             List<GroundingData>? locationsGroundings,
+            LocationFormInfo? userLocation,
             @NullableTimestampConverter() DateTime? preparedDateTime,
             @NullableTimestampConverter() DateTime? completedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -99,6 +100,7 @@ mixin _$Task {
             List<AppLocation>? locations,
             String? locationsAITextResponse,
             List<GroundingData>? locationsGroundings,
+            LocationFormInfo? userLocation,
             @NullableTimestampConverter() DateTime? preparedDateTime,
             @NullableTimestampConverter() DateTime? completedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -138,6 +140,7 @@ mixin _$Task {
             List<AppLocation>? locations,
             String? locationsAITextResponse,
             List<GroundingData>? locationsGroundings,
+            LocationFormInfo? userLocation,
             @NullableTimestampConverter() DateTime? preparedDateTime,
             @NullableTimestampConverter() DateTime? completedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -315,12 +318,15 @@ abstract class _$$TaskPreparedImplCopyWith<$Res> implements $TaskCopyWith<$Res> 
       List<AppLocation>? locations,
       String? locationsAITextResponse,
       List<GroundingData>? locationsGroundings,
+      LocationFormInfo? userLocation,
       @NullableTimestampConverter() DateTime? preparedDateTime,
       @NullableTimestampConverter() DateTime? completedDateTime,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
       @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
       @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime});
+
+  $LocationFormInfoCopyWith<$Res>? get userLocation;
 }
 
 /// @nodoc
@@ -344,6 +350,7 @@ class __$$TaskPreparedImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$
     Object? locations = freezed,
     Object? locationsAITextResponse = freezed,
     Object? locationsGroundings = freezed,
+    Object? userLocation = freezed,
     Object? preparedDateTime = freezed,
     Object? completedDateTime = freezed,
     Object? createdDateTime = freezed,
@@ -400,6 +407,10 @@ class __$$TaskPreparedImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$
           ? _value._locationsGroundings
           : locationsGroundings // ignore: cast_nullable_to_non_nullable
               as List<GroundingData>?,
+      userLocation: freezed == userLocation
+          ? _value.userLocation
+          : userLocation // ignore: cast_nullable_to_non_nullable
+              as LocationFormInfo?,
       preparedDateTime: freezed == preparedDateTime
           ? _value.preparedDateTime
           : preparedDateTime // ignore: cast_nullable_to_non_nullable
@@ -426,6 +437,20 @@ class __$$TaskPreparedImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$
               as DateTime?,
     ));
   }
+
+  /// Create a copy of Task
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $LocationFormInfoCopyWith<$Res>? get userLocation {
+    if (_value.userLocation == null) {
+      return null;
+    }
+
+    return $LocationFormInfoCopyWith<$Res>(_value.userLocation!, (value) {
+      return _then(_value.copyWith(userLocation: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -445,6 +470,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
       final List<AppLocation>? locations,
       this.locationsAITextResponse,
       final List<GroundingData>? locationsGroundings,
+      this.userLocation,
       @NullableTimestampConverter() required this.preparedDateTime,
       @NullableTimestampConverter() required this.completedDateTime,
       @ClientCreatedTimestamp() this.createdDateTime,
@@ -514,6 +540,8 @@ class _$TaskPreparedImpl extends TaskPrepared {
   }
 
   @override
+  final LocationFormInfo? userLocation;
+  @override
   @NullableTimestampConverter()
   final DateTime? preparedDateTime;
   @override
@@ -537,7 +565,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
 
   @override
   String toString() {
-    return 'Task.prepared(id: $id, userID: $userID, question: $question, todosAITextResponseMarkdown: $todosAITextResponseMarkdown, todosGroundings: $todosGroundings, shortAnswer: $shortAnswer, topic: $topic, definitionAITextResponse: $definitionAITextResponse, definitionGroundings: $definitionGroundings, locations: $locations, locationsAITextResponse: $locationsAITextResponse, locationsGroundings: $locationsGroundings, preparedDateTime: $preparedDateTime, completedDateTime: $completedDateTime, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
+    return 'Task.prepared(id: $id, userID: $userID, question: $question, todosAITextResponseMarkdown: $todosAITextResponseMarkdown, todosGroundings: $todosGroundings, shortAnswer: $shortAnswer, topic: $topic, definitionAITextResponse: $definitionAITextResponse, definitionGroundings: $definitionGroundings, locations: $locations, locationsAITextResponse: $locationsAITextResponse, locationsGroundings: $locationsGroundings, userLocation: $userLocation, preparedDateTime: $preparedDateTime, completedDateTime: $completedDateTime, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
   }
 
   @override
@@ -558,6 +586,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
             const DeepCollectionEquality().equals(other._locations, _locations) &&
             (identical(other.locationsAITextResponse, locationsAITextResponse) || other.locationsAITextResponse == locationsAITextResponse) &&
             const DeepCollectionEquality().equals(other._locationsGroundings, _locationsGroundings) &&
+            (identical(other.userLocation, userLocation) || other.userLocation == userLocation) &&
             (identical(other.preparedDateTime, preparedDateTime) || other.preparedDateTime == preparedDateTime) &&
             (identical(other.completedDateTime, completedDateTime) || other.completedDateTime == completedDateTime) &&
             (identical(other.createdDateTime, createdDateTime) || other.createdDateTime == createdDateTime) &&
@@ -568,26 +597,28 @@ class _$TaskPreparedImpl extends TaskPrepared {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      userID,
-      question,
-      todosAITextResponseMarkdown,
-      const DeepCollectionEquality().hash(_todosGroundings),
-      shortAnswer,
-      topic,
-      definitionAITextResponse,
-      const DeepCollectionEquality().hash(_definitionGroundings),
-      const DeepCollectionEquality().hash(_locations),
-      locationsAITextResponse,
-      const DeepCollectionEquality().hash(_locationsGroundings),
-      preparedDateTime,
-      completedDateTime,
-      createdDateTime,
-      updatedDateTime,
-      serverCreatedDateTime,
-      serverUpdatedDateTime);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        userID,
+        question,
+        todosAITextResponseMarkdown,
+        const DeepCollectionEquality().hash(_todosGroundings),
+        shortAnswer,
+        topic,
+        definitionAITextResponse,
+        const DeepCollectionEquality().hash(_definitionGroundings),
+        const DeepCollectionEquality().hash(_locations),
+        locationsAITextResponse,
+        const DeepCollectionEquality().hash(_locationsGroundings),
+        userLocation,
+        preparedDateTime,
+        completedDateTime,
+        createdDateTime,
+        updatedDateTime,
+        serverCreatedDateTime,
+        serverUpdatedDateTime
+      ]);
 
   /// Create a copy of Task
   /// with the given fields replaced by the non-null parameter values.
@@ -612,6 +643,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
             List<AppLocation>? locations,
             String? locationsAITextResponse,
             List<GroundingData>? locationsGroundings,
+            LocationFormInfo? userLocation,
             @NullableTimestampConverter() DateTime? preparedDateTime,
             @NullableTimestampConverter() DateTime? completedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -648,6 +680,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
         locations,
         locationsAITextResponse,
         locationsGroundings,
+        userLocation,
         preparedDateTime,
         completedDateTime,
         createdDateTime,
@@ -672,6 +705,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
             List<AppLocation>? locations,
             String? locationsAITextResponse,
             List<GroundingData>? locationsGroundings,
+            LocationFormInfo? userLocation,
             @NullableTimestampConverter() DateTime? preparedDateTime,
             @NullableTimestampConverter() DateTime? completedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -708,6 +742,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
         locations,
         locationsAITextResponse,
         locationsGroundings,
+        userLocation,
         preparedDateTime,
         completedDateTime,
         createdDateTime,
@@ -732,6 +767,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
             List<AppLocation>? locations,
             String? locationsAITextResponse,
             List<GroundingData>? locationsGroundings,
+            LocationFormInfo? userLocation,
             @NullableTimestampConverter() DateTime? preparedDateTime,
             @NullableTimestampConverter() DateTime? completedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -770,6 +806,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
           locations,
           locationsAITextResponse,
           locationsGroundings,
+          userLocation,
           preparedDateTime,
           completedDateTime,
           createdDateTime,
@@ -833,6 +870,7 @@ abstract class TaskPrepared extends Task {
       final List<AppLocation>? locations,
       final String? locationsAITextResponse,
       final List<GroundingData>? locationsGroundings,
+      final LocationFormInfo? userLocation,
       @NullableTimestampConverter() required final DateTime? preparedDateTime,
       @NullableTimestampConverter() required final DateTime? completedDateTime,
       @ClientCreatedTimestamp() final DateTime? createdDateTime,
@@ -864,6 +902,7 @@ abstract class TaskPrepared extends Task {
   List<AppLocation>? get locations;
   String? get locationsAITextResponse;
   List<GroundingData>? get locationsGroundings;
+  LocationFormInfo? get userLocation;
   @NullableTimestampConverter()
   DateTime? get preparedDateTime;
   @NullableTimestampConverter()
@@ -1132,6 +1171,7 @@ class _$TaskPreparingImpl extends TaskPreparing {
             List<AppLocation>? locations,
             String? locationsAITextResponse,
             List<GroundingData>? locationsGroundings,
+            LocationFormInfo? userLocation,
             @NullableTimestampConverter() DateTime? preparedDateTime,
             @NullableTimestampConverter() DateTime? completedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -1175,6 +1215,7 @@ class _$TaskPreparingImpl extends TaskPreparing {
             List<AppLocation>? locations,
             String? locationsAITextResponse,
             List<GroundingData>? locationsGroundings,
+            LocationFormInfo? userLocation,
             @NullableTimestampConverter() DateTime? preparedDateTime,
             @NullableTimestampConverter() DateTime? completedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -1218,6 +1259,7 @@ class _$TaskPreparingImpl extends TaskPreparing {
             List<AppLocation>? locations,
             String? locationsAITextResponse,
             List<GroundingData>? locationsGroundings,
+            LocationFormInfo? userLocation,
             @NullableTimestampConverter() DateTime? preparedDateTime,
             @NullableTimestampConverter() DateTime? completedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:todomaker/entity/location_form.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/features/root/resolver/database.dart';
 
@@ -91,4 +92,27 @@ class TaskRevertComplete {
 TaskRevertComplete taskRevertComplete(TaskRevertCompleteRef ref) {
   final database = ref.watch(userDatabaseProvider);
   return TaskRevertComplete(database: database);
+}
+
+class TaskFillLocation {
+  final UserDatabase database;
+
+  TaskFillLocation({required this.database});
+
+  Future<void> call({required String taskID, required LocationFormInfo userLocation}) {
+    return database.taskReference(taskID: taskID).update(
+      {
+        'userLocation': userLocation.toJson(),
+        'locations': null,
+        'locationsAITextResponse': null,
+        'locationsGroundings': null,
+      },
+    );
+  }
+}
+
+@Riverpod(dependencies: [userDatabase])
+TaskFillLocation taskFillLocation(TaskFillLocationRef ref) {
+  final database = ref.watch(userDatabaseProvider);
+  return TaskFillLocation(database: database);
 }
