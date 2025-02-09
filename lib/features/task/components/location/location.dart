@@ -31,6 +31,7 @@ class TaskLocation extends StatelessWidget {
             return Column(
               children: [
                 TaskLocationAskAI(task: task),
+                const SizedBox(height: 10),
                 for (final location in locations) ...[
                   TaskLocationItem(
                     task: task,

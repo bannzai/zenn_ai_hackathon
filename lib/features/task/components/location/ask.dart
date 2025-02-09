@@ -14,6 +14,11 @@ class TaskLocationAskAI extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final taskFillLocation = ref.watch(taskFillLocationProvider);
     return TextButton(
+      style: TextButton.styleFrom(
+        padding: const EdgeInsets.symmetric(vertical: 0),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        minimumSize: Size.zero,
+      ),
       onPressed: () async {
         showDialog(
           context: context,
