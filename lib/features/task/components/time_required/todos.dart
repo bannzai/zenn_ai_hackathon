@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/entity/todo.dart';
 
@@ -17,9 +18,19 @@ class TimeRequiredTodos extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-          Text('所要時間: $totalTimeRequired 秒', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+          Text('所要時間: ${_formatted(totalTimeRequired)} 秒', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         ],
       ),
     );
+  }
+
+  String _formatted(int seconds) {
+    final duration = Duration(seconds: seconds);
+    final formattedTimeRequired = duration.inHours > 0
+        ? '${duration.inHours}時間 ${duration.inMinutes % 60}分'
+        : duration.inMinutes > 0
+            ? '${duration.inMinutes}分 ${duration.inSeconds % 60}秒'
+            : '${duration.inSeconds}秒';
+    return formattedTimeRequired;
   }
 }
