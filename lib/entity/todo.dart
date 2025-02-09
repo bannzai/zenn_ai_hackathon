@@ -21,6 +21,9 @@ class Todo with _$Todo {
     List<AppLocation>? locations,
     String? locationsAITextResponse,
     List<GroundingData>? locationsGroundings,
+    int? timeRequired,
+    String? timeRequiredAITextResponse,
+    List<GroundingData>? timeRequiredGroundings,
     @NullableTimestampConverter() DateTime? completedDateTime,
     @ClientCreatedTimestamp() DateTime? createdDateTime,
     @ClientUpdatedTimestamp() DateTime? updatedDateTime,
@@ -54,6 +57,10 @@ export const TaskSchema = z.object({
   locations: z.array(LocationSchema).nullable(),
   locationsAITextResponse: z.string().nullable(),
   locationsGroundings: z.array(GroundingDataSchema).nullable(),
-  completed: z.boolean().default(false),
+
+  // 所要時間(秒)
+  timeRequired: z.number().describe("所要時間(秒)").nullish(),
+  timeRequiredAITextResponse: z.string().nullish(),
+  timeRequiredGroundings: z.array(GroundingDataSchema).nullish(),
 });
 */
