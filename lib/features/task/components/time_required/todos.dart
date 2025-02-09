@@ -18,7 +18,7 @@ class TimeRequiredTodos extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-          Text('所要時間: ${_formatted(totalTimeRequired)} 秒', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+          Text('所要時間: ${_formatted(totalTimeRequired)}', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         ],
       ),
     );
