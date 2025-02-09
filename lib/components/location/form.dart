@@ -6,8 +6,8 @@ import 'package:todomaker/components/error/error_alert.dart';
 import 'package:todomaker/utils/functions/firebase_functions.dart';
 
 class LocationForm extends HookWidget {
-  final Function(String, double, double) onSubmit;
-  const LocationForm({super.key});
+  final Future<void> Function(LocationFormInfo) onSubmit;
+  const LocationForm({super.key, required this.onSubmit});
 
   @override
   Widget build(BuildContext context) {
@@ -108,12 +108,10 @@ class LocationForm extends HookWidget {
         TextButton(
           onPressed: geoInfoValue != null
               ? () async {
-                  await functions.fillLocation(
-                    taskID: taskID,
-                    locationName: placeMarkDisplayName ?? '',
-                    latitude: geoInfoValue.$2.latitude,
-                    longitude: geoInfoValue.$2.longitude,
-                  );
+                  final name = placeMarkDisplayName ?? '';
+                  final latitude = geoInfoValue.$2.latitude;
+                  final longitude = geoInfoValue.$2.longitude;
+                  await onSubmit(LocationFormInfo(name: name, latitude: latitude, longitude: longitude));
                 }
               : null,
           child: const Text('予定を組む'),

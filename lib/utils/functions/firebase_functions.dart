@@ -80,3 +80,10 @@ Map<String, dynamic> mapToJSON(Map<dynamic, dynamic> map) {
   }
   return Map<String, dynamic>.from(map);
 }
+
+class LocationFormInfo {
+  final String name;
+  final double latitude;
+  final double longitude;
+  const LocationFormInfo({required this.name, required this.latitude, required this.longitude});
+}
