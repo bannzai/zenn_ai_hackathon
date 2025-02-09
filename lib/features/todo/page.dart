@@ -6,6 +6,7 @@ import 'package:todomaker/components/alert/discard.dart';
 import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/provider/todo.dart';
+import 'package:todomaker/style/color.dart';
 
 class TodoPage extends HookConsumerWidget {
   final Todo todo;
@@ -40,7 +41,7 @@ class TodoPage extends HookConsumerWidget {
                       Navigator.of(context).pop(true);
                     }
                   },
-                  child: const Text('削除'),
+                  child: const Text('削除', style: TextStyle(color: TextColor.danger)),
                 ),
                 TextButton(
                   onPressed: () {

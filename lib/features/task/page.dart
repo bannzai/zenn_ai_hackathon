@@ -8,6 +8,7 @@ import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/components/todo/list.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/provider/task.dart';
+import 'package:todomaker/style/color.dart';
 
 class TaskPage extends HookConsumerWidget {
   final TaskPrepared task;
@@ -49,7 +50,7 @@ class TaskPageBody extends HookConsumerWidget {
                     Navigator.of(context).pop();
                     await taskDelete(taskID: task.id);
                   },
-                  child: const Text('削除'),
+                  child: const Text('削除', style: TextStyle(color: TextColor.danger)),
                 ),
                 TextButton(
                   onPressed: () {
