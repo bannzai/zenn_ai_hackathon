@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/loading/indicator.dart';
+import 'package:todomaker/components/planning/dialog.dart';
 import 'package:todomaker/components/retry/button.dart';
 import 'package:todomaker/components/retry/page.dart';
 import 'package:todomaker/entity/task.dart';
@@ -41,9 +42,24 @@ class TasksTodoList extends HookConsumerWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Row(
+              Row(
                 children: [
-                  Text('やること', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  const Text('やること', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  const Spacer(),
+                  TextButton(
+                    onPressed: () async {
+                      showDialog(context: context, builder: (context) => AIPlanningDialog(taskID: task.id));
+                    },
+                    child: const Row(
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.ideographic,
+                      children: [
+                        Text('🤖'),
+                        SizedBox(width: 2),
+                        Text('AIで予定を組む'),
+                      ],
+                    ),
+                  ),
                 ],
               ),
               for (final todo in todos.take(limit ?? todos.length)) ...[
