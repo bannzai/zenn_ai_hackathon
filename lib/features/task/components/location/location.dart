@@ -83,7 +83,6 @@ class TaskLocationItem extends StatelessWidget {
 
   Future<void> _openPhoneApp({required String tel}) async {
     final telValue = tel.replaceAll(' ', '').replaceAll('-', '');
-    debugPrint('telValue: $telValue');
     final Uri uri = Uri(
       scheme: 'tel',
       path: telValue,
