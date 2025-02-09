@@ -1,6 +1,7 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:todomaker/entity/location_form.dart';
 
 // GenKitがus-central1のサポートになる
 final functions = FirebaseFunctions.instanceFor(region: 'us-central1');
@@ -36,18 +37,12 @@ extension FirebaseFunctionsExt on FirebaseFunctions {
 
   Future<void> fillLocation({
     required String taskID,
-    required String locationName,
-    required double latitude,
-    required double longitude,
+    required LocationFormInfo userLocation,
   }) async {
     final result = await httpsCallable('fillLocation').call(
       {
         'taskID': taskID,
-        'userLocation': {
-          'name': locationName,
-          'latitude': latitude,
-          'longitude': longitude,
-        },
+        'userLocation': userLocation.toJson(),
         'userRequest': {
           'userID': FirebaseAuth.instance.currentUser?.uid,
         },
@@ -79,11 +74,4 @@ Map<String, dynamic> mapToJSON(Map<dynamic, dynamic> map) {
     }
   }
   return Map<String, dynamic>.from(map);
-}
-
-class LocationFormInfo {
-  final String name;
-  final double latitude;
-  final double longitude;
-  const LocationFormInfo({required this.name, required this.latitude, required this.longitude});
 }

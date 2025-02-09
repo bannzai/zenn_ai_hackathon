@@ -3,15 +3,16 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:todomaker/components/error/error_alert.dart';
+import 'package:todomaker/entity/location_form.dart';
 import 'package:todomaker/utils/functions/firebase_functions.dart';
 
-class LocationForm extends HookWidget {
-  final Future<void> Function(LocationFormInfo) onSubmit;
-  const LocationForm({super.key, required this.onSubmit});
+class AIPlanningDialog extends HookWidget {
+  final String taskID;
+  const AIPlanningDialog({super.key, required this.taskID});
 
   @override
   Widget build(BuildContext context) {
-    final geoInfo = useState<(Placemark, Location)?>(null);
+    final geoInfo = useState<(Placemark, Location?)?>(null);
     final geoInfoValue = geoInfo.value;
 
     final placemarkValue = geoInfoValue?.$1;
@@ -31,13 +32,13 @@ class LocationForm extends HookWidget {
       title: const Column(
         children: [
           Text('🤖'),
-          Text('AIに会場を質問する'),
+          Text('AIで予定を組む'),
         ],
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('タスクの達成のためにヒントとなる会場・場所を提案できます。現在地・職場などを入力してください'),
+          const Text('タスクの達成のために、AIが予定を組んでくれます。現在地を把握して最適な経路を提案したいので出発地点を入力してください'),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Column(
@@ -52,7 +53,7 @@ class LocationForm extends HookWidget {
                       enabledBorder: UnderlineInputBorder(),
                       focusedBorder: UnderlineInputBorder(),
                       hintText: '東京都千代田区永田町1-7-1',
-                      labelText: '自宅・職場など',
+                      labelText: '出発地点',
                       contentPadding: EdgeInsets.zero,
                     ),
                     onFieldSubmitted: (value) async {
@@ -86,9 +87,7 @@ class LocationForm extends HookWidget {
                         final List<Location> locations = await locationFromAddress(firstPlacemark.name ?? '');
                         final firstLocation = locations.firstOrNull;
                         debugPrint('firstLocation: ${firstLocation.toString()}');
-                        if (firstLocation != null) {
-                          geoInfo.value = (firstPlacemark, firstLocation);
-                        }
+                        geoInfo.value = (firstPlacemark, firstLocation);
                       }
                     } catch (e) {
                       debugPrint(e.toString());
@@ -108,10 +107,14 @@ class LocationForm extends HookWidget {
         TextButton(
           onPressed: geoInfoValue != null
               ? () async {
-                  final name = placeMarkDisplayName ?? '';
-                  final latitude = geoInfoValue.$2.latitude;
-                  final longitude = geoInfoValue.$2.longitude;
-                  await onSubmit(LocationFormInfo(name: name, latitude: latitude, longitude: longitude));
+                  await functions.fillLocation(
+                    taskID: taskID,
+                    userLocation: LocationFormInfo(
+                      name: placeMarkDisplayName ?? '',
+                      latitude: geoInfoValue.$2?.latitude,
+                      longitude: geoInfoValue.$2?.longitude,
+                    ),
+                  );
                 }
               : null,
           child: const Text('予定を組む'),
