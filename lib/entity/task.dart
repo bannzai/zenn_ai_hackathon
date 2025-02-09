@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:todomaker/entity/grounding_data.dart';
+import 'package:todomaker/entity/location.dart';
 import 'package:todomaker/entity/timestamp.dart';
 
 part 'task.g.dart';
@@ -21,6 +22,9 @@ sealed class Task with _$Task {
     required String topic,
     required String definitionAITextResponse,
     required List<GroundingData> definitionGroundings,
+    List<Location>? locations,
+    String? locationsAITextResponse,
+    List<GroundingData>? locationsGroundings,
     @NullableTimestampConverter() required DateTime? preparedDateTime,
     @NullableTimestampConverter() required DateTime? completedDateTime,
     @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -77,6 +81,11 @@ export const TaskPreparedSchema = z
     // TODOのAIの回答のソースとなったもの
     definitionGroundings: z.array(GroundingDataSchema),
     completed: z.boolean().default(false),
+    // タスクの代表的な場所
+    // 未処理の場合はnull。処理完了の場合は空配列の可能性がある
+    locations: z.array(LocationSchema).nullable(),
+    locationsAITextResponse: z.string().nullable(),
+    locationsGroundings: z.array(GroundingDataSchema).nullable(),
 
     fullFilledDateTime: FirestoreTimestampSchema,
   })

@@ -57,6 +57,9 @@ mixin _$Task {
             String topic,
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
+            List<Location>? locations,
+            String? locationsAITextResponse,
+            List<GroundingData>? locationsGroundings,
             @NullableTimestampConverter() DateTime? preparedDateTime,
             @NullableTimestampConverter() DateTime? completedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -93,6 +96,9 @@ mixin _$Task {
             String topic,
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
+            List<Location>? locations,
+            String? locationsAITextResponse,
+            List<GroundingData>? locationsGroundings,
             @NullableTimestampConverter() DateTime? preparedDateTime,
             @NullableTimestampConverter() DateTime? completedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -129,6 +135,9 @@ mixin _$Task {
             String topic,
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
+            List<Location>? locations,
+            String? locationsAITextResponse,
+            List<GroundingData>? locationsGroundings,
             @NullableTimestampConverter() DateTime? preparedDateTime,
             @NullableTimestampConverter() DateTime? completedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -303,6 +312,9 @@ abstract class _$$TaskPreparedImplCopyWith<$Res> implements $TaskCopyWith<$Res> 
       String topic,
       String definitionAITextResponse,
       List<GroundingData> definitionGroundings,
+      List<Location>? locations,
+      String? locationsAITextResponse,
+      List<GroundingData>? locationsGroundings,
       @NullableTimestampConverter() DateTime? preparedDateTime,
       @NullableTimestampConverter() DateTime? completedDateTime,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -329,6 +341,9 @@ class __$$TaskPreparedImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$
     Object? topic = null,
     Object? definitionAITextResponse = null,
     Object? definitionGroundings = null,
+    Object? locations = freezed,
+    Object? locationsAITextResponse = freezed,
+    Object? locationsGroundings = freezed,
     Object? preparedDateTime = freezed,
     Object? completedDateTime = freezed,
     Object? createdDateTime = freezed,
@@ -373,6 +388,18 @@ class __$$TaskPreparedImplCopyWithImpl<$Res> extends _$TaskCopyWithImpl<$Res, _$
           ? _value._definitionGroundings
           : definitionGroundings // ignore: cast_nullable_to_non_nullable
               as List<GroundingData>,
+      locations: freezed == locations
+          ? _value._locations
+          : locations // ignore: cast_nullable_to_non_nullable
+              as List<Location>?,
+      locationsAITextResponse: freezed == locationsAITextResponse
+          ? _value.locationsAITextResponse
+          : locationsAITextResponse // ignore: cast_nullable_to_non_nullable
+              as String?,
+      locationsGroundings: freezed == locationsGroundings
+          ? _value._locationsGroundings
+          : locationsGroundings // ignore: cast_nullable_to_non_nullable
+              as List<GroundingData>?,
       preparedDateTime: freezed == preparedDateTime
           ? _value.preparedDateTime
           : preparedDateTime // ignore: cast_nullable_to_non_nullable
@@ -415,6 +442,9 @@ class _$TaskPreparedImpl extends TaskPrepared {
       required this.topic,
       required this.definitionAITextResponse,
       required final List<GroundingData> definitionGroundings,
+      final List<Location>? locations,
+      this.locationsAITextResponse,
+      final List<GroundingData>? locationsGroundings,
       @NullableTimestampConverter() required this.preparedDateTime,
       @NullableTimestampConverter() required this.completedDateTime,
       @ClientCreatedTimestamp() this.createdDateTime,
@@ -424,6 +454,8 @@ class _$TaskPreparedImpl extends TaskPrepared {
       final String? $type})
       : _todosGroundings = todosGroundings,
         _definitionGroundings = definitionGroundings,
+        _locations = locations,
+        _locationsGroundings = locationsGroundings,
         $type = $type ?? 'prepared',
         super._();
 
@@ -459,6 +491,28 @@ class _$TaskPreparedImpl extends TaskPrepared {
     return EqualUnmodifiableListView(_definitionGroundings);
   }
 
+  final List<Location>? _locations;
+  @override
+  List<Location>? get locations {
+    final value = _locations;
+    if (value == null) return null;
+    if (_locations is EqualUnmodifiableListView) return _locations;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final String? locationsAITextResponse;
+  final List<GroundingData>? _locationsGroundings;
+  @override
+  List<GroundingData>? get locationsGroundings {
+    final value = _locationsGroundings;
+    if (value == null) return null;
+    if (_locationsGroundings is EqualUnmodifiableListView) return _locationsGroundings;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   @NullableTimestampConverter()
   final DateTime? preparedDateTime;
@@ -483,7 +537,7 @@ class _$TaskPreparedImpl extends TaskPrepared {
 
   @override
   String toString() {
-    return 'Task.prepared(id: $id, userID: $userID, question: $question, todosAITextResponseMarkdown: $todosAITextResponseMarkdown, todosGroundings: $todosGroundings, shortAnswer: $shortAnswer, topic: $topic, definitionAITextResponse: $definitionAITextResponse, definitionGroundings: $definitionGroundings, preparedDateTime: $preparedDateTime, completedDateTime: $completedDateTime, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
+    return 'Task.prepared(id: $id, userID: $userID, question: $question, todosAITextResponseMarkdown: $todosAITextResponseMarkdown, todosGroundings: $todosGroundings, shortAnswer: $shortAnswer, topic: $topic, definitionAITextResponse: $definitionAITextResponse, definitionGroundings: $definitionGroundings, locations: $locations, locationsAITextResponse: $locationsAITextResponse, locationsGroundings: $locationsGroundings, preparedDateTime: $preparedDateTime, completedDateTime: $completedDateTime, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
   }
 
   @override
@@ -501,6 +555,9 @@ class _$TaskPreparedImpl extends TaskPrepared {
             (identical(other.topic, topic) || other.topic == topic) &&
             (identical(other.definitionAITextResponse, definitionAITextResponse) || other.definitionAITextResponse == definitionAITextResponse) &&
             const DeepCollectionEquality().equals(other._definitionGroundings, _definitionGroundings) &&
+            const DeepCollectionEquality().equals(other._locations, _locations) &&
+            (identical(other.locationsAITextResponse, locationsAITextResponse) || other.locationsAITextResponse == locationsAITextResponse) &&
+            const DeepCollectionEquality().equals(other._locationsGroundings, _locationsGroundings) &&
             (identical(other.preparedDateTime, preparedDateTime) || other.preparedDateTime == preparedDateTime) &&
             (identical(other.completedDateTime, completedDateTime) || other.completedDateTime == completedDateTime) &&
             (identical(other.createdDateTime, createdDateTime) || other.createdDateTime == createdDateTime) &&
@@ -522,6 +579,9 @@ class _$TaskPreparedImpl extends TaskPrepared {
       topic,
       definitionAITextResponse,
       const DeepCollectionEquality().hash(_definitionGroundings),
+      const DeepCollectionEquality().hash(_locations),
+      locationsAITextResponse,
+      const DeepCollectionEquality().hash(_locationsGroundings),
       preparedDateTime,
       completedDateTime,
       createdDateTime,
@@ -549,6 +609,9 @@ class _$TaskPreparedImpl extends TaskPrepared {
             String topic,
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
+            List<Location>? locations,
+            String? locationsAITextResponse,
+            List<GroundingData>? locationsGroundings,
             @NullableTimestampConverter() DateTime? preparedDateTime,
             @NullableTimestampConverter() DateTime? completedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -572,8 +635,25 @@ class _$TaskPreparedImpl extends TaskPrepared {
             @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)
         preparing,
   }) {
-    return prepared(id, userID, question, todosAITextResponseMarkdown, todosGroundings, shortAnswer, topic, definitionAITextResponse,
-        definitionGroundings, preparedDateTime, completedDateTime, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
+    return prepared(
+        id,
+        userID,
+        question,
+        todosAITextResponseMarkdown,
+        todosGroundings,
+        shortAnswer,
+        topic,
+        definitionAITextResponse,
+        definitionGroundings,
+        locations,
+        locationsAITextResponse,
+        locationsGroundings,
+        preparedDateTime,
+        completedDateTime,
+        createdDateTime,
+        updatedDateTime,
+        serverCreatedDateTime,
+        serverUpdatedDateTime);
   }
 
   @override
@@ -589,6 +669,9 @@ class _$TaskPreparedImpl extends TaskPrepared {
             String topic,
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
+            List<Location>? locations,
+            String? locationsAITextResponse,
+            List<GroundingData>? locationsGroundings,
             @NullableTimestampConverter() DateTime? preparedDateTime,
             @NullableTimestampConverter() DateTime? completedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -612,8 +695,25 @@ class _$TaskPreparedImpl extends TaskPrepared {
             @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime)?
         preparing,
   }) {
-    return prepared?.call(id, userID, question, todosAITextResponseMarkdown, todosGroundings, shortAnswer, topic, definitionAITextResponse,
-        definitionGroundings, preparedDateTime, completedDateTime, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
+    return prepared?.call(
+        id,
+        userID,
+        question,
+        todosAITextResponseMarkdown,
+        todosGroundings,
+        shortAnswer,
+        topic,
+        definitionAITextResponse,
+        definitionGroundings,
+        locations,
+        locationsAITextResponse,
+        locationsGroundings,
+        preparedDateTime,
+        completedDateTime,
+        createdDateTime,
+        updatedDateTime,
+        serverCreatedDateTime,
+        serverUpdatedDateTime);
   }
 
   @override
@@ -629,6 +729,9 @@ class _$TaskPreparedImpl extends TaskPrepared {
             String topic,
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
+            List<Location>? locations,
+            String? locationsAITextResponse,
+            List<GroundingData>? locationsGroundings,
             @NullableTimestampConverter() DateTime? preparedDateTime,
             @NullableTimestampConverter() DateTime? completedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -654,8 +757,25 @@ class _$TaskPreparedImpl extends TaskPrepared {
     required TResult orElse(),
   }) {
     if (prepared != null) {
-      return prepared(id, userID, question, todosAITextResponseMarkdown, todosGroundings, shortAnswer, topic, definitionAITextResponse,
-          definitionGroundings, preparedDateTime, completedDateTime, createdDateTime, updatedDateTime, serverCreatedDateTime, serverUpdatedDateTime);
+      return prepared(
+          id,
+          userID,
+          question,
+          todosAITextResponseMarkdown,
+          todosGroundings,
+          shortAnswer,
+          topic,
+          definitionAITextResponse,
+          definitionGroundings,
+          locations,
+          locationsAITextResponse,
+          locationsGroundings,
+          preparedDateTime,
+          completedDateTime,
+          createdDateTime,
+          updatedDateTime,
+          serverCreatedDateTime,
+          serverUpdatedDateTime);
     }
     return orElse();
   }
@@ -710,6 +830,9 @@ abstract class TaskPrepared extends Task {
       required final String topic,
       required final String definitionAITextResponse,
       required final List<GroundingData> definitionGroundings,
+      final List<Location>? locations,
+      final String? locationsAITextResponse,
+      final List<GroundingData>? locationsGroundings,
       @NullableTimestampConverter() required final DateTime? preparedDateTime,
       @NullableTimestampConverter() required final DateTime? completedDateTime,
       @ClientCreatedTimestamp() final DateTime? createdDateTime,
@@ -738,6 +861,9 @@ abstract class TaskPrepared extends Task {
   String get definitionAITextResponse;
   @override
   List<GroundingData> get definitionGroundings;
+  List<Location>? get locations;
+  String? get locationsAITextResponse;
+  List<GroundingData>? get locationsGroundings;
   @NullableTimestampConverter()
   DateTime? get preparedDateTime;
   @NullableTimestampConverter()
@@ -1003,6 +1129,9 @@ class _$TaskPreparingImpl extends TaskPreparing {
             String topic,
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
+            List<Location>? locations,
+            String? locationsAITextResponse,
+            List<GroundingData>? locationsGroundings,
             @NullableTimestampConverter() DateTime? preparedDateTime,
             @NullableTimestampConverter() DateTime? completedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -1043,6 +1172,9 @@ class _$TaskPreparingImpl extends TaskPreparing {
             String topic,
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
+            List<Location>? locations,
+            String? locationsAITextResponse,
+            List<GroundingData>? locationsGroundings,
             @NullableTimestampConverter() DateTime? preparedDateTime,
             @NullableTimestampConverter() DateTime? completedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
@@ -1083,6 +1215,9 @@ class _$TaskPreparingImpl extends TaskPreparing {
             String topic,
             String definitionAITextResponse,
             List<GroundingData> definitionGroundings,
+            List<Location>? locations,
+            String? locationsAITextResponse,
+            List<GroundingData>? locationsGroundings,
             @NullableTimestampConverter() DateTime? preparedDateTime,
             @NullableTimestampConverter() DateTime? completedDateTime,
             @ClientCreatedTimestamp() DateTime? createdDateTime,
