@@ -20,7 +20,7 @@ AppLocation _$AppLocationFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AppLocation {
-  String get name => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
   String? get postalCode => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
   String? get tel => throw _privateConstructorUsedError;
@@ -39,7 +39,7 @@ mixin _$AppLocation {
 abstract class $AppLocationCopyWith<$Res> {
   factory $AppLocationCopyWith(AppLocation value, $Res Function(AppLocation) then) = _$AppLocationCopyWithImpl<$Res, AppLocation>;
   @useResult
-  $Res call({String name, String? postalCode, String? address, String? tel, String? email});
+  $Res call({String? name, String? postalCode, String? address, String? tel, String? email});
 }
 
 /// @nodoc
@@ -56,17 +56,17 @@ class _$AppLocationCopyWithImpl<$Res, $Val extends AppLocation> implements $AppL
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? name = freezed,
     Object? postalCode = freezed,
     Object? address = freezed,
     Object? tel = freezed,
     Object? email = freezed,
   }) {
     return _then(_value.copyWith(
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       postalCode: freezed == postalCode
           ? _value.postalCode
           : postalCode // ignore: cast_nullable_to_non_nullable
@@ -92,7 +92,7 @@ abstract class _$$AppLocationImplCopyWith<$Res> implements $AppLocationCopyWith<
   factory _$$AppLocationImplCopyWith(_$AppLocationImpl value, $Res Function(_$AppLocationImpl) then) = __$$AppLocationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String? postalCode, String? address, String? tel, String? email});
+  $Res call({String? name, String? postalCode, String? address, String? tel, String? email});
 }
 
 /// @nodoc
@@ -104,17 +104,17 @@ class __$$AppLocationImplCopyWithImpl<$Res> extends _$AppLocationCopyWithImpl<$R
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? name = freezed,
     Object? postalCode = freezed,
     Object? address = freezed,
     Object? tel = freezed,
     Object? email = freezed,
   }) {
     return _then(_$AppLocationImpl(
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       postalCode: freezed == postalCode
           ? _value.postalCode
           : postalCode // ignore: cast_nullable_to_non_nullable
@@ -144,7 +144,7 @@ class _$AppLocationImpl extends _AppLocation {
   factory _$AppLocationImpl.fromJson(Map<String, dynamic> json) => _$$AppLocationImplFromJson(json);
 
   @override
-  final String name;
+  final String? name;
   @override
   final String? postalCode;
   @override
@@ -192,7 +192,7 @@ class _$AppLocationImpl extends _AppLocation {
 
 abstract class _AppLocation extends AppLocation {
   const factory _AppLocation(
-      {required final String name,
+      {required final String? name,
       required final String? postalCode,
       required final String? address,
       required final String? tel,
@@ -202,7 +202,7 @@ abstract class _AppLocation extends AppLocation {
   factory _AppLocation.fromJson(Map<String, dynamic> json) = _$AppLocationImpl.fromJson;
 
   @override
-  String get name;
+  String? get name;
   @override
   String? get postalCode;
   @override

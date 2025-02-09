@@ -13,8 +13,13 @@ class LocationForm extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final text = useState('');
+    final textEditFormController = useTextEditingController();
     final focusNode = useFocusNode();
     final submitting = useState(false);
+
+    textEditFormController.addListener(() {
+      text.value = textEditFormController.text;
+    });
 
     return AlertDialog(
       title: const Column(
@@ -34,7 +39,7 @@ class LocationForm extends HookWidget {
               children: [
                 SizedBox(
                   child: TextFormField(
-                    initialValue: text.value,
+                    controller: textEditFormController,
                     focusNode: focusNode,
                     decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
@@ -51,7 +56,6 @@ class LocationForm extends HookWidget {
                       focusNode.unfocus();
 
                       text.value = value;
-
                       debugPrint('value: $value');
                     },
                   ),
@@ -68,13 +72,13 @@ class LocationForm extends HookWidget {
                       final currentPosition = await Geolocator.getCurrentPosition();
                       final List<Placemark> placemarks = await placemarkFromCoordinates(currentPosition.latitude, currentPosition.longitude);
                       final firstPlacemark = placemarks.firstOrNull;
-                      final name = firstPlacemark?.name ?? '';
+                      final name = _formatted(firstPlacemark);
                       if (name.isEmpty) {
                         debugPrint('firstPlacemark: ${firstPlacemark.toString()}');
                         throw const FormatException('位置情報が取得できませんでした');
                       }
 
-                      text.value = name;
+                      textEditFormController.text = name;
                     } catch (e) {
                       debugPrint(e.toString());
                       if (context.mounted) {
@@ -93,11 +97,11 @@ class LocationForm extends HookWidget {
         Loading(
           isLoading: submitting.value,
           child: TextButton(
-            onPressed: text.value.isNotEmpty && !submitting.value
+            onPressed: textEditFormController.text.isNotEmpty && !submitting.value
                 ? () async {
                     submitting.value = true;
                     try {
-                      final List<Location> locations = await locationFromAddress(text.value);
+                      final List<Location> locations = await locationFromAddress(textEditFormController.text);
                       final firstLocation = locations.firstOrNull;
                       final Placemark? firstPlacemark;
                       if (firstLocation != null) {
@@ -110,14 +114,7 @@ class LocationForm extends HookWidget {
                         throw const FormatException('位置情報が取得できませんでした。入力した住所をご確認ください');
                       }
 
-                      final placeMarkDisplayName = firstPlacemark.name ??
-                          firstPlacemark.locality ??
-                          firstPlacemark.subLocality ??
-                          firstPlacemark.thoroughfare ??
-                          firstPlacemark.subThoroughfare ??
-                          firstPlacemark.postalCode;
-
-                      final name = placeMarkDisplayName ?? '';
+                      final name = _formatted(firstPlacemark);
                       final latitude = firstLocation?.latitude;
                       final longitude = firstLocation?.longitude;
 
@@ -145,5 +142,21 @@ class LocationForm extends HookWidget {
         ),
       ],
     );
+  }
+
+  String _formatted(Placemark? placemark) {
+    if (placemark == null) {
+      return '';
+    }
+
+    final placeMarkDisplayName =
+        (placemark.locality ?? '') + (placemark.subLocality ?? '') + (placemark.thoroughfare ?? '') + (placemark.subThoroughfare ?? '');
+    debugPrint('placemark.name: ${placemark.name}');
+    debugPrint('placemark.locality: ${placemark.locality}');
+    debugPrint('placemark.subLocality: ${placemark.subLocality}');
+    debugPrint('placemark.thoroughfare: ${placemark.thoroughfare}');
+    debugPrint('placemark.subThoroughfare: ${placemark.subThoroughfare}');
+    debugPrint('placemark.postalCode: ${placemark.postalCode}');
+    return placeMarkDisplayName;
   }
 }

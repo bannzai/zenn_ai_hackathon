@@ -74,8 +74,8 @@ class TaskLocationItem extends StatelessWidget {
           children: [
             const Text('🏠 名称:'),
             GestureDetector(
-              onTap: () => _openMap(nameOrAddress: location.name),
-              child: Text(location.name, style: const TextStyle(fontSize: 14, color: TextColor.link)),
+              onTap: () => _openMap(nameOrAddress: location.name ?? ''),
+              child: Text(location.name ?? '', style: const TextStyle(fontSize: 14, color: TextColor.link)),
             ),
           ],
         ),
@@ -133,17 +133,19 @@ class TaskLocationItem extends StatelessWidget {
                 children: [
                   const Text('参考URL', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                   for (final grounding in locationGroundings) ...[
-                    Link(
-                        uri: Uri.parse(grounding.url!),
-                        builder: (BuildContext ctx, FollowLink? openLink) {
-                          return GestureDetector(
-                            onTap: openLink,
-                            child: Text(
-                              grounding.title ?? '',
-                              style: const TextStyle(fontSize: 14, color: TextColor.link),
-                            ),
-                          );
-                        }),
+                    if (grounding.url != null) ...[
+                      Link(
+                          uri: Uri.parse(grounding.url!),
+                          builder: (BuildContext ctx, FollowLink? openLink) {
+                            return GestureDetector(
+                              onTap: openLink,
+                              child: Text(
+                                grounding.title ?? '',
+                                style: const TextStyle(fontSize: 14, color: TextColor.link),
+                              ),
+                            );
+                          }),
+                    ],
                   ],
                 ],
               ),

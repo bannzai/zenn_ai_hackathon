@@ -8,7 +8,7 @@ class AppLocation with _$AppLocation {
   const AppLocation._();
   @JsonSerializable(explicitToJson: true)
   const factory AppLocation({
-    required String name,
+    required String? name,
     required String? postalCode,
     required String? address,
     required String? tel,

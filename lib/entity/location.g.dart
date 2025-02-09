@@ -7,7 +7,7 @@ part of 'location.dart';
 // **************************************************************************
 
 _$AppLocationImpl _$$AppLocationImplFromJson(Map<String, dynamic> json) => _$AppLocationImpl(
-      name: json['name'] as String,
+      name: json['name'] as String?,
       postalCode: json['postalCode'] as String?,
       address: json['address'] as String?,
       tel: json['tel'] as String?,
