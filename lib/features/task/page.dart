@@ -139,7 +139,6 @@ class TaskPageBody extends HookConsumerWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20),
                   const Divider(height: 1, color: Colors.black),
                   TimeRequiredTodos(task: task, todos: todos),
                   const Divider(height: 1, color: Colors.black),
