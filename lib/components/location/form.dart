@@ -26,7 +26,7 @@ class LocationForm extends HookWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('タスクの達成のためにヒントとなる会場・場所を提案できます。現在地・職場などを入力してください'),
+          const Text('タスクの達成のためにヒントとなる会場・場所をAIが提案します。現在地・職場などを入力してください', style: TextStyle(fontSize: 10)),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Column(

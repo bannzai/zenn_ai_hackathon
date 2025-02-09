@@ -6,6 +6,7 @@ import 'package:todomaker/components/alert/discard.dart';
 import 'package:todomaker/components/loading/bot.dart';
 import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/components/loading/indicator.dart';
+import 'package:todomaker/components/retry/page.dart';
 import 'package:todomaker/components/todo/list.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/features/root/resolver/database.dart';
@@ -15,28 +16,35 @@ import 'package:todomaker/provider/todo.dart';
 import 'package:todomaker/style/color.dart';
 
 class TaskPage extends HookConsumerWidget {
-  final TaskPrepared task;
-  const TaskPage({super.key, required this.task});
+  final String taskID;
+  const TaskPage({super.key, required this.taskID});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final task = ref.watch(taskProvider(taskID: this.task.id)).valueOrNull;
-    if (task == null) {
-      return const IndicatorPage();
-    }
-    // FIXME: そのうち.whenとか使う
-    return TaskPageBody(taskID: task.id);
+    final task = ref.watch(taskProvider(taskID: taskID));
+    return Retry(
+      retry: () => ref.invalidate(taskProvider(taskID: taskID)),
+      child: () {
+        return task.when(
+          data: (task) => TaskPageBody(task: task as TaskPrepared),
+          error: (e, st) => RetryPage(
+            exception: e,
+            stackTrace: st,
+          ),
+          loading: () => const IndicatorPage(),
+        );
+      }(),
+    );
   }
 }
 
 class TaskPageBody extends HookConsumerWidget {
-  final String taskID;
-  const TaskPageBody({super.key, required this.taskID});
+  final TaskPrepared task;
+  const TaskPageBody({super.key, required this.task});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final task = ref.watch(taskProvider(taskID: taskID)).requireValue as TaskPrepared;
-
+    debugPrint('TaskPageBody build: ${task.userLocation}');
     final primaryColor = Theme.of(context).colorScheme.primary;
 
     final topic = task.topic;
@@ -116,7 +124,7 @@ class TaskPageBody extends HookConsumerWidget {
                             messages: const ['情報を取得中...', '少し待ってね😘', '丁寧にWebから情報を収集中🦾'],
                             onStop: () {
                               // TODO: Retry or エラーハンドリングの仕組みをちゃんと作る。ハッカソンだからとりあえず動くコードにしている
-                              ref.read(userDatabaseProvider).taskReference(taskID: taskID).update({
+                              ref.read(userDatabaseProvider).taskReference(taskID: task.id).update({
                                 'userLocation': null,
                               });
                             }),
@@ -134,7 +142,7 @@ class TaskPageBody extends HookConsumerWidget {
                 messages: const ['準備中...', 'ちょっと待っててね😘', '手順が多いと数分かかることがあるよ🏎️', '丁寧にWebから情報を収集中🦾'],
                 onStop: () {
                   // TODO: Retry or エラーハンドリングの仕組みをちゃんと作る。ハッカソンだからとりあえず動くコードにしている
-                  ref.read(userDatabaseProvider).taskReference(taskID: taskID).delete();
+                  ref.read(userDatabaseProvider).taskReference(taskID: task.id).delete();
                 },
               ),
             ],

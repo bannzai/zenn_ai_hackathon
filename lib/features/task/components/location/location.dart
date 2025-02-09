@@ -29,7 +29,7 @@ class TaskLocation extends StatelessWidget {
 
             // NOTE: FIXME: loading/bot の表示のために領域確保している
             return Container(
-              constraints: const BoxConstraints(minHeight: 200),
+              height: 300,
               child: Column(
                 children: [
                   TaskLocationAskAI(task: task),

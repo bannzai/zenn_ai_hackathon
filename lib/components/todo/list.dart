@@ -58,7 +58,7 @@ class TasksTodoList extends HookConsumerWidget {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: TextButton(
-                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPage(task: task))),
+                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPage(taskID: task.id))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [

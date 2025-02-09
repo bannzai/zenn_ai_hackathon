@@ -58,7 +58,7 @@ class TasksPageSection extends HookConsumerWidget {
                       GestureDetector(
                         onTap: () {
                           if (task is TaskPrepared) {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPage(task: task)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => TaskPage(taskID: task.id)));
                           }
                         },
                         child: const Row(
