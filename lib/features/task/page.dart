@@ -7,7 +7,7 @@ import 'package:todomaker/components/loading/bot.dart';
 import 'package:todomaker/components/grounding_data/list.dart';
 import 'package:todomaker/components/todo/list.dart';
 import 'package:todomaker/entity/task.dart';
-import 'package:todomaker/features/task/components/location.dart';
+import 'package:todomaker/features/task/components/location/location.dart';
 import 'package:todomaker/provider/task.dart';
 import 'package:todomaker/provider/todo.dart';
 import 'package:todomaker/style/color.dart';
