@@ -26,7 +26,9 @@ class TaskLocationAskAI extends HookConsumerWidget {
                   userLocation: userLocation,
                 );
               } catch (e) {
-                showErrorAlert(context, e.toString());
+                if (context.mounted) {
+                  showErrorAlert(context, e.toString());
+                }
               }
             },
           ),
