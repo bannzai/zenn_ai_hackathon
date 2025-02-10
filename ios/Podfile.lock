@@ -7,6 +7,8 @@ PODS:
     - Firebase/Functions (= 11.6.0)
     - firebase_core
     - Flutter
+  - device_calendar (0.0.1):
+    - Flutter
   - Firebase/Analytics (11.6.0):
     - Firebase/Core
   - Firebase/Auth (11.6.0):
@@ -267,6 +269,7 @@ PODS:
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - cloud_functions (from `.symlinks/plugins/cloud_functions/ios`)
+  - device_calendar (from `.symlinks/plugins/device_calendar/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
@@ -329,6 +332,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/cloud_firestore/ios"
   cloud_functions:
     :path: ".symlinks/plugins/cloud_functions/ios"
+  device_calendar:
+    :path: ".symlinks/plugins/device_calendar/ios"
   firebase_analytics:
     :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_auth:
@@ -375,6 +380,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   cloud_firestore: 4e400e0609faca03c9654ce2e850f52b49388f82
   cloud_functions: 72a3c15c65c5b103a00b274ddc377b716ed2b8e9
+  device_calendar: 9cb33f88a02e19652ec7b8b122ca778f751b1f7b
   Firebase: 374a441a91ead896215703a674d58cdb3e9d772b
   firebase_analytics: c2b131770f77b2f6b55f618342c898e9fb1a7c28
   firebase_auth: 1623c3c0b4d587c35f795181b83aacff03099b84
