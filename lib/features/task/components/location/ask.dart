@@ -13,6 +13,8 @@ class TaskLocationAskAI extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final taskFillLocation = ref.watch(taskFillLocationProvider);
+    final locations = task.locations;
+
     return TextButton(
       style: TextButton.styleFrom(
         padding: const EdgeInsets.symmetric(vertical: 0),
@@ -39,13 +41,17 @@ class TaskLocationAskAI extends HookConsumerWidget {
           ),
         );
       },
-      child: const Row(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.baseline,
         textBaseline: TextBaseline.ideographic,
         children: [
-          Text('🤖'),
-          SizedBox(width: 2),
-          Text('関連する位置情報・会場・場所をAIに聞く'),
+          const Text('🤖'),
+          const SizedBox(width: 2),
+          if (locations != null && locations.isNotEmpty) ...[
+            const Text('関連する位置情報・会場・場所をAIに聞き直す'),
+          ] else ...[
+            const Text('関連する位置情報・会場・場所をAIに聞く'),
+          ],
         ],
       ),
     );
