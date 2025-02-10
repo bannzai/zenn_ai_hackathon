@@ -55,9 +55,11 @@ Map<String, dynamic> _$$TodoImplToJson(_$TodoImpl instance) => <String, dynamic>
     };
 
 _$TodoCalendarScheduleImpl _$$TodoCalendarScheduleImplFromJson(Map<String, dynamic> json) => _$TodoCalendarScheduleImpl(
+      calendarID: json['calendarID'] as String,
       calendarEventID: json['calendarEventID'] as String,
     );
 
 Map<String, dynamic> _$$TodoCalendarScheduleImplToJson(_$TodoCalendarScheduleImpl instance) => <String, dynamic>{
+      'calendarID': instance.calendarID,
       'calendarEventID': instance.calendarEventID,
     };

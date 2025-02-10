@@ -24,7 +24,7 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<void> writeEvent({
+    Future<String?> writeEvent({
       required String calendarID,
       required String? eventID,
       required DateTime start,
@@ -48,15 +48,8 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
           Reminder(minutes: 30),
         ],
       );
-      var createdEventID = await deviceCalendarPlugin.createOrUpdateEvent(event);
-      if (createdEventID != null) {
-        // TODO: イベントを追加したら、イベント一覧を更新する
-        // events.value = await calendarEvents();
-
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('カレンダーに追加しました')));
-        }
-      }
+      final createdEventID = await deviceCalendarPlugin.createOrUpdateEvent(event);
+      return createdEventID?.data;
     }
 
     return TextButton(
@@ -82,10 +75,13 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
           days: durationDays.value,
           minutes: durationMinutes,
         ));
-        await writeEvent(calendarID: calendarID, eventID: null, start: eventStart, end: eventEnd);
 
+        final eventID = await writeEvent(calendarID: calendarID, eventID: null, start: eventStart, end: eventEnd);
         if (context.mounted) {
-          Navigator.of(context).pop();
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('カレンダーに追加しました')));
+        }
+        if (context.mounted) {
+          Navigator.of(context).pop(eventID);
         }
       },
     );

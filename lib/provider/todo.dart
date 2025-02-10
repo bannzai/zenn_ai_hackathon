@@ -115,3 +115,23 @@ TodoEditTimeRequired todoEditTimeRequired(TodoEditTimeRequiredRef ref) {
   final database = ref.watch(userDatabaseProvider);
   return TodoEditTimeRequired(database: database);
 }
+
+class TodoSetCalendarSchedule {
+  final UserDatabase database;
+
+  TodoSetCalendarSchedule({required this.database});
+
+  Future<void> call({
+    required String taskID,
+    required String todoID,
+    required TodoCalendarSchedule? todoCalendarSchedule,
+  }) {
+    return database.todoReference(taskID: taskID, todoID: todoID).update({'calendarSchedule': todoCalendarSchedule?.toJson()});
+  }
+}
+
+@Riverpod(dependencies: [userDatabase])
+TodoSetCalendarSchedule todoSetCalendarSchedule(TodoSetCalendarScheduleRef ref) {
+  final database = ref.watch(userDatabaseProvider);
+  return TodoSetCalendarSchedule(database: database);
+}

@@ -106,6 +106,7 @@ extension Todos on List<Todo> {
 @freezed
 class TodoCalendarSchedule with _$TodoCalendarSchedule {
   const factory TodoCalendarSchedule({
+    required String calendarID,
     required String calendarEventID,
   }) = _TodoCalendarSchedule;
 

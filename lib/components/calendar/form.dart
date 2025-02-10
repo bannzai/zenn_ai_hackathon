@@ -9,13 +9,12 @@ class TodoCaledarScheduleForm extends HookWidget {
   final Todo todo;
   final String calendarID;
   final DeviceCalendarPlugin deviceCalendarPlugin;
-  final ValueNotifier<List<Event>> events;
+
   const TodoCaledarScheduleForm({
     super.key,
     required this.todo,
     required this.calendarID,
     required this.deviceCalendarPlugin,
-    required this.events,
   });
 
   @override
@@ -123,7 +122,7 @@ class TodoCaledarScheduleForm extends HookWidget {
         TextButton(
           child: const Text('キャンセル'),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pop(null);
           },
         ),
         TodoCalendarFormSubmitButton(
@@ -138,4 +137,21 @@ class TodoCaledarScheduleForm extends HookWidget {
       ],
     );
   }
+}
+
+// return eventID or null
+Future<String?> showTodoCalendarForm(
+  BuildContext context, {
+  required Todo todo,
+  required String calendarID,
+  required DeviceCalendarPlugin deviceCalendarPlugin,
+}) async {
+  return await showDialog<String?>(
+    context: context,
+    builder: (context) => TodoCaledarScheduleForm(
+      todo: todo,
+      calendarID: calendarID,
+      deviceCalendarPlugin: deviceCalendarPlugin,
+    ),
+  );
 }

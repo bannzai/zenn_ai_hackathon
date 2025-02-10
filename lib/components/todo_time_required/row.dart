@@ -60,12 +60,13 @@ class TodoTimeRequiredRow extends HookConsumerWidget {
   }
 }
 
-class TodoCalendarScheduleSection extends HookWidget {
+class TodoCalendarScheduleSection extends HookConsumerWidget {
   final Todo todo;
   const TodoCalendarScheduleSection({super.key, required this.todo});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final todoSetCalendarSchedule = ref.watch(todoSetCalendarScheduleProvider);
     // device_calendar のインスタンス作成
     final deviceCalendarPlugin = useMemoized(() => DeviceCalendarPlugin());
     // 各種状態を useState で管理
@@ -113,19 +114,30 @@ class TodoCalendarScheduleSection extends HookWidget {
         onPressed: () async {
           try {
             final calendar0 = await defaultCalendar();
+            final calendarID = calendar0.id;
+            if (calendarID == null) {
+              throw Exception('カレンダーIDが取得できませんでした');
+            }
+
             events.value = await calendarEvents();
             calendar.value = calendar0;
 
             if (context.mounted) {
-              showDialog(
-                context: context,
-                builder: (context) => TodoCaledarScheduleForm(
-                  todo: todo,
-                  calendarID: calendar0.id!,
-                  deviceCalendarPlugin: deviceCalendarPlugin,
-                  events: events,
-                ),
+              final eventID = await showTodoCalendarForm(
+                context,
+                todo: todo,
+                calendarID: calendar0.id!,
+                deviceCalendarPlugin: deviceCalendarPlugin,
               );
+              if (eventID != null) {
+                final todoCalendarSchedule = TodoCalendarSchedule(calendarID: calendarID, calendarEventID: eventID);
+                await todoSetCalendarSchedule(
+                  taskID: todo.taskID,
+                  todoID: todo.id,
+                  todoCalendarSchedule: todoCalendarSchedule,
+                );
+                events.value = await calendarEvents();
+              }
             }
 
             debugPrint('calendar: ${calendar.value?.id}, events: ${events.value.length}');

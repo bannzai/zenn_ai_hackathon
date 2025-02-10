@@ -642,6 +642,7 @@ TodoCalendarSchedule _$TodoCalendarScheduleFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TodoCalendarSchedule {
+  String get calendarID => throw _privateConstructorUsedError;
   String get calendarEventID => throw _privateConstructorUsedError;
 
   /// Serializes this TodoCalendarSchedule to a JSON map.
@@ -658,7 +659,7 @@ abstract class $TodoCalendarScheduleCopyWith<$Res> {
   factory $TodoCalendarScheduleCopyWith(TodoCalendarSchedule value, $Res Function(TodoCalendarSchedule) then) =
       _$TodoCalendarScheduleCopyWithImpl<$Res, TodoCalendarSchedule>;
   @useResult
-  $Res call({String calendarEventID});
+  $Res call({String calendarID, String calendarEventID});
 }
 
 /// @nodoc
@@ -675,9 +676,14 @@ class _$TodoCalendarScheduleCopyWithImpl<$Res, $Val extends TodoCalendarSchedule
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? calendarID = null,
     Object? calendarEventID = null,
   }) {
     return _then(_value.copyWith(
+      calendarID: null == calendarID
+          ? _value.calendarID
+          : calendarID // ignore: cast_nullable_to_non_nullable
+              as String,
       calendarEventID: null == calendarEventID
           ? _value.calendarEventID
           : calendarEventID // ignore: cast_nullable_to_non_nullable
@@ -692,7 +698,7 @@ abstract class _$$TodoCalendarScheduleImplCopyWith<$Res> implements $TodoCalenda
       __$$TodoCalendarScheduleImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String calendarEventID});
+  $Res call({String calendarID, String calendarEventID});
 }
 
 /// @nodoc
@@ -705,9 +711,14 @@ class __$$TodoCalendarScheduleImplCopyWithImpl<$Res> extends _$TodoCalendarSched
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? calendarID = null,
     Object? calendarEventID = null,
   }) {
     return _then(_$TodoCalendarScheduleImpl(
+      calendarID: null == calendarID
+          ? _value.calendarID
+          : calendarID // ignore: cast_nullable_to_non_nullable
+              as String,
       calendarEventID: null == calendarEventID
           ? _value.calendarEventID
           : calendarEventID // ignore: cast_nullable_to_non_nullable
@@ -719,16 +730,18 @@ class __$$TodoCalendarScheduleImplCopyWithImpl<$Res> extends _$TodoCalendarSched
 /// @nodoc
 @JsonSerializable()
 class _$TodoCalendarScheduleImpl implements _TodoCalendarSchedule {
-  const _$TodoCalendarScheduleImpl({required this.calendarEventID});
+  const _$TodoCalendarScheduleImpl({required this.calendarID, required this.calendarEventID});
 
   factory _$TodoCalendarScheduleImpl.fromJson(Map<String, dynamic> json) => _$$TodoCalendarScheduleImplFromJson(json);
 
+  @override
+  final String calendarID;
   @override
   final String calendarEventID;
 
   @override
   String toString() {
-    return 'TodoCalendarSchedule(calendarEventID: $calendarEventID)';
+    return 'TodoCalendarSchedule(calendarID: $calendarID, calendarEventID: $calendarEventID)';
   }
 
   @override
@@ -736,12 +749,13 @@ class _$TodoCalendarScheduleImpl implements _TodoCalendarSchedule {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TodoCalendarScheduleImpl &&
+            (identical(other.calendarID, calendarID) || other.calendarID == calendarID) &&
             (identical(other.calendarEventID, calendarEventID) || other.calendarEventID == calendarEventID));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, calendarEventID);
+  int get hashCode => Object.hash(runtimeType, calendarID, calendarEventID);
 
   /// Create a copy of TodoCalendarSchedule
   /// with the given fields replaced by the non-null parameter values.
@@ -760,10 +774,12 @@ class _$TodoCalendarScheduleImpl implements _TodoCalendarSchedule {
 }
 
 abstract class _TodoCalendarSchedule implements TodoCalendarSchedule {
-  const factory _TodoCalendarSchedule({required final String calendarEventID}) = _$TodoCalendarScheduleImpl;
+  const factory _TodoCalendarSchedule({required final String calendarID, required final String calendarEventID}) = _$TodoCalendarScheduleImpl;
 
   factory _TodoCalendarSchedule.fromJson(Map<String, dynamic> json) = _$TodoCalendarScheduleImpl.fromJson;
 
+  @override
+  String get calendarID;
   @override
   String get calendarEventID;
 
