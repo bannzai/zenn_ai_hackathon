@@ -7,59 +7,46 @@ import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // NOTE: TaskLocationItemと一緒な見た目
-class TodoLocationRow extends StatelessWidget {
+class TodoLocationsRow extends StatelessWidget {
   final Todo todo;
-  const TodoLocationRow({super.key, required this.todo});
+  const TodoLocationsRow({super.key, required this.todo});
 
   @override
   Widget build(BuildContext context) {
-    final supplement = todo.supplement;
-
     final locations = todo.locations;
     final locationsGroundings = todo.locationsGroundings;
     final locationsAITextResponse = todo.locationsAITextResponse;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(todo.content, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          if (supplement != null && supplement.isNotEmpty) ...[
-            Text(
-              supplement,
-              style: const TextStyle(fontSize: 14, color: TextColor.darkGray),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (locations != null && locations.isNotEmpty) ...[
+          for (final location in locations) ...[
+            const SizedBox(height: 10),
+            TodoLocationRowContent(
+              todo: todo,
+              location: location,
+              locationsAITextResponse: locationsAITextResponse,
+              locationGroundings: locationsGroundings ?? [],
             ),
           ],
-          if (locations != null && locations.isNotEmpty) ...[
-            for (final location in locations) ...[
-              const SizedBox(height: 10),
-              _TodoLocationRowContent(
-                todo: todo,
-                location: location,
-                locationsAITextResponse: locationsAITextResponse,
-                locationGroundings: locationsGroundings ?? [],
-              ),
-            ],
-          ],
-          if (locations == null || locations.isEmpty) ...[
-            _TodoLocationRowContentEmpty(todo: todo),
-          ],
         ],
-      ),
+        if (locations == null || locations.isEmpty) ...[
+          _TodoLocationRowContentEmpty(todo: todo),
+        ],
+      ],
     );
   }
 }
 
-class _TodoLocationRowContent extends StatelessWidget {
+class TodoLocationRowContent extends StatelessWidget {
   final Todo todo;
   final AppLocation location;
   final String? locationsAITextResponse;
   final List<GroundingData> locationGroundings;
 
-  const _TodoLocationRowContent({
+  const TodoLocationRowContent({
+    super.key,
     required this.todo,
     required this.location,
     required this.locationsAITextResponse,

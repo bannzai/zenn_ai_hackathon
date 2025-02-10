@@ -104,13 +104,17 @@ class TodoPage extends HookConsumerWidget {
                 height: 1,
                 color: Colors.black,
               ),
+              if (todo.locations != null && todo.locations!.isNotEmpty) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: TodoLocationsRow(todo: todo),
+                ),
+                const Divider(),
+              ],
               if (groundings != null) ...[
                 const SizedBox(height: 10),
                 GroundingDataList(groundings: groundings),
               ],
-              TodoLocationRow(todo: todo),
-              
-              const Divider(),
             ],
           ),
         ),
