@@ -11,8 +11,9 @@ class TodoTimeRequiredRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formattedTimeRequired = todo.formattedTimeRequired ?? '0秒';
+    final formattedTimeRequired = todo.formattedTimeRequired;
     final formattedUserTimeRequired = todo.formattedUserTimeRequired;
+    final isAI = todo.userTimeRequired == null;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -20,21 +21,30 @@ class TodoTimeRequiredRow extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Text('AIが算出した推定作業時間', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-              const Spacer(),
-              if (formattedUserTimeRequired == null) ...[
-                Text(formattedTimeRequired, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+              if (isAI) ...[
+                const Text('合計作業時間(AI算出)', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                const Spacer(),
+                Text(formattedTimeRequired ?? '0秒', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                 const SizedBox(width: 10),
-              ],
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.edit),
-                padding: EdgeInsets.zero,
-                constraints: const BoxConstraints(), // これを追加
-              ),
-              if (formattedUserTimeRequired != null) ...[
-                Text(formattedUserTimeRequired, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.edit),
+                  padding: EdgeInsets.zero,
+                  // NOTE: paddingを消す
+                  constraints: const BoxConstraints(),
+                ),
+              ] else ...[
+                const Text('合計作業時間(AI算出)', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                const Spacer(),
+                Text(formattedUserTimeRequired ?? '0秒', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                 const SizedBox(width: 10),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.edit),
+                  padding: EdgeInsets.zero,
+                  // NOTE: paddingを消す
+                  constraints: const BoxConstraints(),
+                ),
               ],
             ],
           ),
