@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:device_calendar/device_calendar.dart';
 
@@ -58,7 +57,9 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
         // TODO: イベントを追加したら、イベント一覧を更新する
         // events.value = await calendarEvents();
 
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('カレンダーに追加しました')));
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('カレンダーに追加しました')));
+        }
       }
     }
 
@@ -104,7 +105,9 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
             DateTime eventEnd = eventStart.add(Duration(minutes: durationMinutes));
             await writeEvent(calendarID: calendarID, eventID: null, start: eventStart, end: eventEnd);
           }
-          Navigator.of(context).pop();
+          if (context.mounted) {
+            Navigator.of(context).pop();
+          }
         }
       },
     );
