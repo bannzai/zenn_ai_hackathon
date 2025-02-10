@@ -77,7 +77,7 @@ class TodoCalendarScheduleSection extends HookWidget {
         if (calendarsResult.isSuccess && calendarsResult.data != null) {
           // 書き込み可能なカレンダーを自動選択（なければ最初のカレンダー）
           final value = calendarsResult.data!.firstWhere(
-            (calendar) => calendar.isReadOnly != true,
+            (calendar) => calendar.isDefault ?? false,
             orElse: () => calendarsResult.data!.first,
           );
           return value;
@@ -94,6 +94,8 @@ class TodoCalendarScheduleSection extends HookWidget {
           try {
             calendar.value = await defaultCalendar();
             events.value = await calendarEvents();
+
+            debugPrint('calendar: ${calendar.value?.id}, events: ${events.value.length}');
           } catch (e) {
             if (context.mounted) {
               showErrorAlert(context, e);
