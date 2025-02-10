@@ -30,22 +30,23 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
     Future<String?> writeEvent({
       required String calendarID,
       required String? eventID,
-      required DateTime start,
-      required DateTime end,
+      required DateTime begin,
+      required Duration duration,
+      required DateTime recurrenceEnd,
     }) async {
       final event = Event(
         calendarID,
         eventId: eventID,
         title: todo.content,
         allDay: false,
-        start: TZDateTime.from(start, getLocation('Asia/Tokyo')),
-        end: TZDateTime.from(end, getLocation('Asia/Tokyo')),
+        start: TZDateTime.from(begin, getLocation('Asia/Tokyo')),
+        end: TZDateTime.from(begin.add(duration), getLocation('Asia/Tokyo')),
         description: calendarDescription(),
         location: todo.locations?.first.name,
         recurrenceRule: RecurrenceRule(
           RecurrenceFrequency.Daily,
           interval: 1,
-          endDate: end,
+          endDate: recurrenceEnd,
         ),
         reminders: [
           Reminder(minutes: 30),
@@ -76,14 +77,16 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
           selectedTime.value!.minute,
         );
         DateTime eventEnd = eventStart.add(Duration(
+          days: days,
           seconds: workingTimeSeconds,
         ));
 
         final eventID = await writeEvent(
           calendarID: calendarID,
           eventID: todoCalendarSchedule?.calendarEventID,
-          start: eventStart,
-          end: eventEnd,
+          begin: eventStart,
+          duration: Duration(seconds: workingTimeSeconds),
+          recurrenceEnd: eventEnd,
         );
         if (context.mounted) {
           Navigator.of(context).pop((eventID, timeRequired.value));
