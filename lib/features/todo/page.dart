@@ -173,6 +173,7 @@ class TodoPageBody extends HookConsumerWidget {
                     ],
                   ),
                 ),
+                const Divider(),
               ],
               TodoTimeRequiredRow(todo: todo),
               const Divider(),
