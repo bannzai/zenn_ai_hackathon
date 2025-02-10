@@ -122,7 +122,7 @@ class TaskPageBody extends HookConsumerWidget {
                   const SizedBox(height: 20),
                   const Divider(height: 1, color: Colors.black),
                   Container(
-                    constraints: BoxConstraints(minHeight: locationProcessingIsRunning ? 150 : 0),
+                    constraints: BoxConstraints(minHeight: locationProcessingIsRunning ? 180 : 0),
                     child: Stack(
                       children: [
                         TaskLocation(task: task, todos: todos),
