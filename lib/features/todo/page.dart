@@ -9,6 +9,7 @@ import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/retry/page.dart';
 import 'package:todomaker/components/todo_locations/ask.dart';
 import 'package:todomaker/components/todo_locations/row.dart';
+import 'package:todomaker/components/todo_time_required/row.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/features/root/resolver/database.dart';
 import 'package:todomaker/provider/todo.dart';
@@ -170,6 +171,8 @@ class TodoPageBody extends HookConsumerWidget {
                     ],
                   ),
                 ),
+                const Divider(),
+                TodoTimeRequiredRow(todo: todo),
                 const Divider(),
               ],
             ],
