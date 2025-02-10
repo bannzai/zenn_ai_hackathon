@@ -22,7 +22,7 @@ class BotLoading extends StatelessWidget {
               const SizedBox(height: 12),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Text('※ 時間がかかり過ぎているようであれば、一度停止して再度実行してください。', style: TextStyle(fontSize: 12)),
+                child: Text('※ 時間がかかり過ぎているようであれば、\n一度停止して再度実行してください。', style: TextStyle(fontSize: 12)),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
