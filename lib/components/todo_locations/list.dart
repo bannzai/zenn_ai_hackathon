@@ -35,6 +35,7 @@ class TodoLocationsSection extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(todo.content, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           if (supplement != null && supplement.isNotEmpty) ...[
