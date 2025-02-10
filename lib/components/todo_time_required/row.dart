@@ -35,6 +35,7 @@ class TodoTimeRequiredRow extends HookConsumerWidget {
                   final value = await showTimePicker(
                     context: context,
                     initialTime: timeOfDay.value,
+                    initialEntryMode: TimePickerEntryMode.input,
                   );
                   if (value != null) {
                     timeOfDay.value = value;
@@ -123,17 +124,19 @@ class TodoCalendarScheduleSection extends HookConsumerWidget {
             calendar.value = calendar0;
 
             if (context.mounted) {
-              final eventID = await showTodoCalendarForm(
+              final result = await showTodoCalendarForm(
                 context,
                 todo: todo,
                 calendarID: calendar0.id!,
                 deviceCalendarPlugin: deviceCalendarPlugin,
               );
-              if (eventID != null) {
-                final todoCalendarSchedule = TodoCalendarSchedule(calendarID: calendarID, calendarEventID: eventID);
+              if (result != null) {
+                final todoCalendarSchedule = TodoCalendarSchedule(calendarID: calendarID, calendarEventID: result.$1);
+                final timeRequiredSecond = result.$2.hour * 60 * 60 + result.$2.minute * 60;
                 await todoSetCalendarSchedule(
                   taskID: todo.taskID,
                   todoID: todo.id,
+                  timeRequired: timeRequiredSecond,
                   todoCalendarSchedule: todoCalendarSchedule,
                 );
                 events.value = await calendarEvents();

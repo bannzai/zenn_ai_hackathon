@@ -22,7 +22,7 @@ class TodoCaledarScheduleForm extends HookWidget {
     final beginDate = useState<DateTime>(DateTime.now());
     final selectedDays = useState<int>(1);
     final selectedTime = useState<TimeOfDay>(const TimeOfDay(hour: 10, minute: 0));
-    final durationMinutes = useState<int>(todo.userTimeRequired ?? todo.timeRequired ?? 0);
+    final timeRequired = useState<TimeOfDay>(todo.timeRequiredComponents.$1);
 
     return AlertDialog(
       title: const Text('予定を追加'),
@@ -91,27 +91,34 @@ class TodoCaledarScheduleForm extends HookWidget {
                 ),
 
                 const SizedBox(height: 10),
-                // 作業時間（分）の入力
+                // 合計作業時間
                 Row(
                   children: [
-                    const Text('合計作業時間'),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: TextFormField(
-                        decoration: const InputDecoration(hintText: '分'),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                        validator: (value) {
-                          if (value == null || value.isEmpty || int.tryParse(value) == null) {
-                            return '合計作業時間を分単位で入力してください';
-                          }
-                          return null;
-                        },
-                        onChanged: (value) {
-                          durationMinutes.value = int.parse(value);
-                        },
+                    TextButton(
+                      onPressed: () async {
+                        final TimeOfDay? picked = await showTimePicker(
+                          context: context,
+                          initialTime: timeRequired.value,
+                          initialEntryMode: TimePickerEntryMode.input,
+                        );
+                        if (picked != null) {
+                          timeRequired.value = picked;
+                        }
+                      },
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        minimumSize: Size.zero,
+                      ),
+                      child: const Row(
+                        children: [
+                          Text('合計作業時間'),
+                          SizedBox(width: 4),
+                          Icon(Icons.edit),
+                        ],
                       ),
                     ),
+                    const Spacer(),
+                    Text(timeRequired.value.format(context)),
                   ],
                 ),
               ],
@@ -132,7 +139,7 @@ class TodoCaledarScheduleForm extends HookWidget {
           selectedTime: selectedTime,
           calendarID: calendarID,
           beginDate: beginDate,
-          durationMinutes: durationMinutes,
+          timeRequired: timeRequired,
           durationDays: selectedDays,
         ),
       ],
@@ -140,14 +147,14 @@ class TodoCaledarScheduleForm extends HookWidget {
   }
 }
 
-// return eventID or null
-Future<String?> showTodoCalendarForm(
+// return (eventID, new TimeOfDay for user input timeRequired) or null
+Future<(String, TimeOfDay)?> showTodoCalendarForm(
   BuildContext context, {
   required Todo todo,
   required String calendarID,
   required DeviceCalendarPlugin deviceCalendarPlugin,
 }) async {
-  return await showDialog<String?>(
+  return await showDialog<(String, TimeOfDay)?>(
     context: context,
     builder: (context) => TodoCaledarScheduleForm(
       todo: todo,

@@ -124,9 +124,13 @@ class TodoSetCalendarSchedule {
   Future<void> call({
     required String taskID,
     required String todoID,
+    required int timeRequired,
     required TodoCalendarSchedule? todoCalendarSchedule,
   }) {
-    return database.todoReference(taskID: taskID, todoID: todoID).update({'calendarSchedule': todoCalendarSchedule?.toJson()});
+    return database.todoReference(taskID: taskID, todoID: todoID).update({
+      'calendarSchedule': todoCalendarSchedule?.toJson(),
+      'userTimeRequired': timeRequired,
+    });
   }
 }
 

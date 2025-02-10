@@ -10,7 +10,7 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
     required this.todo,
     required this.beginDate,
     required this.selectedTime,
-    required this.durationMinutes,
+    required this.timeRequired,
     required this.durationDays,
   });
 
@@ -20,7 +20,7 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
   final ValueNotifier<DateTime?> beginDate;
   final ValueNotifier<TimeOfDay?> selectedTime;
   final ValueNotifier<int> durationDays;
-  final ValueNotifier<int> durationMinutes;
+  final ValueNotifier<TimeOfDay> timeRequired;
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +59,7 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('開始時刻を選択してください')));
           return;
         }
-        // 入力された作業時間（分）を数値に変換
-        int durationMinutes = this.durationMinutes.value;
 
-        // 単発の予定登録（selectedDate が未選択の場合は本日を使用）
         DateTime eventDate = beginDate.value ?? DateTime.now();
         DateTime eventStart = DateTime(
           eventDate.year,
@@ -73,7 +70,8 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
         );
         DateTime eventEnd = eventStart.add(Duration(
           days: durationDays.value,
-          minutes: durationMinutes,
+          hours: timeRequired.value.hour,
+          minutes: timeRequired.value.minute,
         ));
 
         final eventID = await writeEvent(calendarID: calendarID, eventID: null, start: eventStart, end: eventEnd);
@@ -81,7 +79,7 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('カレンダーに追加しました')));
         }
         if (context.mounted) {
-          Navigator.of(context).pop(eventID);
+          Navigator.of(context).pop((eventID, timeRequired.value));
         }
       },
     );
