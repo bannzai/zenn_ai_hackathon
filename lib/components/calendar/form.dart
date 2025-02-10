@@ -20,10 +20,10 @@ class TodoCaledarScheduleForm extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final beginDate = useState<DateTime?>(null);
-    final selectedDays = useState<int>(0);
-    final selectedTime = useState<TimeOfDay?>(null);
-    final durationMinutes = useState<int>(0);
+    final beginDate = useState<DateTime>(DateTime.now());
+    final selectedDays = useState<int>(1);
+    final selectedTime = useState<TimeOfDay>(TimeOfDay.now());
+    final durationMinutes = useState<int>(todo.userTimeRequired ?? todo.timeRequired ?? 0);
 
     return AlertDialog(
       title: const Text('予定を追加'),
@@ -33,13 +33,12 @@ class TodoCaledarScheduleForm extends HookWidget {
           children: [
             // イベント対象日（単発の場合）の選択
             ListTile(
-              title: Text(beginDate.value == null ? '開始日' : '開始日: ${beginDate.value!.toLocal().toString().split(' ')[0]}'),
+              title: Text('開始日: ${beginDate.value.toLocal().toString().split(' ')[0]}'),
               trailing: const Icon(Icons.calendar_today),
               onTap: () async {
-                DateTime initDate = beginDate.value ?? DateTime.now();
                 final DateTime? picked = await showDatePicker(
                   context: context,
-                  initialDate: initDate,
+                  initialDate: beginDate.value,
                   firstDate: DateTime.now(),
                   lastDate: DateTime.now().add(const Duration(days: 365)),
                 );
@@ -50,13 +49,12 @@ class TodoCaledarScheduleForm extends HookWidget {
             ),
             // 開始時刻の選択
             ListTile(
-              title: Text(selectedTime.value == null ? '何時から' : '何時から: ${selectedTime.value!.format(context)}'),
+              title: Text('何時から: ${selectedTime.value.format(context)}'),
               trailing: const Icon(Icons.access_time),
               onTap: () async {
-                TimeOfDay initTime = selectedTime.value ?? TimeOfDay.now();
                 final TimeOfDay? picked = await showTimePicker(
                   context: context,
-                  initialTime: initTime,
+                  initialTime: selectedTime.value,
                 );
                 if (picked != null) {
                   selectedTime.value = picked;
