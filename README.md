@@ -5,7 +5,7 @@ https://github.com/bannzai/zennAIHackathonBackend/
 ## Setup
 1. Firebaseプロジェクトを用意してください。バックエンドと一緒なプロジェクトにする必要があります。
 2. iOS・Androidのプロジェクトを作成します。その際にiOS→GoogleService-Info.plist,Android→google-services.json を落としてください
-3. 次の環境変数を用意してください
+3. 次の環境変数を用意してください。Makefileを参考に
 - FILE_FIREBASE_IOS: GoogleService-Info.plist を base64したもの
 - FILE_FIREBASE_ANDROID: google-services.json を base64したもの
 4. `$ make secret` を実行します
