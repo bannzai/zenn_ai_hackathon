@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:todomaker/entity/grounding_data.dart';
 import 'package:todomaker/entity/location.dart';
 import 'package:todomaker/entity/timestamp.dart';
+import 'package:todomaker/utils/picker/time.dart';
 
 part 'todo.g.dart';
 part 'todo.freezed.dart';
@@ -37,17 +38,17 @@ class Todo with _$Todo {
 
   factory Todo.fromJson(Map<String, dynamic> json) => _$TodoFromJson(json);
 
-  TimeOfDay get timeRequiredTimeOfDay {
+  AppTimeOfDay get timeRequiredTimeOfDay {
     final timeRequired = this.timeRequired;
     if (timeRequired == null) {
-      return const TimeOfDay(hour: 0, minute: 0);
+      return AppTimeOfDay(hour: 0, minute: 0);
     }
     if (timeRequired <= 60) {
-      return const TimeOfDay(hour: 0, minute: 1);
+      return AppTimeOfDay(hour: 0, minute: 1);
     }
 
     final duration = Duration(seconds: timeRequired);
-    return TimeOfDay(hour: duration.inHours, minute: duration.inMinutes % 60);
+    return AppTimeOfDay(hour: duration.inHours, minute: duration.inMinutes % 60);
   }
 
   String get formattedTimeRequired {
@@ -68,12 +69,12 @@ class Todo with _$Todo {
     return '$hourString:$minuteString';
   }
 
-  TimeOfDay get userTimeRequiredTimeOfDay {
+  AppTimeOfDay get userTimeRequiredTimeOfDay {
     final userTimeRequired = this.userTimeRequired;
     if (userTimeRequired == null) {
-      return const TimeOfDay(hour: 0, minute: 0);
+      return AppTimeOfDay(hour: 0, minute: 0);
     }
-    return TimeOfDay(hour: userTimeRequired ~/ 60, minute: userTimeRequired % 60);
+    return AppTimeOfDay(hour: userTimeRequired ~/ 60, minute: userTimeRequired % 60);
   }
 
   String get formattedUserTimeRequired {
@@ -94,7 +95,7 @@ class Todo with _$Todo {
     return '$hourString:$minuteString';
   }
 
-  (TimeOfDay, String, bool) get timeRequiredComponents {
+  (AppTimeOfDay, String, bool) get timeRequiredComponents {
     final userTimeRequired = this.userTimeRequired;
     final isAI = userTimeRequired == null;
     if (isAI) {
@@ -110,9 +111,9 @@ extension Todos on List<Todo> {
   }
 
   String get formattedTimeRequired {
-    var list = <TimeOfDay>[];
+    var list = <AppTimeOfDay>[];
     for (final todo in this) {
-      final TimeOfDay timeOfDay;
+      final AppTimeOfDay timeOfDay;
       if (todo.userTimeRequired == null) {
         timeOfDay = todo.timeRequiredTimeOfDay;
       } else {

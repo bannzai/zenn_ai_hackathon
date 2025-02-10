@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:device_calendar/device_calendar.dart';
+import 'package:todomaker/utils/picker/time.dart';
 
 class TodoCalendarFormSubmitButton extends StatelessWidget {
   const TodoCalendarFormSubmitButton({
@@ -18,9 +19,9 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
   final String calendarID;
   final Todo todo;
   final ValueNotifier<DateTime?> beginDate;
-  final ValueNotifier<TimeOfDay?> selectedTime;
+  final ValueNotifier<AppTimeOfDay?> selectedTime;
   final ValueNotifier<int> durationDays;
-  final ValueNotifier<TimeOfDay> timeRequired;
+  final ValueNotifier<AppTimeOfDay> timeRequired;
 
   @override
   Widget build(BuildContext context) {

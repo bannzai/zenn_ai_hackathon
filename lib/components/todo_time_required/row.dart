@@ -9,6 +9,7 @@ import 'package:todomaker/entity/todo.dart';
 import 'package:device_calendar/device_calendar.dart';
 import 'package:todomaker/provider/todo.dart';
 import 'package:todomaker/components/todo_time_required/functions.dart';
+import 'package:todomaker/utils/picker/time.dart';
 
 class TodoTimeRequiredRow extends HookConsumerWidget {
   final Todo todo;
@@ -33,10 +34,9 @@ class TodoTimeRequiredRow extends HookConsumerWidget {
               const SizedBox(width: 10),
               IconButton(
                 onPressed: () async {
-                  final value = await showTimePicker(
-                    context: context,
+                  final value = await showAppTimePicker(
+                    context,
                     initialTime: timeOfDay.value,
-                    initialEntryMode: TimePickerEntryMode.input,
                   );
                   if (value != null) {
                     timeOfDay.value = value;

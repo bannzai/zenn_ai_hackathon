@@ -5,6 +5,7 @@ import 'package:todomaker/components/calendar/components/submit_button.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:device_calendar/device_calendar.dart';
 import 'package:todomaker/utils/format/time_of_day.dart';
+import 'package:todomaker/utils/picker/time.dart';
 
 class TodoCaledarScheduleForm extends HookWidget {
   final Todo todo;
@@ -22,8 +23,8 @@ class TodoCaledarScheduleForm extends HookWidget {
   Widget build(BuildContext context) {
     final beginDate = useState<DateTime>(DateTime.now());
     final selectedDays = useState<int>(1);
-    final selectedTime = useState<TimeOfDay>(const TimeOfDay(hour: 10, minute: 0));
-    final timeRequired = useState<TimeOfDay>(todo.timeRequiredComponents.$1);
+    final selectedTime = useState<AppTimeOfDay>(AppTimeOfDay(hour: 10, minute: 0));
+    final timeRequired = useState<AppTimeOfDay>(todo.timeRequiredComponents.$1);
 
     return AlertDialog(
       title: const Text('予定を追加'),
@@ -52,10 +53,9 @@ class TodoCaledarScheduleForm extends HookWidget {
               title: Text('何時から: ${TimeOfDayFormatter.format(selectedTime.value)}'),
               trailing: const Icon(Icons.access_time),
               onTap: () async {
-                final TimeOfDay? picked = await showTimePicker(
-                  context: context,
+                final AppTimeOfDay? picked = await showAppTimePicker(
+                  context,
                   initialTime: selectedTime.value,
-                  initialEntryMode: TimePickerEntryMode.input,
                 );
                 if (picked != null) {
                   selectedTime.value = picked;
@@ -97,10 +97,9 @@ class TodoCaledarScheduleForm extends HookWidget {
                   children: [
                     TextButton(
                       onPressed: () async {
-                        final TimeOfDay? picked = await showTimePicker(
-                          context: context,
+                        final AppTimeOfDay? picked = await showAppTimePicker(
+                          context,
                           initialTime: timeRequired.value,
-                          initialEntryMode: TimePickerEntryMode.input,
                         );
                         if (picked != null) {
                           timeRequired.value = picked;

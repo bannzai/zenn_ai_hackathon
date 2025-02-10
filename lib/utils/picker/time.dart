@@ -40,35 +40,41 @@ class AppTimePicker extends StatelessWidget {
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height / 3,
+          width: MediaQuery.of(context).size.width,
           child: Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: CupertinoPicker(
-                    itemExtent: 1,
-                    scrollController: FixedExtentScrollController(
-                      initialItem: hour,
+                  child: Expanded(
+                    child: CupertinoPicker(
+                      itemExtent: 1,
+                      scrollController: FixedExtentScrollController(
+                        initialItem: hour,
+                      ),
+                      onSelectedItemChanged: (int value) {
+                        hour = value;
+                      },
+                      children: List.generate(24, (index) => Text('${index + 1}時')),
                     ),
-                    onSelectedItemChanged: (int value) {
-                      hour = value;
-                    },
-                    children: List.generate(24, (index) => Text('${index + 1}時')),
                   )),
               GestureDetector(
                 onTap: () {
                   Navigator.pop(context);
                 },
-                child: CupertinoPicker(
-                  itemExtent: 1,
-                  scrollController: FixedExtentScrollController(
-                    initialItem: minute,
+                child: Expanded(
+                  child: CupertinoPicker(
+                    itemExtent: 1,
+                    scrollController: FixedExtentScrollController(
+                      initialItem: minute,
+                    ),
+                    onSelectedItemChanged: (int value) {
+                      minute = value;
+                    },
+                    children: List.generate(60, (index) => Text('$index分')),
                   ),
-                  onSelectedItemChanged: (int value) {
-                    minute = value;
-                  },
-                  children: List.generate(60, (index) => Text('$index分')),
                 ),
               ),
             ],

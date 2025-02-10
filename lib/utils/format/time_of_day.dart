@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:todomaker/utils/picker/time.dart';
 
 class TimeOfDayFormatter {
-  static String format(TimeOfDay timeOfDay) {
+  static String format(AppTimeOfDay timeOfDay) {
     final hour = timeOfDay.hour;
     final minute = timeOfDay.minute;
     final String hourString;
