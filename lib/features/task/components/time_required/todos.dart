@@ -10,14 +10,12 @@ class TimeRequiredTodos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formattedTotalTimeRequired = todos.formattedTimeRequired;
-    if (formattedTotalTimeRequired == null) {
-      return const SizedBox.shrink();
-    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-          Text('AIが算出した推定作業時間: $formattedTotalTimeRequired', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+          Text('合計作業時間: $formattedTotalTimeRequired', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         ],
       ),
     );

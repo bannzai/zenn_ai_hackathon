@@ -1,19 +1,24 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/error/error_alert.dart';
 import 'package:todomaker/components/calendar/form.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:device_calendar/device_calendar.dart';
+import 'package:todomaker/provider/todo.dart';
 
-class TodoTimeRequiredRow extends StatelessWidget {
+class TodoTimeRequiredRow extends HookConsumerWidget {
   final Todo todo;
   const TodoTimeRequiredRow({super.key, required this.todo});
 
   @override
-  Widget build(BuildContext context) {
-    final formattedTimeRequired = todo.formattedTimeRequired;
-    final formattedUserTimeRequired = todo.formattedUserTimeRequired;
-    final isAI = todo.userTimeRequired == null;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final (timeRequiredTimeOfDay, formattedTimeRequired, isAI) = todo.timeRequiredComponents;
+    final timeOfDay = useState(timeRequiredTimeOfDay);
+    final todoEditTimeRequired = ref.watch(todoEditTimeRequiredProvider);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -21,31 +26,31 @@ class TodoTimeRequiredRow extends StatelessWidget {
         children: [
           Row(
             children: [
-              if (isAI) ...[
-                const Text('合計作業時間(AI算出)', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                const Spacer(),
-                Text(formattedTimeRequired ?? '0秒', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                const SizedBox(width: 10),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.edit),
-                  padding: EdgeInsets.zero,
-                  // NOTE: paddingを消す
-                  constraints: const BoxConstraints(),
-                ),
-              ] else ...[
-                const Text('合計作業時間(AI算出)', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                const Spacer(),
-                Text(formattedUserTimeRequired ?? '0秒', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                const SizedBox(width: 10),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.edit),
-                  padding: EdgeInsets.zero,
-                  // NOTE: paddingを消す
-                  constraints: const BoxConstraints(),
-                ),
-              ],
+              Text(isAI ? '合計作業時間(AI算出)' : '合計作業時間(ユーザー入力)', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+              const Spacer(),
+              Text(formattedTimeRequired, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+              const SizedBox(width: 10),
+              IconButton(
+                onPressed: () async {
+                  final value = await showTimePicker(
+                    context: context,
+                    initialTime: timeOfDay.value,
+                  );
+                  if (value != null) {
+                    timeOfDay.value = value;
+
+                    unawaited(todoEditTimeRequired(
+                      taskID: todo.taskID,
+                      todoID: todo.id,
+                      timeRequired: timeOfDay.value.hour * 60 + timeOfDay.value.minute,
+                    ));
+                  }
+                },
+                icon: const Icon(Icons.edit),
+                padding: EdgeInsets.zero,
+                // NOTE: paddingを消す
+                constraints: const BoxConstraints(),
+              ),
             ],
           ),
           TodoCalendarScheduleSection(todo: todo),

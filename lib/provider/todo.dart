@@ -106,7 +106,7 @@ class TodoEditTimeRequired {
     required String todoID,
     required int timeRequired,
   }) {
-    return database.todoReference(taskID: taskID, todoID: todoID).update({'timeRequired': timeRequired});
+    return database.todoReference(taskID: taskID, todoID: todoID).update({'userTimeRequired': timeRequired});
   }
 }
 

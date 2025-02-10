@@ -65,6 +65,16 @@ class Todo with _$Todo {
   String get formattedUserTimeRequired {
     return '${userTimeRequiredTimeOfDay.hour.toString().padLeft(2, '0')}:${userTimeRequiredTimeOfDay.minute.toString().padLeft(2, '0')}';
   }
+
+  // bool is isAI
+  (TimeOfDay, String, bool) get timeRequiredComponents {
+    final userTimeRequired = this.userTimeRequired;
+    final isAI = userTimeRequired == null;
+    if (isAI) {
+      return (timeRequiredTimeOfDay, formattedTimeRequired, isAI);
+    }
+    return (userTimeRequiredTimeOfDay, formattedUserTimeRequired, isAI);
+  }
 }
 
 extension Todos on List<Todo> {
