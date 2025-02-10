@@ -8,6 +8,7 @@ import 'package:todomaker/components/calendar/form.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:device_calendar/device_calendar.dart';
 import 'package:todomaker/provider/todo.dart';
+import 'package:todomaker/components/todo_time_required/functions.dart';
 
 class TodoTimeRequiredRow extends HookConsumerWidget {
   final Todo todo;
@@ -68,95 +69,195 @@ class TodoCalendarScheduleSection extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final todoSetCalendarSchedule = ref.watch(todoSetCalendarScheduleProvider);
-    // device_calendar のインスタンス作成
     final deviceCalendarPlugin = useMemoized(() => DeviceCalendarPlugin());
-    // 各種状態を useState で管理
+    final calendars = useState<List<Calendar>>([]);
     final calendar = useState<Calendar?>(null);
     final events = useState<List<Event>>([]);
+    final hasPermission = useState<bool>(false);
 
-    /// 予定の読み出し（例：過去30日～未来30日）
-    Future<List<Event>> calendarEvents() async {
-      final calendarValue = calendar.value;
-      if (calendarValue == null) return [];
-      DateTime startDate = DateTime.now().subtract(const Duration(days: 30));
-      DateTime endDate = DateTime.now().add(const Duration(days: 30));
-      var eventsResult = await deviceCalendarPlugin.retrieveEvents(
-        calendarValue.id,
-        RetrieveEventsParams(startDate: startDate, endDate: endDate),
+    useEffect(() {
+      Future<void> f() async {
+        hasPermission.value = (await deviceCalendarPlugin.hasPermissions()).data == true;
+      }
+
+      f();
+
+      return null;
+    }, []);
+
+    if (!hasPermission.value) {
+      return TodoCalendarScheduleHasNoPermissionButton(
+        deviceCalendarPlugin: deviceCalendarPlugin,
+        hasPermission: hasPermission,
       );
-      final eventResultData = eventsResult.data;
-      if (eventsResult.isSuccess && eventResultData != null) {
-        return eventResultData;
-      }
-      return [];
+    } else {
+      return TodoCalendarScheduleButtons(
+        todo: todo,
+        deviceCalendarPlugin: deviceCalendarPlugin,
+        todoSetCalendarSchedule: todoSetCalendarSchedule,
+        calendars: calendars,
+        events: events,
+        calendar: calendar,
+      );
     }
+  }
+}
 
-    /// カレンダーの初期化（パーミッション要求とカレンダー取得）
-    Future<Calendar> defaultCalendar() async {
-      var permissionsGranted = await deviceCalendarPlugin.requestPermissions();
-      if (permissionsGranted.isSuccess && permissionsGranted.data == true) {
-        var calendarsResult = await deviceCalendarPlugin.retrieveCalendars();
-        if (calendarsResult.isSuccess && calendarsResult.data != null) {
-          // 書き込み可能なカレンダーを自動選択（なければ最初のカレンダー）
-          final value = calendarsResult.data!.firstWhere(
-            (calendar) => calendar.isDefault ?? false,
-            orElse: () => calendarsResult.data!.first,
-          );
-          return value;
+class TodoCalendarScheduleHasNoPermissionButton extends HookWidget {
+  const TodoCalendarScheduleHasNoPermissionButton({
+    super.key,
+    required this.deviceCalendarPlugin,
+    required this.hasPermission,
+  });
+
+  final DeviceCalendarPlugin deviceCalendarPlugin;
+  final ValueNotifier<bool> hasPermission;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton.icon(
+      onPressed: () async {
+        try {
+          hasPermission.value = await grandPermission(deviceCalendarPlugin: deviceCalendarPlugin);
+          if (!hasPermission.value) {
+            throw Exception('カレンダーへのアクセス許可がありません');
+          }
+        } catch (e) {
+          if (context.mounted) {
+            showErrorAlert(context, e);
+          }
         }
-        throw Exception('カレンダーが見つかりません');
-      } else {
-        throw Exception('カレンダーへのアクセス許可がありません');
+      },
+      icon: const Icon(Icons.calendar_month),
+      label: const Text('カレンダーに追加'),
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.zero,
+      ),
+    );
+  }
+}
+
+class TodoCalendarScheduleButtons extends HookConsumerWidget {
+  const TodoCalendarScheduleButtons({
+    super.key,
+    required this.todo,
+    required this.deviceCalendarPlugin,
+    required this.todoSetCalendarSchedule,
+    required this.calendars,
+    required this.events,
+    required this.calendar,
+  });
+
+  final Todo todo;
+  final DeviceCalendarPlugin deviceCalendarPlugin;
+  final TodoSetCalendarSchedule todoSetCalendarSchedule;
+  final ValueNotifier<List<Calendar>> calendars;
+  final ValueNotifier<List<Event>> events;
+  final ValueNotifier<Calendar?> calendar;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    useEffect(() {
+      Future<void> f() async {
+        calendars.value = await retrieveCalendars(deviceCalendarPlugin: deviceCalendarPlugin);
       }
-    }
 
-    if (todo.calendarSchedules.isEmpty) {
-      return TextButton.icon(
-        onPressed: () async {
-          try {
-            final calendar0 = await defaultCalendar();
-            final calendarID = calendar0.id;
-            if (calendarID == null) {
-              throw Exception('カレンダーIDが取得できませんでした');
-            }
+      f();
+      return null;
+    }, []);
 
-            events.value = await calendarEvents();
-            calendar.value = calendar0;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (final calendar in calendars.value) ...[
+          TodoCalendarScheduleButton(
+            todo: todo,
+            deviceCalendarPlugin: deviceCalendarPlugin,
+            todoSetCalendarSchedule: todoSetCalendarSchedule,
+            events: events,
+            calendar: calendar,
+          ),
+        ],
+      ],
+    );
+  }
+}
 
-            if (context.mounted) {
-              final result = await showTodoCalendarForm(
-                context,
+class TodoCalendarScheduleButton extends HookConsumerWidget {
+  const TodoCalendarScheduleButton({
+    super.key,
+    required this.todo,
+    required this.deviceCalendarPlugin,
+    required this.todoSetCalendarSchedule,
+    required this.events,
+    required this.calendar,
+  });
+
+  final Todo todo;
+  final DeviceCalendarPlugin deviceCalendarPlugin;
+  final TodoSetCalendarSchedule todoSetCalendarSchedule;
+  final Calendar calendar;
+  final ValueNotifier<List<Event>> events;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    useEffect(() {
+      Future<void> f() async {
+        events.value = await calendarEvents(
+          todo: todo,
+          calendar: calendar,
+          deviceCalendarPlugin: deviceCalendarPlugin,
+        );
+      }
+
+      f();
+      return null;
+    }, []);
+
+    return TextButton.icon(
+      onPressed: () async {
+        try {
+          final calendarID = calendar.id;
+          if (calendarID == null) {
+            throw Exception('カレンダーIDが取得できませんでした');
+          }
+
+          if (context.mounted) {
+            final result = await showTodoCalendarForm(
+              context,
+              todo: todo,
+              calendarID: calendarID,
+              deviceCalendarPlugin: deviceCalendarPlugin,
+            );
+            if (result != null) {
+              final todoCalendarSchedule = TodoCalendarSchedule(calendarID: calendarID, calendarEventID: result.$1);
+              final timeRequiredSecond = result.$2.hour * 60 * 60 + result.$2.minute * 60;
+              await todoSetCalendarSchedule(
+                taskID: todo.taskID,
+                todoID: todo.id,
+                timeRequired: timeRequiredSecond,
+                todoCalendarSchedule: todoCalendarSchedule,
+              );
+              events.value = await calendarEvents(
                 todo: todo,
-                calendarID: calendar0.id!,
+                calendar: calendar,
                 deviceCalendarPlugin: deviceCalendarPlugin,
               );
-              if (result != null) {
-                final todoCalendarSchedule = TodoCalendarSchedule(calendarID: calendarID, calendarEventID: result.$1);
-                final timeRequiredSecond = result.$2.hour * 60 * 60 + result.$2.minute * 60;
-                await todoSetCalendarSchedule(
-                  taskID: todo.taskID,
-                  todoID: todo.id,
-                  timeRequired: timeRequiredSecond,
-                  todoCalendarSchedule: todoCalendarSchedule,
-                );
-                events.value = await calendarEvents();
-              }
-            }
-
-            debugPrint('calendar: ${calendar.value?.id}, events: ${events.value.length}');
-          } catch (e) {
-            if (context.mounted) {
-              showErrorAlert(context, e);
             }
           }
-        },
-        icon: const Icon(Icons.calendar_month),
-        label: const Text('カレンダーに追加'),
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.zero,
-        ),
-      );
-    }
-    return Text(todo.calendarSchedules.first.calendarEventID);
+
+          debugPrint('calendar: ${calendar.id}, events: ${events.value.length}');
+        } catch (e) {
+          if (context.mounted) {
+            showErrorAlert(context, e);
+          }
+        }
+      },
+      icon: const Icon(Icons.calendar_month),
+      label: Text('${calendar.name ?? calendar.accountType}に追加'),
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.zero,
+      ),
+    );
   }
 }
