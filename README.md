@@ -78,7 +78,7 @@ GOOGLE_GENAI_API_KEY=
 GOOGLE_APPLICATION_CREDENTIALS_SERVICE_ACCOUNT_ID=PROJECT_ID@appspot.gserviceaccount.com
 ```
 
-## Dev
+## Development
 `Env` を用意します。ただ、localhostで動作確認する場合は APP_ENV=local に設定してください。authが無効になるのでdeploy時は気をつけてください
 `functions` ディレクトリに移動して `npm run genkit:start` をします
 
