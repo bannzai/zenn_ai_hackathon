@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:todomaker/entity/grounding_data.dart';
 import 'package:todomaker/entity/location.dart';
@@ -36,32 +37,33 @@ class Todo with _$Todo {
 
   factory Todo.fromJson(Map<String, dynamic> json) => _$TodoFromJson(json);
 
-  String? get formattedTimeRequired {
+  TimeOfDay get timeRequiredTimeOfDay {
     final timeRequired = this.timeRequired;
     if (timeRequired == null) {
-      return null;
+      return const TimeOfDay(hour: 0, minute: 0);
     }
+    if (timeRequired <= 60) {
+      return const TimeOfDay(hour: 0, minute: 1);
+    }
+
     final duration = Duration(seconds: timeRequired);
-    final formattedTimeRequired = duration.inHours > 0
-        ? '${duration.inHours}時間 ${duration.inMinutes % 60}分'
-        : duration.inMinutes > 0
-            ? '${duration.inMinutes}分 ${duration.inSeconds % 60}秒'
-            : '${duration.inSeconds}秒';
-    return formattedTimeRequired;
+    return TimeOfDay(hour: duration.inHours, minute: duration.inMinutes % 60);
   }
 
-  String? get formattedUserTimeRequired {
+  String get formattedTimeRequired {
+    return '${timeRequiredTimeOfDay.hour.toString().padLeft(2, '0')}:${timeRequiredTimeOfDay.minute.toString().padLeft(2, '0')}';
+  }
+
+  TimeOfDay get userTimeRequiredTimeOfDay {
     final userTimeRequired = this.userTimeRequired;
     if (userTimeRequired == null) {
-      return null;
+      return const TimeOfDay(hour: 0, minute: 0);
     }
-    final duration = Duration(seconds: userTimeRequired);
-    final formattedUserTimeRequired = duration.inHours > 0
-        ? '${duration.inHours}時間 ${duration.inMinutes % 60}分'
-        : duration.inMinutes > 0
-            ? '${duration.inMinutes}分 ${duration.inSeconds % 60}秒'
-            : '${duration.inSeconds}秒';
-    return formattedUserTimeRequired;
+    return TimeOfDay(hour: userTimeRequired ~/ 60, minute: userTimeRequired % 60);
+  }
+
+  String get formattedUserTimeRequired {
+    return '${userTimeRequiredTimeOfDay.hour.toString().padLeft(2, '0')}:${userTimeRequiredTimeOfDay.minute.toString().padLeft(2, '0')}';
   }
 }
 
@@ -70,18 +72,24 @@ extension Todos on List<Todo> {
     return fold(0, (int sum, todo) => sum + (todo.timeRequired ?? 0));
   }
 
-  String? get formattedTimeRequired {
-    final totalTimeRequired = this.totalTimeRequired;
-    if (totalTimeRequired == 0) {
-      return null;
+  String get formattedTimeRequired {
+    var list = <TimeOfDay>[];
+    for (final todo in this) {
+      final TimeOfDay timeOfDay;
+      if (todo.userTimeRequired == null) {
+        timeOfDay = todo.timeRequiredTimeOfDay;
+      } else {
+        timeOfDay = todo.userTimeRequiredTimeOfDay;
+      }
+      list.add(timeOfDay);
     }
-    final duration = Duration(seconds: totalTimeRequired);
-    final formattedTimeRequired = duration.inHours > 0
-        ? '${duration.inHours}時間 ${duration.inMinutes % 60}分'
-        : duration.inMinutes > 0
-            ? '${duration.inMinutes}分 ${duration.inSeconds % 60}秒'
-            : '${duration.inSeconds}秒';
-    return formattedTimeRequired;
+    final summarizedForMinutes = list.fold(
+      0,
+      (int sum, timeOfDay) => sum + timeOfDay.minute + timeOfDay.hour * 60,
+    );
+    final totalHour = summarizedForMinutes ~/ 60;
+    final totalMinute = summarizedForMinutes % 60;
+    return '$totalHour:$totalMinute';
   }
 }
 
