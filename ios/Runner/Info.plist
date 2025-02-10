@@ -47,5 +47,11 @@
 	<true/>
   <key>NSLocationWhenInUseUsageDescription</key>
   <string>This app needs access to location when open.</string>
+  <key>NSCalendarsUsageDescription</key>
+  <string>カレンダーの予定の取得・書き込みにカレンダーを使用します</string>
+  <key>NSContactsUsageDescription</key>
+  <string>カレンダーのイベントへアクセスします</string>
+  <key>NSCalendarsFullAccessUsageDescription</key>
+  <string>カレンダーの予定の取得・書き込みにカレンダーを使用します</string>
 </dict>
 </plist>
