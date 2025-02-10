@@ -1,7 +1,7 @@
 
 
 # 注意点
-- 直前にモノレポにしたので、困ったらこっちのリポジトリでバックエンドを立ち上げてください
+- 直前にモノレポにしたので、困ったらこっちのリポジトリでバックエンドを立ち上げてください。一応一回はdeployして動作確認してます
   * https://github.com/bannzai/zennAIHackathonBackend/
 - `TODOMaker Flutter App` と `TODOMaker Backend` とセットアップ方法が分かれています。すべてこのREADMEに記載されています
 
