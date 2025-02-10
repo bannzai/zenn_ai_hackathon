@@ -6,7 +6,6 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
   const TodoCalendarFormSubmitButton({
     super.key,
     required this.deviceCalendarPlugin,
-    required this.formKey,
     required this.todo,
     required this.selectedTime,
     required this.durationStr,
@@ -17,7 +16,6 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
   });
 
   final DeviceCalendarPlugin deviceCalendarPlugin;
-  final GlobalKey<FormState> formKey;
   final Todo todo;
   final ValueNotifier<TimeOfDay?> selectedTime;
   final ValueNotifier<String> durationStr;
@@ -63,51 +61,49 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
       }
     }
 
-    return ElevatedButton(
+    return TextButton(
       child: const Text('追加'),
       onPressed: () async {
-        if (formKey.currentState!.validate()) {
-          if (selectedTime.value == null) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('開始時刻を選択してください')));
-            return;
-          }
-          // 入力された作業時間（分）を数値に変換
-          int durationMinutes = int.parse(durationStr.value);
+        if (selectedTime.value == null) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('開始時刻を選択してください')));
+          return;
+        }
+        // 入力された作業時間（分）を数値に変換
+        int durationMinutes = int.parse(durationStr.value);
 
-          // 繰り返し登録（fromDate と toDate の両方が入力されている場合）
-          if (fromDate.value != null && toDate.value != null) {
-            DateTime currentDate = fromDate.value!;
-            // toDate を含むまでループ
-            while (!currentDate.isAfter(toDate.value!)) {
-              // 日付と開始時刻を組み合わせてイベント開始時刻を作成
-              DateTime eventStart = DateTime(
-                currentDate.year,
-                currentDate.month,
-                currentDate.day,
-                selectedTime.value!.hour,
-                selectedTime.value!.minute,
-              );
-              DateTime eventEnd = eventStart.add(Duration(minutes: durationMinutes));
-              // イベント作成
-              await writeEvent(calendarID: calendarID, eventID: null, start: eventStart, end: eventEnd);
-              currentDate = currentDate.add(const Duration(days: 1));
-            }
-          } else {
-            // 単発の予定登録（selectedDate が未選択の場合は本日を使用）
-            DateTime eventDate = selectedDate.value ?? DateTime.now();
+        // 繰り返し登録（fromDate と toDate の両方が入力されている場合）
+        if (fromDate.value != null && toDate.value != null) {
+          DateTime currentDate = fromDate.value!;
+          // toDate を含むまでループ
+          while (!currentDate.isAfter(toDate.value!)) {
+            // 日付と開始時刻を組み合わせてイベント開始時刻を作成
             DateTime eventStart = DateTime(
-              eventDate.year,
-              eventDate.month,
-              eventDate.day,
+              currentDate.year,
+              currentDate.month,
+              currentDate.day,
               selectedTime.value!.hour,
               selectedTime.value!.minute,
             );
             DateTime eventEnd = eventStart.add(Duration(minutes: durationMinutes));
+            // イベント作成
             await writeEvent(calendarID: calendarID, eventID: null, start: eventStart, end: eventEnd);
+            currentDate = currentDate.add(const Duration(days: 1));
           }
-          if (context.mounted) {
-            Navigator.of(context).pop();
-          }
+        } else {
+          // 単発の予定登録（selectedDate が未選択の場合は本日を使用）
+          DateTime eventDate = selectedDate.value ?? DateTime.now();
+          DateTime eventStart = DateTime(
+            eventDate.year,
+            eventDate.month,
+            eventDate.day,
+            selectedTime.value!.hour,
+            selectedTime.value!.minute,
+          );
+          DateTime eventEnd = eventStart.add(Duration(minutes: durationMinutes));
+          await writeEvent(calendarID: calendarID, eventID: null, start: eventStart, end: eventEnd);
+        }
+        if (context.mounted) {
+          Navigator.of(context).pop();
         }
       },
     );
