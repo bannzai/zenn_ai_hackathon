@@ -1,9 +1,14 @@
-
-
 # 注意点
 - 直前にモノレポにしたので、困ったらこっちのリポジトリでバックエンドを立ち上げてください。一応一回はdeployして動作確認してます
   * https://github.com/bannzai/zennAIHackathonBackend/
 - `TODOMaker Flutter App` と `TODOMaker Backend` とセットアップ方法が分かれています。すべてこのREADMEに記載されています
+
+### 動作
+ref: https://zenn.dev/bannzai/articles/12d0443426876e#%E5%8B%95%E4%BD%9C%E3%81%95%E3%81%9B%E3%82%8B%E4%B8%8A%E3%81%A7%E3%81%AE%E6%B3%A8%E6%84%8F%E7%82%B9
+- Geminiのエラーで429 Too Many Requestが時たま発生します。Cloud Tasksを利用して並行にGeminiを使用しているので発生しやすくなります。リトライもある程度設定してますが、クライアント側の表示とCloud Tasksを利用しての非同期処理の進捗状況やエラー表示について同期を取る仕組みは用意していません。雑に「時間がかかったら停止してやり直してね」という機能は用意されているので5分とかかかってたらやり直してみてください。一番良いのはGeminiの制限を緩めるようにGoogleにお願いすることです
+- GeminiのJSON Modeで string | null の型を指定した場合に 「"null"」って文字が返ってくることがしばしばあります。AIの精度が上がれば解決するのでそのまま表示される場所もあったりします
+- 実機では全部動きます。Simulator,Emulatorだと動かなかったり、動作が微妙機能があります。Geo Coding, LocationやCalendarへの追加機能がありそこら辺です
+
 
 # TODOMaker Flutter App
 ## Setup
