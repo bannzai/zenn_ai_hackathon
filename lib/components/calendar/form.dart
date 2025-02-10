@@ -21,7 +21,7 @@ class TodoCaledarScheduleForm extends HookWidget {
   Widget build(BuildContext context) {
     final beginDate = useState<DateTime>(DateTime.now());
     final selectedDays = useState<int>(1);
-    final selectedTime = useState<TimeOfDay>(TimeOfDay.now());
+    final selectedTime = useState<TimeOfDay>(const TimeOfDay(hour: 10, minute: 0));
     final durationMinutes = useState<int>(todo.userTimeRequired ?? todo.timeRequired ?? 0);
 
     return AlertDialog(
@@ -54,6 +54,7 @@ class TodoCaledarScheduleForm extends HookWidget {
                 final TimeOfDay? picked = await showTimePicker(
                   context: context,
                   initialTime: selectedTime.value,
+                  initialEntryMode: TimePickerEntryMode.input,
                 );
                 if (picked != null) {
                   selectedTime.value = picked;

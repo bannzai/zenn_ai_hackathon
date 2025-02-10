@@ -11,16 +11,19 @@ class RootPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return AuthResolver(builder: (context, user) {
-      return UserDatabaseResolver(builder: (context) {
-        return AppUserCreateResolver(builder: (context) {
-          return ForceUpdateResolver(builder: (context) {
-            // return OnboardingResolver(builder: (context) {
-            return const HomePage();
-            // });
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+      child: AuthResolver(builder: (context, user) {
+        return UserDatabaseResolver(builder: (context) {
+          return AppUserCreateResolver(builder: (context) {
+            return ForceUpdateResolver(builder: (context) {
+              // return OnboardingResolver(builder: (context) {
+              return const HomePage();
+              // });
+            });
           });
         });
-      });
-    });
+      }),
+    );
   }
 }
