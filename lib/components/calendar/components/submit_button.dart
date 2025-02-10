@@ -9,6 +9,7 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
     required this.deviceCalendarPlugin,
     required this.calendarID,
     required this.todo,
+    required this.todoCalendarSchedule,
     required this.beginDate,
     required this.selectedTime,
     required this.timeRequired,
@@ -18,6 +19,7 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
   final DeviceCalendarPlugin deviceCalendarPlugin;
   final String calendarID;
   final Todo todo;
+  final TodoCalendarSchedule? todoCalendarSchedule;
   final ValueNotifier<DateTime?> beginDate;
   final ValueNotifier<AppTimeOfDay?> selectedTime;
   final ValueNotifier<int> durationDays;
@@ -61,6 +63,10 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
           return;
         }
 
+        final totalTimeRequiredSeconds = timeRequired.value.hour * 60 * 60 + timeRequired.value.minute * 60;
+        final days = durationDays.value;
+        final workingTimeSeconds = totalTimeRequiredSeconds ~/ days;
+
         DateTime eventDate = beginDate.value ?? DateTime.now();
         DateTime eventStart = DateTime(
           eventDate.year,
@@ -70,12 +76,15 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
           selectedTime.value!.minute,
         );
         DateTime eventEnd = eventStart.add(Duration(
-          days: durationDays.value,
-          hours: timeRequired.value.hour,
-          minutes: timeRequired.value.minute,
+          seconds: workingTimeSeconds,
         ));
 
-        final eventID = await writeEvent(calendarID: calendarID, eventID: null, start: eventStart, end: eventEnd);
+        final eventID = await writeEvent(
+          calendarID: calendarID,
+          eventID: todoCalendarSchedule?.calendarEventID,
+          start: eventStart,
+          end: eventEnd,
+        );
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('カレンダーに追加しました')));
         }

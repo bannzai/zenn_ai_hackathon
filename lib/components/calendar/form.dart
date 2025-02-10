@@ -93,34 +93,32 @@ class TodoCaledarScheduleForm extends HookWidget {
 
                 const SizedBox(height: 10),
                 // 合計作業時間
-                Row(
-                  children: [
-                    TextButton(
-                      onPressed: () async {
-                        final AppTimeOfDay? picked = await showAppTimePicker(
-                          context,
-                          initialTime: timeRequired.value,
-                        );
-                        if (picked != null) {
-                          timeRequired.value = picked;
-                        }
-                      },
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        minimumSize: Size.zero,
-                      ),
-                      child: const Row(
-                        children: [
-                          Text('合計作業時間'),
-                          SizedBox(width: 4),
-                          Icon(Icons.edit),
-                        ],
-                      ),
+                Row(children: [
+                  TextButton(
+                    onPressed: () async {
+                      final AppTimeOfDay? picked = await showAppTimePicker(
+                        context,
+                        initialTime: timeRequired.value,
+                      );
+                      if (picked != null) {
+                        timeRequired.value = picked;
+                      }
+                    },
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      minimumSize: Size.zero,
                     ),
-                    const Spacer(),
-                    Text(TimeOfDayFormatter.format(timeRequired.value)),
-                  ],
-                ),
+                    child: const Row(
+                      children: [
+                        Text('合計作業時間'),
+                        SizedBox(width: 4),
+                        Icon(Icons.edit),
+                      ],
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(TimeOfDayFormatter.format(timeRequired.value)),
+                ]),
               ],
             ),
           ],
@@ -136,6 +134,7 @@ class TodoCaledarScheduleForm extends HookWidget {
         TodoCalendarFormSubmitButton(
           deviceCalendarPlugin: deviceCalendarPlugin,
           todo: todo,
+          todoCalendarSchedule: null,
           selectedTime: selectedTime,
           calendarID: calendarID,
           beginDate: beginDate,
