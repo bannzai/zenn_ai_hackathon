@@ -97,15 +97,15 @@ class TodoCalendarScheduleSection extends HookWidget {
       return TextButton.icon(
         onPressed: () async {
           try {
-            final _calendar = await defaultCalendar();
+            final calendar0 = await defaultCalendar();
             events.value = await calendarEvents();
-            calendar.value = _calendar;
+            calendar.value = calendar0;
 
             showDialog(
               context: context,
               builder: (context) => TodoCaledarScheduleForm(
                 todo: todo,
-                calendarID: _calendar.id!,
+                calendarID: calendar0.id!,
                 deviceCalendarPlugin: deviceCalendarPlugin,
                 events: events,
               ),
