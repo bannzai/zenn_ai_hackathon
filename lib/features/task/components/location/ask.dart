@@ -48,9 +48,9 @@ class TaskLocationAskAI extends HookConsumerWidget {
           const Text('🤖'),
           const SizedBox(width: 2),
           if (locations != null && locations.isNotEmpty) ...[
-            const Text('関連する位置情報・会場・場所をAIに聞き直す'),
+            const Expanded(child: Text('関連する位置情報・会場・場所をAIに聞き直す')),
           ] else ...[
-            const Text('関連する位置情報・会場・場所をAIに聞く'),
+            const Expanded(child: Text('関連する位置情報・会場・場所をAIに聞く')),
           ],
         ],
       ),

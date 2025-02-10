@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:todomaker/components/error/error_alert.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:device_calendar/device_calendar.dart';
+import 'package:timezone/timezone.dart';
 
 class TodoTimeRequiredRow extends StatelessWidget {
   final Todo todo;
@@ -92,6 +93,37 @@ class TodoCalendarScheduleSection extends HookWidget {
       }
     }
 
+    /// イベントを追加する関数
+    Future<void> writeEvent({
+      required String calendarID,
+      required String? eventID,
+      required DateTime start,
+      required DateTime end,
+    }) async {
+      final event = Event(
+        calendarID,
+        eventId: eventID,
+        title: todo.content,
+        allDay: false,
+        start: TZDateTime.from(start, getLocation('Asia/Tokyo')),
+        end: TZDateTime.from(end, getLocation('Asia/Tokyo')),
+        description: calendarDescription(),
+        location: todo.locations?.first.name,
+        recurrenceRule: RecurrenceRule(
+          RecurrenceFrequency.Daily,
+          interval: 1,
+          endDate: end,
+        ),
+        reminders: [
+          Reminder(minutes: 30),
+        ],
+      );
+      var createdEventID = await deviceCalendarPlugin.createOrUpdateEvent(event);
+      if (createdEventID != null) {
+        events.value = await calendarEvents();
+      }
+    }
+
     if (todo.calendarSchedules.isEmpty) {
       return TextButton.icon(
         onPressed: () async {
@@ -114,5 +146,25 @@ class TodoCalendarScheduleSection extends HookWidget {
       );
     }
     return Text(todo.calendarSchedules.first.calendarEventID);
+  }
+
+  String calendarDescription() {
+    var description = '';
+    description += 'TODOMaker で作成したタスクです。\n';
+    description += '${todo.content}: ${todo.supplement}\n';
+    description += 'AIが算出した推定作業時間: ${todo.formattedTimeRequired}\n';
+    description += 'ユーザーが設定した作業時間: ${todo.formattedUserTimeRequired}\n';
+    final locations = todo.locations;
+    if (locations != null && locations.isNotEmpty) {
+      for (final location in locations) {
+        description += '関連する位置情報・会場・場所: ${location.name}\n';
+        if (location.address != null) {
+          description += '住所: ${location.address}\n';
+        }
+        description += 'https://www.google.com/maps/search/?api=1&query=${location.name}\n';
+      }
+    }
+
+    return description;
   }
 }
