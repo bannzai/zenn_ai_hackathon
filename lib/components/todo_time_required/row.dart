@@ -101,15 +101,17 @@ class TodoCalendarScheduleSection extends HookWidget {
             events.value = await calendarEvents();
             calendar.value = calendar0;
 
-            showDialog(
-              context: context,
-              builder: (context) => TodoCaledarScheduleForm(
-                todo: todo,
-                calendarID: calendar0.id!,
-                deviceCalendarPlugin: deviceCalendarPlugin,
-                events: events,
-              ),
-            );
+            if (context.mounted) {
+              showDialog(
+                context: context,
+                builder: (context) => TodoCaledarScheduleForm(
+                  todo: todo,
+                  calendarID: calendar0.id!,
+                  deviceCalendarPlugin: deviceCalendarPlugin,
+                  events: events,
+                ),
+              );
+            }
 
             debugPrint('calendar: ${calendar.value?.id}, events: ${events.value.length}');
           } catch (e) {
