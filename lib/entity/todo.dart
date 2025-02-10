@@ -36,7 +36,7 @@ class Todo with _$Todo {
 
 extension Todos on List<Todo> {
   int get totalTimeRequired {
-    return fold(0, (sum, todo) => sum + (todo.timeRequired ?? 0));
+    return fold(0, (int sum, todo) => sum + (todo.timeRequired ?? 0));
   }
 
   String? get formattedTimeRequired {
