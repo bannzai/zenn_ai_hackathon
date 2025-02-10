@@ -77,7 +77,7 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
           selectedTime.value!.minute,
         );
         DateTime eventEnd = eventStart.add(Duration(
-          days: days,
+          days: days - 1,
           seconds: workingTimeSeconds,
         ));
 
