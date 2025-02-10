@@ -12,12 +12,16 @@ class TodoLocationList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        for (final todo in todos) ...[
-          TodoLocationRow(todo: todo),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (final todo in todos) ...[
+            TodoLocationRow(todo: todo),
+          ],
         ],
-      ],
+      ),
     );
   }
 }
@@ -36,6 +40,7 @@ class TodoLocationRow extends StatelessWidget {
     final locationsAITextResponse = todo.locationsAITextResponse;
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(todo.content, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         if (supplement != null && supplement.isNotEmpty) ...[
@@ -48,12 +53,14 @@ class TodoLocationRow extends StatelessWidget {
         ],
         if (locations != null && locations.isNotEmpty) ...[
           for (final location in locations) ...[
+            const SizedBox(height: 10),
             _TodoLocationRowContent(
               todo: todo,
               location: location,
               locationsAITextResponse: locationsAITextResponse,
               locationGroundings: locationsGroundings ?? [],
             ),
+            const Divider(),
           ],
         ],
         if (locations == null || locations.isEmpty) ...[
@@ -148,7 +155,9 @@ class _TodoLocationRowContent extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('参考URL', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                  if (locationGroundings.isNotEmpty) ...[
+                    const Text('参考URL', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                  ],
                   for (final grounding in locationGroundings) ...[
                     if (grounding.url != null) ...[
                       Link(

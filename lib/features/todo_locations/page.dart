@@ -12,7 +12,11 @@ class TodoLocationsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('関連場所一覧'),
       ),
-      body: TodoLocationList(todos: todos),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: TodoLocationList(todos: todos),
+        ),
+      ),
     );
   }
 }

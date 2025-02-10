@@ -135,7 +135,9 @@ class TaskLocationItem extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('参考URL', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                  if (locationGroundings.isNotEmpty) ...[
+                    const Text('参考URL', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                  ],
                   for (final grounding in locationGroundings) ...[
                     if (grounding.url != null) ...[
                       Link(
