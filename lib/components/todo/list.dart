@@ -94,7 +94,7 @@ class TasksTodoRow extends HookConsumerWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => TodoPage(todo: todo)));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => TodoPage(taskID: todo.taskID, todoID: todo.id)));
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
