@@ -45,13 +45,18 @@
 ```
 
 ## 実行時の注意点
-iOSの実機実行はApple Developerのチームに属する必要がったかもしれません(違うかもしれない)。実機実行する際は何かしらエラーが出た場合はその点を疑ってください。Androidに関しては全く覚えてないですが、何もしなくても`$ flutter run` や`$ flutter build appbundle --release` で作成したapkさえインストールできれば起動できる気がします
+iOSの実機実行はApple Developerのチームに属する必要があったかもしれません(違うかもしれない)。実機実行する際は何かしらエラーが出た場合はその点を疑ってください。Androidに関しては全く覚えてないですが、何もしなくても`$ flutter run` や`$ flutter build appbundle --release` で作成したapkさえインストールできれば起動できる気がします
 
 
 # TODOMaker Backend
 ## Setup
-1. Firebaseプロジェクトを一つ作ってください
-2. 次に `.firebaserc` を作成します。このリポジトリでは .gitignoreしています
+1. node のバージョンはv22系です
+```bash
+$ node --version
+v22.12.0
+```
+2. Firebaseプロジェクトを一つ作ってください
+3. 次に `.firebaserc` を作成します。このリポジトリでは .gitignoreしています
 
 ```
 {
@@ -69,7 +74,7 @@ See [.env.sample](./functions/.env.sample)
 APP_ENV=dev
 # 多分ここから取得。https://aistudio.google.com/app/apikey?hl=ja
 GOOGLE_GENAI_API_KEY=
-# この命名のサービスアカウントがいるのでそれを使います。何要かは忘れました(Cloud TasksのURLを取得だったかな)
+# この命名のサービスアカウントがいるのでそれを使います。何必要かは忘れました(Cloud TasksのURLを取得だったかな)
 GOOGLE_APPLICATION_CREDENTIALS_SERVICE_ACCOUNT_ID=PROJECT_ID@appspot.gserviceaccount.com
 ```
 
@@ -93,6 +98,4 @@ $ cd functions
 $ rm -rf ./lib && npm run build && firebase deploy --only functions
 ```
 
-また、IAMの権限の問題で何かが必要なことがあったかもしれません。なんの権限か忘れましたが、エラーメッセージに表示されると思いま。必要があれば連絡ください
-
-
+また、IAMの権限の問題で何かが必要なことがあったかもしれません。なんの権限か忘れましたが、エラーメッセージに表示されると思います。必要があれば連絡ください
