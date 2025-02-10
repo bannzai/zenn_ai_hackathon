@@ -142,8 +142,10 @@ class TodoPageBody extends HookConsumerWidget {
                 color: Colors.black,
               ),
               if (groundings != null) ...[
-                const SizedBox(height: 10),
-                GroundingDataList(groundings: groundings),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: GroundingDataList(groundings: groundings),
+                ),
                 const Divider(),
               ],
               if (todo.locations?.isNotEmpty == true) ...[
