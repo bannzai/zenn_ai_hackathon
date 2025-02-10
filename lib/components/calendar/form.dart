@@ -20,17 +20,10 @@ class TodoCaledarScheduleForm extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedDate = useState<DateTime?>(null);
+    final beginDate = useState<DateTime?>(null);
     final selectedDays = useState<int>(0);
     final selectedTime = useState<TimeOfDay?>(null);
-    final durationStr = useState<String>('');
-    final fromDate = useState<DateTime?>(null);
-    final toDate = useState<DateTime?>(null);
-
-// - 合計作業時間
-// - 開始日
-// - 何日間
-// - 何時から
+    final durationMinutes = useState<int>(0);
 
     return AlertDialog(
       title: const Text('予定を追加'),
@@ -40,10 +33,10 @@ class TodoCaledarScheduleForm extends HookWidget {
           children: [
             // イベント対象日（単発の場合）の選択
             ListTile(
-              title: Text(selectedDate.value == null ? '開始日' : '開始日: ${selectedDate.value!.toLocal().toString().split(' ')[0]}'),
+              title: Text(beginDate.value == null ? '開始日' : '開始日: ${beginDate.value!.toLocal().toString().split(' ')[0]}'),
               trailing: const Icon(Icons.calendar_today),
               onTap: () async {
-                DateTime initDate = selectedDate.value ?? DateTime.now();
+                DateTime initDate = beginDate.value ?? DateTime.now();
                 final DateTime? picked = await showDatePicker(
                   context: context,
                   initialDate: initDate,
@@ -51,7 +44,7 @@ class TodoCaledarScheduleForm extends HookWidget {
                   lastDate: DateTime.now().add(const Duration(days: 365)),
                 );
                 if (picked != null) {
-                  selectedDate.value = picked;
+                  beginDate.value = picked;
                 }
               },
             ),
@@ -92,6 +85,7 @@ class TodoCaledarScheduleForm extends HookWidget {
                 TextFormField(
                   decoration: const InputDecoration(labelText: '合計作業時間 (分)'),
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   validator: (value) {
                     if (value == null || value.isEmpty || int.tryParse(value) == null) {
                       return '合計作業時間を分単位で入力してください';
@@ -99,7 +93,7 @@ class TodoCaledarScheduleForm extends HookWidget {
                     return null;
                   },
                   onChanged: (value) {
-                    durationStr.value = value;
+                    durationMinutes.value = int.parse(value);
                   },
                 ),
               ],
@@ -118,11 +112,10 @@ class TodoCaledarScheduleForm extends HookWidget {
           deviceCalendarPlugin: deviceCalendarPlugin,
           todo: todo,
           selectedTime: selectedTime,
-          durationStr: durationStr,
-          fromDate: fromDate,
-          toDate: toDate,
           calendarID: calendarID,
-          selectedDate: selectedDate,
+          beginDate: beginDate,
+          durationMinutes: durationMinutes,
+          durationDays: selectedDays,
         ),
       ],
     );
