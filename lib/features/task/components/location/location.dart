@@ -4,6 +4,7 @@ import 'package:todomaker/entity/location.dart';
 import 'package:todomaker/entity/task.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/features/task/components/location/ask.dart';
+import 'package:todomaker/features/todo_locations/page.dart';
 import 'package:todomaker/style/color.dart';
 import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -39,6 +40,8 @@ class TaskLocation extends StatelessWidget {
                     locationGroundings: locationGroundings ?? [],
                   ),
                 ],
+                const SizedBox(height: 10),
+                TodoLocationListLink(todos: todos),
               ],
             );
           }),
@@ -196,5 +199,23 @@ class TaskLocationItem extends StatelessWidget {
       final Error error = ArgumentError('Could not launch $uri');
       throw error;
     }
+  }
+}
+
+class TodoLocationListLink extends StatelessWidget {
+  final List<Todo> todos;
+  const TodoLocationListLink({super.key, required this.todos});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TodoLocationsPage(todos: todos))),
+      child: const Row(
+        children: [
+          Text('関連場所一覧 ', style: TextStyle(color: TextColor.secondaryLink)),
+          Icon(Icons.chevron_right, color: TextColor.secondaryLink),
+        ],
+      ),
+    );
   }
 }

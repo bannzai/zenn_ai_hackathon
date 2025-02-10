@@ -22,6 +22,7 @@ abstract class TextColor {
   static const Color black = Colors.black;
   static const Color white = Colors.white;
   static const Color link = Colors.blueAccent;
+  static const Color secondaryLink = darkGray;
   static const Color danger = Color(0xFFB00020);
   static const Color discount = Color(0xFFB00020);
 
