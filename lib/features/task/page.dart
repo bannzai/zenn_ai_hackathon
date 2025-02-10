@@ -121,6 +121,9 @@ class TaskPageBody extends HookConsumerWidget {
                   TasksTodoList(task: task),
                   const SizedBox(height: 20),
                   const Divider(height: 1, color: Colors.black),
+                  const SizedBox(height: 16),
+                  GroundingDataList(groundings: todosGroundings),
+                  const Divider(height: 1, color: Colors.black),
                   Container(
                     constraints: BoxConstraints(minHeight: locationProcessingIsRunning ? 180 : 0),
                     child: Stack(
@@ -141,9 +144,6 @@ class TaskPageBody extends HookConsumerWidget {
                   ),
                   const Divider(height: 1, color: Colors.black),
                   TimeRequiredTodos(task: task, todos: todos),
-                  const Divider(height: 1, color: Colors.black),
-                  const SizedBox(height: 16),
-                  GroundingDataList(groundings: todosGroundings),
                 ],
               ),
             ),
