@@ -56,15 +56,17 @@ class TodoCalendarScheduleSection extends HookWidget {
 
     /// 予定の読み出し（例：過去30日～未来30日）
     Future<List<Event>> calendarEvents() async {
-      if (calendar.value == null) return [];
+      final calendarValue = calendar.value;
+      if (calendarValue == null) return [];
       DateTime startDate = DateTime.now().subtract(const Duration(days: 30));
       DateTime endDate = DateTime.now().add(const Duration(days: 30));
       var eventsResult = await deviceCalendarPlugin.retrieveEvents(
-        calendar.value!.id,
+        calendarValue.id,
         RetrieveEventsParams(startDate: startDate, endDate: endDate),
       );
-      if (eventsResult.isSuccess && eventsResult.data != null) {
-        return eventsResult.data!;
+      final eventResultData = eventsResult.data;
+      if (eventsResult.isSuccess && eventResultData != null) {
+        return eventResultData;
       }
       return [];
     }
