@@ -55,6 +55,30 @@ extension FirebaseFunctionsExt on FirebaseFunctions {
 
     return;
   }
+
+  Future<void> fillTodoLocation({
+    required String taskID,
+    required String todoID,
+    required LocationFormInfo userLocation,
+  }) async {
+    final result = await httpsCallable('enqueueFillTODOLocation').call(
+      {
+        'taskID': taskID,
+        'todoID': todoID,
+        'userLocation': userLocation.toJson(),
+        'userRequest': {
+          'userID': FirebaseAuth.instance.currentUser?.uid,
+        },
+      },
+    );
+    final response = mapToJSON(result.data);
+    debugPrint('enqueueFillTODOLocation response: ${response.toString()}');
+    if (response['result'] != 'OK') {
+      throw Exception(response['error']['message']);
+    }
+
+    return;
+  }
 }
 
 // Map<String, dynamic>.fromだけだとネストした子要素が_Map<Object? Object?>のままになる

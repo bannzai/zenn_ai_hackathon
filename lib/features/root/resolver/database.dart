@@ -58,6 +58,11 @@ class UserDatabase {
             fromFirestore: _todoFromFirestore,
             toFirestore: _todoToFirestore,
           );
+  DocumentReference<Todo> todoReference({
+    required String taskID,
+    required String todoID,
+  }) =>
+      todosReference(taskID: taskID).doc(todoID);
 }
 
 class UserDatabaseResolver extends HookConsumerWidget {

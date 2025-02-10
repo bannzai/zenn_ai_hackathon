@@ -191,5 +191,18 @@ final todoRevertCompleteProvider = AutoDisposeProvider<TodoRevertComplete>.inter
 );
 
 typedef TodoRevertCompleteRef = AutoDisposeProviderRef<TodoRevertComplete>;
+String _$todoFillLocationHash() => r'81c71c58a47f07c9196a27830f147690eaf52874';
+
+/// See also [todoFillLocation].
+@ProviderFor(todoFillLocation)
+final todoFillLocationProvider = AutoDisposeProvider<TodoFillLocation>.internal(
+  todoFillLocation,
+  name: r'todoFillLocationProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$todoFillLocationHash,
+  dependencies: <ProviderOrFamily>[userDatabaseProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{userDatabaseProvider, ...?userDatabaseProvider.allTransitiveDependencies},
+);
+
+typedef TodoFillLocationRef = AutoDisposeProviderRef<TodoFillLocation>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -4,6 +4,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/alert/discard.dart';
 import 'package:todomaker/components/grounding_data/list.dart';
+import 'package:todomaker/components/todo_locations/ask.dart';
 import 'package:todomaker/components/todo_locations/row.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/provider/todo.dart';
@@ -107,7 +108,13 @@ class TodoPage extends HookConsumerWidget {
               if (todo.locations != null && todo.locations!.isNotEmpty) ...[
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: TodoLocationsRow(todo: todo),
+                  child: Column(
+                    children: [
+                      TodoLocationAskAI(todo: todo),
+                      const SizedBox(height: 10),
+                      TodoLocationsRow(todo: todo),
+                    ],
+                  ),
                 ),
                 const Divider(),
               ],

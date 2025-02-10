@@ -1,4 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:todomaker/entity/location_form.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/features/root/resolver/database.dart';
 
@@ -60,4 +61,31 @@ class TodoRevertComplete {
 TodoRevertComplete todoRevertComplete(TodoRevertCompleteRef ref) {
   final database = ref.watch(userDatabaseProvider);
   return TodoRevertComplete(database: database);
+}
+
+class TodoFillLocation {
+  final UserDatabase database;
+
+  TodoFillLocation({required this.database});
+
+  Future<void> call({
+    required String taskID,
+    required String todoID,
+    required LocationFormInfo userLocation,
+  }) {
+    return database.todoReference(taskID: taskID, todoID: todoID).update(
+      {
+        'userLocation': userLocation.toJson(),
+        'locations': null,
+        'locationsAITextResponse': null,
+        'locationsGroundings': null,
+      },
+    );
+  }
+}
+
+@Riverpod(dependencies: [userDatabase])
+TodoFillLocation todoFillLocation(TodoFillLocationRef ref) {
+  final database = ref.watch(userDatabaseProvider);
+  return TodoFillLocation(database: database);
 }
