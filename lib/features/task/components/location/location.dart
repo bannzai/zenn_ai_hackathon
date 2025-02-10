@@ -41,7 +41,10 @@ class TaskLocation extends StatelessWidget {
                   ),
                 ],
                 const SizedBox(height: 10),
-                TodoLocationListLink(todos: todos),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: TodoLocationListLink(todos: todos),
+                ),
               ],
             );
           }),
@@ -221,6 +224,7 @@ class TodoLocationListLink extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => TodoLocationsPage(todos: todos))),
       child: const Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text('関連場所一覧 ', style: TextStyle(color: TextColor.secondaryLink)),
           Icon(Icons.chevron_right, color: TextColor.secondaryLink),

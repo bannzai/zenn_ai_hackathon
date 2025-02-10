@@ -19,6 +19,7 @@ class TodoLocationList extends StatelessWidget {
         children: [
           for (final todo in todos) ...[
             TodoLocationRow(todo: todo),
+            const Divider(),
           ],
         ],
       ),
@@ -39,34 +40,36 @@ class TodoLocationRow extends StatelessWidget {
     final locationsGroundings = todo.locationsGroundings;
     final locationsAITextResponse = todo.locationsAITextResponse;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(todo.content, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        if (supplement != null && supplement.isNotEmpty) ...[
-          Text(
-            supplement,
-            style: const TextStyle(fontSize: 14, color: TextColor.darkGray),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
-        if (locations != null && locations.isNotEmpty) ...[
-          for (final location in locations) ...[
-            const SizedBox(height: 10),
-            _TodoLocationRowContent(
-              todo: todo,
-              location: location,
-              locationsAITextResponse: locationsAITextResponse,
-              locationGroundings: locationsGroundings ?? [],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(todo.content, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          if (supplement != null && supplement.isNotEmpty) ...[
+            Text(
+              supplement,
+              style: const TextStyle(fontSize: 14, color: TextColor.darkGray),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
-            const Divider(),
+          ],
+          if (locations != null && locations.isNotEmpty) ...[
+            for (final location in locations) ...[
+              const SizedBox(height: 10),
+              _TodoLocationRowContent(
+                todo: todo,
+                location: location,
+                locationsAITextResponse: locationsAITextResponse,
+                locationGroundings: locationsGroundings ?? [],
+              ),
+            ],
+          ],
+          if (locations == null || locations.isEmpty) ...[
+            _TodoLocationRowContentEmpty(todo: todo),
           ],
         ],
-        if (locations == null || locations.isEmpty) ...[
-          _TodoLocationRowContentEmpty(todo: todo),
-        ],
-      ],
+      ),
     );
   }
 }

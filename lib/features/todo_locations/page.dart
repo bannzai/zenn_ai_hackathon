@@ -14,6 +14,7 @@ class TodoLocationsPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(vertical: 20),
           child: TodoLocationList(todos: todos),
         ),
       ),
