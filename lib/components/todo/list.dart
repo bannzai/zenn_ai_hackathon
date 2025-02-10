@@ -44,7 +44,7 @@ class TasksTodoList extends HookConsumerWidget {
             children: [
               const Row(
                 children: [
-                  Text('やりたいこと一覧', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  Text('やること一覧', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   Spacer(),
                 ],
               ),

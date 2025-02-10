@@ -38,7 +38,7 @@ class TasksPageBody extends HookConsumerWidget {
     final taskCreate = ref.watch(taskCreateProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('やること一覧'),
+        title: const Text('やりたいこと一覧'),
       ),
       body: SafeArea(
         child: tasks.isEmpty ? const TasksPageBodyEmpty() : TasksPageBodyListView(tasks: tasks),
