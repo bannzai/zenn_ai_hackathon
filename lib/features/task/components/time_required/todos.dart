@@ -18,7 +18,16 @@ class TimeRequiredTodos extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('合計作業時間: $formattedTotalTimeRequired', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+          Row(
+            children: [
+              const Text('合計作業時間 ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              const Spacer(),
+              Text(
+                formattedTotalTimeRequired,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
           const SizedBox(height: 10),
           TodoTimeRequiredListLink(todos: todos),
         ],
