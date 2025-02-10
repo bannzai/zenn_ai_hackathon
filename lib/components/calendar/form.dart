@@ -45,8 +45,8 @@ class TodoCaledarScheduleForm extends HookWidget {
                   final DateTime? picked = await showDatePicker(
                     context: context,
                     initialDate: initDate,
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2100),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime.now().add(const Duration(days: 365)),
                   );
                   if (picked != null) {
                     selectedDate.value = picked;
