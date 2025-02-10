@@ -33,6 +33,20 @@ class Todo with _$Todo {
   }) = _Todo;
 
   factory Todo.fromJson(Map<String, dynamic> json) => _$TodoFromJson(json);
+
+  String? get formattedTimeRequired {
+    final timeRequired = this.timeRequired;
+    if (timeRequired == null) {
+      return null;
+    }
+    final duration = Duration(seconds: timeRequired);
+    final formattedTimeRequired = duration.inHours > 0
+        ? '${duration.inHours}時間 ${duration.inMinutes % 60}分'
+        : duration.inMinutes > 0
+            ? '${duration.inMinutes}分 ${duration.inSeconds % 60}秒'
+            : '${duration.inSeconds}秒';
+    return formattedTimeRequired;
+  }
 }
 
 extension Todos on List<Todo> {
