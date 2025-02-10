@@ -152,6 +152,146 @@ class _TodosProviderElement extends AutoDisposeStreamProviderElement<List<Todo>>
   String get taskID => (origin as TodosProvider).taskID;
 }
 
+String _$todoHash() => r'375dc9039afe58bb931db62594702bb02e123aad';
+
+/// See also [todo].
+@ProviderFor(todo)
+const todoProvider = TodoFamily();
+
+/// See also [todo].
+class TodoFamily extends Family<AsyncValue<Todo>> {
+  /// See also [todo].
+  const TodoFamily();
+
+  /// See also [todo].
+  TodoProvider call({
+    required String taskID,
+    required String todoID,
+  }) {
+    return TodoProvider(
+      taskID: taskID,
+      todoID: todoID,
+    );
+  }
+
+  @override
+  TodoProvider getProviderOverride(
+    covariant TodoProvider provider,
+  ) {
+    return call(
+      taskID: provider.taskID,
+      todoID: provider.todoID,
+    );
+  }
+
+  static final Iterable<ProviderOrFamily> _dependencies = <ProviderOrFamily>[userDatabaseProvider];
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static final Iterable<ProviderOrFamily> _allTransitiveDependencies = <ProviderOrFamily>{
+    userDatabaseProvider,
+    ...?userDatabaseProvider.allTransitiveDependencies
+  };
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies => _allTransitiveDependencies;
+
+  @override
+  String? get name => r'todoProvider';
+}
+
+/// See also [todo].
+class TodoProvider extends AutoDisposeStreamProvider<Todo> {
+  /// See also [todo].
+  TodoProvider({
+    required String taskID,
+    required String todoID,
+  }) : this._internal(
+          (ref) => todo(
+            ref as TodoRef,
+            taskID: taskID,
+            todoID: todoID,
+          ),
+          from: todoProvider,
+          name: r'todoProvider',
+          debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$todoHash,
+          dependencies: TodoFamily._dependencies,
+          allTransitiveDependencies: TodoFamily._allTransitiveDependencies,
+          taskID: taskID,
+          todoID: todoID,
+        );
+
+  TodoProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.taskID,
+    required this.todoID,
+  }) : super.internal();
+
+  final String taskID;
+  final String todoID;
+
+  @override
+  Override overrideWith(
+    Stream<Todo> Function(TodoRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: TodoProvider._internal(
+        (ref) => create(ref as TodoRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        taskID: taskID,
+        todoID: todoID,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<Todo> createElement() {
+    return _TodoProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is TodoProvider && other.taskID == taskID && other.todoID == todoID;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, taskID.hashCode);
+    hash = _SystemHash.combine(hash, todoID.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin TodoRef on AutoDisposeStreamProviderRef<Todo> {
+  /// The parameter `taskID` of this provider.
+  String get taskID;
+
+  /// The parameter `todoID` of this provider.
+  String get todoID;
+}
+
+class _TodoProviderElement extends AutoDisposeStreamProviderElement<Todo> with TodoRef {
+  _TodoProviderElement(super.provider);
+
+  @override
+  String get taskID => (origin as TodoProvider).taskID;
+  @override
+  String get todoID => (origin as TodoProvider).todoID;
+}
+
 String _$todoDeleteHash() => r'20b8688330f0debb39c51f7487fdc36a63579ac2';
 
 /// See also [todoDelete].

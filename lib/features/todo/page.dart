@@ -4,6 +4,8 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/alert/discard.dart';
 import 'package:todomaker/components/grounding_data/list.dart';
+import 'package:todomaker/components/loading/indicator.dart';
+import 'package:todomaker/components/retry/page.dart';
 import 'package:todomaker/components/todo_locations/ask.dart';
 import 'package:todomaker/components/todo_locations/row.dart';
 import 'package:todomaker/entity/todo.dart';
@@ -11,11 +13,41 @@ import 'package:todomaker/provider/todo.dart';
 import 'package:todomaker/style/color.dart';
 
 class TodoPage extends HookConsumerWidget {
-  final Todo todo;
-  const TodoPage({super.key, required this.todo});
+  final String taskID;
+  final String todoID;
+  const TodoPage({super.key, required this.taskID, required this.todoID});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final todo = ref.watch(todoProvider(taskID: taskID, todoID: todoID));
+    return Retry(
+      retry: () => ref.invalidate(todoProvider(taskID: taskID, todoID: todoID)),
+      child: () {
+        return todo.when(
+          data: (todo) => TodoPageBody(todo: todo),
+          error: (e, st) => RetryPage(
+            exception: e,
+            stackTrace: st,
+          ),
+          loading: () => const IndicatorPage(),
+        );
+      }(),
+    );
+  }
+}
+
+class TodoPageBody extends HookConsumerWidget {
+  final Todo todo;
+  const TodoPageBody({
+    super.key,
+    required this.todo,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // FIXME: ここでwatchしなおさないと変更検知できない。そのうち解決する
+    final todo = ref.watch(todoProvider(taskID: this.todo.taskID, todoID: this.todo.id)).requireValue;
+
     final supplement = todo.supplement;
     final aiTextResponseMarkdown = todo.aiTextResponseMarkdown;
     final groundings = todo.groundings;
