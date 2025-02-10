@@ -12,7 +12,7 @@ class GroundingDataList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('出典', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        const Text('情報元', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         for (final grounding in groundings) ...[
           GroundingDataRow(grounding: grounding),
         ],
