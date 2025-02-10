@@ -26,6 +26,7 @@ mixin _$Todo {
   String? get supplement => throw _privateConstructorUsedError;
   String? get aiTextResponseMarkdown => throw _privateConstructorUsedError;
   List<GroundingData>? get groundings => throw _privateConstructorUsedError;
+  AppLocation? get userLocation => throw _privateConstructorUsedError;
   List<AppLocation>? get locations => throw _privateConstructorUsedError;
   String? get locationsAITextResponse => throw _privateConstructorUsedError;
   List<GroundingData>? get locationsGroundings => throw _privateConstructorUsedError;
@@ -63,6 +64,7 @@ abstract class $TodoCopyWith<$Res> {
       String? supplement,
       String? aiTextResponseMarkdown,
       List<GroundingData>? groundings,
+      AppLocation? userLocation,
       List<AppLocation>? locations,
       String? locationsAITextResponse,
       List<GroundingData>? locationsGroundings,
@@ -74,6 +76,8 @@ abstract class $TodoCopyWith<$Res> {
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
       @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
       @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime});
+
+  $AppLocationCopyWith<$Res>? get userLocation;
 }
 
 /// @nodoc
@@ -96,6 +100,7 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
     Object? supplement = freezed,
     Object? aiTextResponseMarkdown = freezed,
     Object? groundings = freezed,
+    Object? userLocation = freezed,
     Object? locations = freezed,
     Object? locationsAITextResponse = freezed,
     Object? locationsGroundings = freezed,
@@ -133,6 +138,10 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
           ? _value.groundings
           : groundings // ignore: cast_nullable_to_non_nullable
               as List<GroundingData>?,
+      userLocation: freezed == userLocation
+          ? _value.userLocation
+          : userLocation // ignore: cast_nullable_to_non_nullable
+              as AppLocation?,
       locations: freezed == locations
           ? _value.locations
           : locations // ignore: cast_nullable_to_non_nullable
@@ -179,6 +188,20 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
               as DateTime?,
     ) as $Val);
   }
+
+  /// Create a copy of Todo
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AppLocationCopyWith<$Res>? get userLocation {
+    if (_value.userLocation == null) {
+      return null;
+    }
+
+    return $AppLocationCopyWith<$Res>(_value.userLocation!, (value) {
+      return _then(_value.copyWith(userLocation: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -193,6 +216,7 @@ abstract class _$$TodoImplCopyWith<$Res> implements $TodoCopyWith<$Res> {
       String? supplement,
       String? aiTextResponseMarkdown,
       List<GroundingData>? groundings,
+      AppLocation? userLocation,
       List<AppLocation>? locations,
       String? locationsAITextResponse,
       List<GroundingData>? locationsGroundings,
@@ -204,6 +228,9 @@ abstract class _$$TodoImplCopyWith<$Res> implements $TodoCopyWith<$Res> {
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
       @ServerCreatedTimestamp() DateTime? serverCreatedDateTime,
       @ServerUpdatedTimestamp() DateTime? serverUpdatedDateTime});
+
+  @override
+  $AppLocationCopyWith<$Res>? get userLocation;
 }
 
 /// @nodoc
@@ -221,6 +248,7 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
     Object? supplement = freezed,
     Object? aiTextResponseMarkdown = freezed,
     Object? groundings = freezed,
+    Object? userLocation = freezed,
     Object? locations = freezed,
     Object? locationsAITextResponse = freezed,
     Object? locationsGroundings = freezed,
@@ -258,6 +286,10 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
           ? _value._groundings
           : groundings // ignore: cast_nullable_to_non_nullable
               as List<GroundingData>?,
+      userLocation: freezed == userLocation
+          ? _value.userLocation
+          : userLocation // ignore: cast_nullable_to_non_nullable
+              as AppLocation?,
       locations: freezed == locations
           ? _value._locations
           : locations // ignore: cast_nullable_to_non_nullable
@@ -317,6 +349,7 @@ class _$TodoImpl extends _Todo {
       required this.supplement,
       required this.aiTextResponseMarkdown,
       required final List<GroundingData>? groundings,
+      this.userLocation,
       final List<AppLocation>? locations,
       this.locationsAITextResponse,
       final List<GroundingData>? locationsGroundings,
@@ -356,6 +389,8 @@ class _$TodoImpl extends _Todo {
     return EqualUnmodifiableListView(value);
   }
 
+  @override
+  final AppLocation? userLocation;
   final List<AppLocation>? _locations;
   @override
   List<AppLocation>? get locations {
@@ -410,7 +445,7 @@ class _$TodoImpl extends _Todo {
 
   @override
   String toString() {
-    return 'Todo(id: $id, taskID: $taskID, content: $content, supplement: $supplement, aiTextResponseMarkdown: $aiTextResponseMarkdown, groundings: $groundings, locations: $locations, locationsAITextResponse: $locationsAITextResponse, locationsGroundings: $locationsGroundings, timeRequired: $timeRequired, timeRequiredAITextResponse: $timeRequiredAITextResponse, timeRequiredGroundings: $timeRequiredGroundings, completedDateTime: $completedDateTime, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
+    return 'Todo(id: $id, taskID: $taskID, content: $content, supplement: $supplement, aiTextResponseMarkdown: $aiTextResponseMarkdown, groundings: $groundings, userLocation: $userLocation, locations: $locations, locationsAITextResponse: $locationsAITextResponse, locationsGroundings: $locationsGroundings, timeRequired: $timeRequired, timeRequiredAITextResponse: $timeRequiredAITextResponse, timeRequiredGroundings: $timeRequiredGroundings, completedDateTime: $completedDateTime, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
   }
 
   @override
@@ -424,6 +459,7 @@ class _$TodoImpl extends _Todo {
             (identical(other.supplement, supplement) || other.supplement == supplement) &&
             (identical(other.aiTextResponseMarkdown, aiTextResponseMarkdown) || other.aiTextResponseMarkdown == aiTextResponseMarkdown) &&
             const DeepCollectionEquality().equals(other._groundings, _groundings) &&
+            (identical(other.userLocation, userLocation) || other.userLocation == userLocation) &&
             const DeepCollectionEquality().equals(other._locations, _locations) &&
             (identical(other.locationsAITextResponse, locationsAITextResponse) || other.locationsAITextResponse == locationsAITextResponse) &&
             const DeepCollectionEquality().equals(other._locationsGroundings, _locationsGroundings) &&
@@ -448,6 +484,7 @@ class _$TodoImpl extends _Todo {
       supplement,
       aiTextResponseMarkdown,
       const DeepCollectionEquality().hash(_groundings),
+      userLocation,
       const DeepCollectionEquality().hash(_locations),
       locationsAITextResponse,
       const DeepCollectionEquality().hash(_locationsGroundings),
@@ -483,6 +520,7 @@ abstract class _Todo extends Todo {
       required final String? supplement,
       required final String? aiTextResponseMarkdown,
       required final List<GroundingData>? groundings,
+      final AppLocation? userLocation,
       final List<AppLocation>? locations,
       final String? locationsAITextResponse,
       final List<GroundingData>? locationsGroundings,
@@ -510,6 +548,8 @@ abstract class _Todo extends Todo {
   String? get aiTextResponseMarkdown;
   @override
   List<GroundingData>? get groundings;
+  @override
+  AppLocation? get userLocation;
   @override
   List<AppLocation>? get locations;
   @override

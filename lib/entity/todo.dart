@@ -18,6 +18,7 @@ class Todo with _$Todo {
     required String? supplement,
     required String? aiTextResponseMarkdown,
     required List<GroundingData>? groundings,
+    AppLocation? userLocation,
     List<AppLocation>? locations,
     String? locationsAITextResponse,
     List<GroundingData>? locationsGroundings,

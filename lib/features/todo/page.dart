@@ -4,11 +4,13 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/alert/discard.dart';
 import 'package:todomaker/components/grounding_data/list.dart';
+import 'package:todomaker/components/loading/bot.dart';
 import 'package:todomaker/components/loading/indicator.dart';
 import 'package:todomaker/components/retry/page.dart';
 import 'package:todomaker/components/todo_locations/ask.dart';
 import 'package:todomaker/components/todo_locations/row.dart';
 import 'package:todomaker/entity/todo.dart';
+import 'package:todomaker/features/root/resolver/database.dart';
 import 'package:todomaker/provider/todo.dart';
 import 'package:todomaker/style/color.dart';
 
@@ -59,6 +61,7 @@ class TodoPageBody extends HookConsumerWidget {
     final todoRevertComplete = ref.watch(todoRevertCompleteProvider);
 
     final completed = useState(todo.completedDateTime != null);
+    final locationProcessingIsRunning = todo.locations == null && todo.userLocation != null;
 
     return Scaffold(
       appBar: AppBar(
@@ -137,14 +140,28 @@ class TodoPageBody extends HookConsumerWidget {
                 height: 1,
                 color: Colors.black,
               ),
-              if (todo.locations != null && todo.locations!.isNotEmpty) ...[
+              if (todo.locations?.isNotEmpty == true) ...[
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Column(
+                  child: Stack(
                     children: [
-                      TodoLocationAskAI(todo: todo),
-                      const SizedBox(height: 10),
-                      TodoLocationsRow(todo: todo),
+                      Column(
+                        children: [
+                          TodoLocationAskAI(todo: todo),
+                          const SizedBox(height: 10),
+                          TodoLocationsRow(todo: todo),
+                        ],
+                      ),
+                      if (locationProcessingIsRunning) ...[
+                        BotLoading(
+                            messages: const ['情報を取得中...', '1分ほど待ってね😘', 'Webから情報を収集中🦾'],
+                            onStop: () {
+                              // TODO: Retry or エラーハンドリングの仕組みをちゃんと作る。ハッカソンだからとりあえず動くコードにしている
+                              ref.read(userDatabaseProvider).todoReference(taskID: todo.taskID, todoID: todo.id).update({
+                                'userLocation': null,
+                              });
+                            }),
+                      ],
                     ],
                   ),
                 ),
