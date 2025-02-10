@@ -86,10 +86,10 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
           end: eventEnd,
         );
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('カレンダーに追加しました')));
+          Navigator.of(context).pop((eventID, timeRequired.value));
         }
         if (context.mounted) {
-          Navigator.of(context).pop((eventID, timeRequired.value));
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('カレンダーに追加しました')));
         }
       },
     );

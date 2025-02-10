@@ -73,7 +73,8 @@ class Todo with _$Todo {
     if (userTimeRequired == null) {
       return AppTimeOfDay(hour: 0, minute: 0);
     }
-    return AppTimeOfDay(hour: userTimeRequired ~/ 60, minute: userTimeRequired % 60);
+    final duration = Duration(seconds: userTimeRequired);
+    return AppTimeOfDay(hour: duration.inHours, minute: duration.inMinutes % 60);
   }
 
   String get formattedUserTimeRequired {

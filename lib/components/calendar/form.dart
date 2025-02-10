@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:todomaker/components/calendar/components/submit_button.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:device_calendar/device_calendar.dart';
+import 'package:todomaker/utils/date_time/date_time_ext.dart';
 import 'package:todomaker/utils/format/time_of_day.dart';
 import 'package:todomaker/utils/picker/time.dart';
 
@@ -21,7 +22,7 @@ class TodoCaledarScheduleForm extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final beginDate = useState<DateTime>(DateTime.now());
+    final beginDate = useState<DateTime>(DateTime.now().addDays(1));
     final selectedDays = useState<int>(1);
     final selectedTime = useState<AppTimeOfDay>(AppTimeOfDay(hour: 10, minute: 0));
     final timeRequired = useState<AppTimeOfDay>(todo.timeRequiredComponents.$1);
@@ -30,6 +31,7 @@ class TodoCaledarScheduleForm extends HookWidget {
       title: const Text('予定を追加'),
       content: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             // イベント対象日（単発の場合）の選択
@@ -147,13 +149,13 @@ class TodoCaledarScheduleForm extends HookWidget {
 }
 
 // return (eventID, new TimeOfDay for user input timeRequired) or null
-Future<(String, TimeOfDay)?> showTodoCalendarForm(
+Future<(String, AppTimeOfDay)?> showTodoCalendarForm(
   BuildContext context, {
   required Todo todo,
   required String calendarID,
   required DeviceCalendarPlugin deviceCalendarPlugin,
 }) async {
-  return await showDialog<(String, TimeOfDay)?>(
+  return await showDialog<(String, AppTimeOfDay)?>(
     context: context,
     builder: (context) => TodoCaledarScheduleForm(
       todo: todo,

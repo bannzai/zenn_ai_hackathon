@@ -57,7 +57,7 @@ class AppTimePicker extends StatelessWidget {
                       onSelectedItemChanged: (int value) {
                         hour = value;
                       },
-                      children: List.generate(999, (index) => Text('${index + 1}時')),
+                      children: List.generate(999, (index) => Text('$index時')),
                     )),
               ),
               Expanded(
