@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todomaker/features/todo_locations/components/list.dart';
+import 'package:todomaker/components/todo_locations/list.dart';
 import 'package:todomaker/entity/todo.dart';
 
 class TodoLocationsPage extends StatelessWidget {
