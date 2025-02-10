@@ -72,94 +72,102 @@ class TaskLocationItem extends StatelessWidget {
     final email = location.email;
     final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
     final emailIsValid = emailRegex.hasMatch(email ?? '');
-    return Column(
-      children: [
-        Row(
-          children: [
-            const Text('🏠 名称:'),
-            GestureDetector(
-              onTap: () => _openMap(nameOrAddress: location.name ?? ''),
-              child: Text(location.name ?? '', style: const TextStyle(fontSize: 14, color: TextColor.link)),
+    return DefaultTextStyle(
+      style: const TextStyle(fontSize: 12, color: TextColor.black),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              const Text('🏠 名称:'),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () => _openMap(nameOrAddress: location.name ?? ''),
+                  child: Text(location.name ?? '', style: const TextStyle(color: TextColor.link)),
+                ),
+              ),
+            ],
+          ),
+          if (address != null) ...[
+            Row(
+              children: [
+                const Text('📝 住所:'),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => _openMap(nameOrAddress: location.address ?? ''),
+                    child: Text(address, style: const TextStyle(color: TextColor.link)),
+                  ),
+                ),
+              ],
             ),
           ],
-        ),
-        if (address != null) ...[
-          Row(
-            children: [
-              const Text('📝 住所:'),
-              GestureDetector(
-                onTap: () => _openMap(nameOrAddress: location.address ?? ''),
-                child: Text(address, style: const TextStyle(fontSize: 14, color: TextColor.link)),
-              ),
-            ],
-          ),
-        ],
-        if (postalCode != null) ...[
-          Row(
-            children: [
-              const Text('📮 郵便番号:'),
-              Text(postalCode),
-            ],
-          ),
-        ],
-        if (tel != null) ...[
-          Row(
-            children: [
-              const Text('📞 電話番号:'),
-              GestureDetector(
-                onTap: () => _openPhoneApp(tel: tel),
-                child: Text(tel, style: const TextStyle(fontSize: 14, color: TextColor.link)),
-              ),
-            ],
-          ),
-        ],
-        if (email != null) ...[
-          Row(
-            children: [
-              const Text('📧 メールアドレス:'),
-              GestureDetector(
-                onTap: () => _openMailApp(mailAddress: email),
-                child: Text(email,
-                    style: TextStyle(
-                      color: emailIsValid ? TextColor.link : TextColor.black,
-                      fontSize: 14,
-                    )),
-              ),
-            ],
-          ),
-        ],
-        if (locationGroundings.isNotEmpty) ...[
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (locationGroundings.isNotEmpty) ...[
-                    const Text('参考URL', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                  ],
-                  for (final grounding in locationGroundings) ...[
-                    if (grounding.url != null) ...[
-                      Link(
-                          uri: Uri.parse(grounding.url!),
-                          builder: (BuildContext ctx, FollowLink? openLink) {
-                            return GestureDetector(
-                              onTap: openLink,
-                              child: Text(
-                                grounding.title ?? '',
-                                style: const TextStyle(fontSize: 14, color: TextColor.link),
-                              ),
-                            );
-                          }),
+          if (postalCode != null) ...[
+            Row(
+              children: [
+                const Text('📮 郵便番号:'),
+                Text(postalCode),
+              ],
+            ),
+          ],
+          if (tel != null) ...[
+            Row(
+              children: [
+                const Text('📞 電話番号:'),
+                GestureDetector(
+                  onTap: () => _openPhoneApp(tel: tel),
+                  child: Text(tel, style: const TextStyle(color: TextColor.link)),
+                ),
+              ],
+            ),
+          ],
+          if (email != null) ...[
+            Row(
+              children: [
+                const Text('📧 メールアドレス:'),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => _openMailApp(mailAddress: email),
+                    child: Text(email,
+                        style: TextStyle(
+                          color: emailIsValid ? TextColor.link : TextColor.black,
+                        )),
+                  ),
+                ),
+              ],
+            ),
+          ],
+          if (locationGroundings.isNotEmpty) ...[
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (locationGroundings.isNotEmpty) ...[
+                      const Text('参考URL', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                    ],
+                    for (final grounding in locationGroundings) ...[
+                      if (grounding.url != null) ...[
+                        Link(
+                            uri: Uri.parse(grounding.url!),
+                            builder: (BuildContext ctx, FollowLink? openLink) {
+                              return GestureDetector(
+                                onTap: openLink,
+                                child: Text(
+                                  grounding.title ?? '',
+                                  style: const TextStyle(fontSize: 14, color: TextColor.link),
+                                ),
+                              );
+                            }),
+                      ],
                     ],
                   ],
-                ],
-              ),
-              const Spacer(),
-            ],
-          ),
+                ),
+                const Spacer(),
+              ],
+            ),
+          ],
         ],
-      ],
+      ),
     );
   }
 

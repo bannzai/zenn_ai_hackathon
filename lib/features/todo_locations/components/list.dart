@@ -98,20 +98,24 @@ class _TodoLocationRowContent extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Text('🏠 名称:'),
-              GestureDetector(
-                onTap: () => _openMap(nameOrAddress: location.name ?? ''),
-                child: Text(location.name ?? '', style: const TextStyle(color: TextColor.link)),
+              const Text('🏠 名称: '),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () => _openMap(nameOrAddress: location.name ?? ''),
+                  child: Text(location.name ?? '', style: const TextStyle(color: TextColor.link)),
+                ),
               ),
             ],
           ),
           if (address != null) ...[
             Row(
               children: [
-                const Text('📝 住所:'),
-                GestureDetector(
-                  onTap: () => _openMap(nameOrAddress: location.address ?? ''),
-                  child: Text(address, style: const TextStyle(color: TextColor.link)),
+                const Text('📝 住所: '),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => _openMap(nameOrAddress: location.address ?? ''),
+                    child: Text(address, style: const TextStyle(color: TextColor.link)),
+                  ),
                 ),
               ],
             ),
@@ -119,7 +123,7 @@ class _TodoLocationRowContent extends StatelessWidget {
           if (postalCode != null) ...[
             Row(
               children: [
-                const Text('📮 郵便番号:'),
+                const Text('📮 郵便番号: '),
                 Text(postalCode),
               ],
             ),
@@ -127,7 +131,7 @@ class _TodoLocationRowContent extends StatelessWidget {
           if (tel != null) ...[
             Row(
               children: [
-                const Text('📞 電話番号:'),
+                const Text('📞 電話番号: '),
                 GestureDetector(
                   onTap: () => _openPhoneApp(tel: tel),
                   child: Text(tel, style: const TextStyle(color: TextColor.link)),
@@ -138,13 +142,15 @@ class _TodoLocationRowContent extends StatelessWidget {
           if (email != null) ...[
             Row(
               children: [
-                const Text('📧 メールアドレス:'),
-                GestureDetector(
-                  onTap: () => _openMailApp(mailAddress: email),
-                  child: Text(email,
-                      style: TextStyle(
-                        color: emailIsValid ? TextColor.link : TextColor.black,
-                      )),
+                const Text('📧 メールアドレス: '),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => _openMailApp(mailAddress: email),
+                    child: Text(email,
+                        style: TextStyle(
+                          color: emailIsValid ? TextColor.link : TextColor.black,
+                        )),
+                  ),
                 ),
               ],
             ),
