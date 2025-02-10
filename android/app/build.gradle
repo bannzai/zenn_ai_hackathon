@@ -21,7 +21,8 @@ dependencies {
 
 android {
     namespace = "com.bannzai.todomaker"
-    compileSdk = flutter.compileSdkVersion
+    // https://pub.dev/packages/geocoding のために compileSdk を 33 にする
+    compileSdk = 33
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
