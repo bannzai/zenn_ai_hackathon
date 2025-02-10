@@ -55,7 +55,7 @@ class TodoTimeRequiredRow extends HookConsumerWidget {
               ),
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 5),
           TodoCalendarScheduleSection(todo: todo),
         ],
       ),
