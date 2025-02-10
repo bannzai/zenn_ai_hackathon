@@ -19,7 +19,7 @@ class TodoTimeRequiredRow extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Text('AIの推定所用時間', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+              const Text('AIが算出した推定作業時間', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
               const Spacer(),
               if (formattedUserTimeRequired == null) ...[
                 Text(formattedTimeRequired, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),

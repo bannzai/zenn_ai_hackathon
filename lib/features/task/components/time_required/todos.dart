@@ -17,7 +17,7 @@ class TimeRequiredTodos extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-          Text('AIの推定所用時間: $formattedTotalTimeRequired', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+          Text('AIが算出した推定作業時間: $formattedTotalTimeRequired', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         ],
       ),
     );
