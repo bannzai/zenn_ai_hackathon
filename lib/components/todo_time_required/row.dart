@@ -44,7 +44,7 @@ class TodoTimeRequiredRow extends HookConsumerWidget {
                     unawaited(todoEditTimeRequired(
                       taskID: todo.taskID,
                       todoID: todo.id,
-                      timeRequired: timeOfDay.value.hour * 60 + timeOfDay.value.minute,
+                      timeRequired: timeOfDay.value.seconds,
                     ));
                   }
                 },
