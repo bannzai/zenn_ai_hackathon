@@ -15,7 +15,7 @@ class TodoTimeRequiredRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-          Text('AIの予測所用時間: $formattedTimeRequired', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+          Text('AIの推定所用時間: $formattedTimeRequired', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         ],
       ),
     );
