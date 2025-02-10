@@ -9,27 +9,17 @@ class TimeRequiredTodos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final totalTimeRequired = todos.fold(0, (sum, todo) => sum + (todo.timeRequired ?? 0));
-    if (totalTimeRequired == 0) {
+    final formattedTotalTimeRequired = todos.formattedTimeRequired;
+    if (formattedTotalTimeRequired == null) {
       return const SizedBox.shrink();
     }
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-          Text('所要時間: ${_formatted(totalTimeRequired)}', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+          Text('所要時間: $formattedTotalTimeRequired', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         ],
       ),
     );
-  }
-
-  String _formatted(int seconds) {
-    final duration = Duration(seconds: seconds);
-    final formattedTimeRequired = duration.inHours > 0
-        ? '${duration.inHours}時間 ${duration.inMinutes % 60}分'
-        : duration.inMinutes > 0
-            ? '${duration.inMinutes}分 ${duration.inSeconds % 60}秒'
-            : '${duration.inSeconds}秒';
-    return formattedTimeRequired;
   }
 }

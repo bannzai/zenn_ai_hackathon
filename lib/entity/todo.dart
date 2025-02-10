@@ -34,6 +34,26 @@ class Todo with _$Todo {
   factory Todo.fromJson(Map<String, dynamic> json) => _$TodoFromJson(json);
 }
 
+extension Todos on List<Todo> {
+  int get totalTimeRequired {
+    return fold(0, (sum, todo) => sum + (todo.timeRequired ?? 0));
+  }
+
+  String? get formattedTimeRequired {
+    final totalTimeRequired = this.totalTimeRequired;
+    if (totalTimeRequired == 0) {
+      return null;
+    }
+    final duration = Duration(seconds: totalTimeRequired);
+    final formattedTimeRequired = duration.inHours > 0
+        ? '${duration.inHours}時間 ${duration.inMinutes % 60}分'
+        : duration.inMinutes > 0
+            ? '${duration.inMinutes}分 ${duration.inSeconds % 60}秒'
+            : '${duration.inSeconds}秒';
+    return formattedTimeRequired;
+  }
+}
+
 /*
 export const TaskSchema = z.object({
   id: z.string(),

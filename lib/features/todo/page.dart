@@ -4,6 +4,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todomaker/components/alert/discard.dart';
 import 'package:todomaker/components/grounding_data/list.dart';
+import 'package:todomaker/components/todo_locations/row.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:todomaker/provider/todo.dart';
 import 'package:todomaker/style/color.dart';
@@ -107,6 +108,9 @@ class TodoPage extends HookConsumerWidget {
                 const SizedBox(height: 10),
                 GroundingDataList(groundings: groundings),
               ],
+              TodoLocationRow(todo: todo),
+              
+              const Divider(),
             ],
           ),
         ),
