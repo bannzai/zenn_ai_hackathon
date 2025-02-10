@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:todomaker/components/calendar/components/submit_button.dart';
 import 'package:todomaker/entity/todo.dart';
 import 'package:device_calendar/device_calendar.dart';
+import 'package:todomaker/utils/format/time_of_day.dart';
 
 class TodoCaledarScheduleForm extends HookWidget {
   final Todo todo;
@@ -48,7 +49,7 @@ class TodoCaledarScheduleForm extends HookWidget {
             ),
             // 開始時刻の選択
             ListTile(
-              title: Text('何時から: ${selectedTime.value.format(context)}'),
+              title: Text('何時から: ${TimeOfDayFormatter.format(selectedTime.value)}'),
               trailing: const Icon(Icons.access_time),
               onTap: () async {
                 final TimeOfDay? picked = await showTimePicker(
@@ -118,7 +119,7 @@ class TodoCaledarScheduleForm extends HookWidget {
                       ),
                     ),
                     const Spacer(),
-                    Text(timeRequired.value.format(context)),
+                    Text(TimeOfDayFormatter.format(timeRequired.value)),
                   ],
                 ),
               ],

@@ -51,7 +51,21 @@ class Todo with _$Todo {
   }
 
   String get formattedTimeRequired {
-    return '${timeRequiredTimeOfDay.hour.toString().padLeft(2, '0')}:${timeRequiredTimeOfDay.minute.toString().padLeft(2, '0')}';
+    final hour = timeRequiredTimeOfDay.hour;
+    final minute = timeRequiredTimeOfDay.minute;
+    final String hourString;
+    final String minuteString;
+    if (hour < 10) {
+      hourString = '0$hour';
+    } else {
+      hourString = hour.toString();
+    }
+    if (minute < 10) {
+      minuteString = '0$minute';
+    } else {
+      minuteString = minute.toString();
+    }
+    return '$hourString:$minuteString';
   }
 
   TimeOfDay get userTimeRequiredTimeOfDay {
@@ -63,10 +77,23 @@ class Todo with _$Todo {
   }
 
   String get formattedUserTimeRequired {
-    return '${userTimeRequiredTimeOfDay.hour.toString().padLeft(2, '0')}:${userTimeRequiredTimeOfDay.minute.toString().padLeft(2, '0')}';
+    final hour = userTimeRequiredTimeOfDay.hour;
+    final minute = userTimeRequiredTimeOfDay.minute;
+    final String hourString;
+    final String minuteString;
+    if (hour < 10) {
+      hourString = '0$hour';
+    } else {
+      hourString = hour.toString();
+    }
+    if (minute < 10) {
+      minuteString = '0$minute';
+    } else {
+      minuteString = minute.toString();
+    }
+    return '$hourString:$minuteString';
   }
 
-  // bool is isAI
   (TimeOfDay, String, bool) get timeRequiredComponents {
     final userTimeRequired = this.userTimeRequired;
     final isAI = userTimeRequired == null;
@@ -99,7 +126,20 @@ extension Todos on List<Todo> {
     );
     final totalHour = summarizedForMinutes ~/ 60;
     final totalMinute = summarizedForMinutes % 60;
-    return '$totalHour:$totalMinute';
+
+    final String totalHourString;
+    final String totalMinuteString;
+    if (totalHour < 10) {
+      totalHourString = '0$totalHour';
+    } else {
+      totalHourString = totalHour.toString();
+    }
+    if (totalMinute < 10) {
+      totalMinuteString = '0$totalMinute';
+    } else {
+      totalMinuteString = totalMinute.toString();
+    }
+    return '$totalHourString:$totalMinuteString';
   }
 }
 

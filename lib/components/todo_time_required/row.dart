@@ -177,7 +177,6 @@ class TodoCalendarScheduleButtons extends HookConsumerWidget {
             todo: todo,
             deviceCalendarPlugin: deviceCalendarPlugin,
             todoSetCalendarSchedule: todoSetCalendarSchedule,
-            events: events,
             calendar: calendar,
           ),
         ],
@@ -192,7 +191,6 @@ class TodoCalendarScheduleButton extends HookConsumerWidget {
     required this.todo,
     required this.deviceCalendarPlugin,
     required this.todoSetCalendarSchedule,
-    required this.events,
     required this.calendar,
   });
 
@@ -200,10 +198,10 @@ class TodoCalendarScheduleButton extends HookConsumerWidget {
   final DeviceCalendarPlugin deviceCalendarPlugin;
   final TodoSetCalendarSchedule todoSetCalendarSchedule;
   final Calendar calendar;
-  final ValueNotifier<List<Event>> events;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final events = useState<List<Event>>([]);
     useEffect(() {
       Future<void> f() async {
         events.value = await calendarEvents(
@@ -232,6 +230,7 @@ class TodoCalendarScheduleButton extends HookConsumerWidget {
               calendarID: calendarID,
               deviceCalendarPlugin: deviceCalendarPlugin,
             );
+            debugPrint('showTodoCalendarForm.result: $result');
             if (result != null) {
               final todoCalendarSchedule = TodoCalendarSchedule(calendarID: calendarID, calendarEventID: result.$1);
               final timeRequiredSecond = result.$2.hour * 60 * 60 + result.$2.minute * 60;
