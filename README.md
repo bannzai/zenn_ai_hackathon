@@ -1,7 +1,11 @@
 
-## バックエンド・APIのリポジトリ
-https://github.com/bannzai/zennAIHackathonBackend/
 
+# 注意点
+- 直前にモノレポにしたので、困ったらこっちのリポジトリでバックエンドを立ち上げてください
+  * https://github.com/bannzai/zennAIHackathonBackend/
+- `TODOMaker Flutter App` と `TODOMaker Backend` とセットアップ方法が分かれています。すべてこのREADMEに記載されています
+
+# TODOMaker Flutter App
 ## Setup
 1. Firebaseプロジェクトを用意してください。バックエンドと一緒なプロジェクトにする必要があります。
 2. iOS・Androidのプロジェクトを作成します。その際にiOS→GoogleService-Info.plist,Android→google-services.json を落としてください
@@ -41,5 +45,54 @@ https://github.com/bannzai/zennAIHackathonBackend/
 ```
 
 ## 実行時の注意点
-iOSの実機実行はApple Developerのチームに属する必要があったかもしれません(違うかもしれない)。実機実行する際は何かしらエラーが出た場合はその点を疑ってください。Androidに関しては全く覚えてないですが、何もしなくても`$ flutter run` や`$ flutter build appbundle --release` で作成したapkさえインストールできれば起動できる気がします
+iOSの実機実行はApple Developerのチームに属する必要がったかもしれません(違うかもしれない)。実機実行する際は何かしらエラーが出た場合はその点を疑ってください。Androidに関しては全く覚えてないですが、何もしなくても`$ flutter run` や`$ flutter build appbundle --release` で作成したapkさえインストールできれば起動できる気がします
+
+
+# TODOMaker Backend
+## Setup
+1. Firebaseプロジェクトを一つ作ってください
+2. 次に `.firebaserc` を作成します。このリポジトリでは .gitignoreしています
+
+```
+{
+  "projects": {
+    "default": "PROJECT_NAME" ← ここにプロジェクトネーム入れる
+  }
+}
+```
+
+## Env
+See [.env.sample](./functions/.env.sample)
+
+```
+# localhostで起動する場合は local を設定。あとはdev,prodどちらでも良い
+APP_ENV=dev
+# 多分ここから取得。https://aistudio.google.com/app/apikey?hl=ja
+GOOGLE_GENAI_API_KEY=
+# この命名のサービスアカウントがいるのでそれを使います。何要かは忘れました(Cloud TasksのURLを取得だったかな)
+GOOGLE_APPLICATION_CREDENTIALS_SERVICE_ACCOUNT_ID=PROJECT_ID@appspot.gserviceaccount.com
+```
+
+## Dev
+`Env` を用意します。ただ、localhostで動作確認する場合は APP_ENV=local に設定してください。authが無効になるのでdeploy時は気をつけてください
+`functions` ディレクトリに移動して `npm run genkit:start` をします
+
+`
+$ cd functions
+$ npm run genkit:start
+`
+
+http://localhost:4000/ からgenkitのWeb UIから動作確認できます
+
+## Deploy
+
+functionsディレクトリに移動します。firebase deployをすればdeployされますが、./lib とかも消したい場合は以下のようにしています
+
+```
+$ cd functions
+$ rm -rf ./lib && npm run build && firebase deploy --only functions
+```
+
+また、IAMの権限の問題で何かが必要なことがあったかもしれません。なんの権限か忘れましたが、エラーメッセージに表示されると思いま。必要があれば連絡ください
+
 
