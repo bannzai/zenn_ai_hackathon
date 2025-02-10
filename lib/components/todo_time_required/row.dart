@@ -159,7 +159,10 @@ class TodoCalendarScheduleButtons extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     useEffect(() {
       Future<void> f() async {
-        calendars.value = await retrieveCalendars(deviceCalendarPlugin: deviceCalendarPlugin);
+        // FIXME: カレンダーを大量に出すとよくわからなくなったのでデフォルトのカレンダーを選択させる
+        // calendars.value = await retrieveCalendars(deviceCalendarPlugin: deviceCalendarPlugin);
+        final result = await retrieveCalendars(deviceCalendarPlugin: deviceCalendarPlugin);
+        calendars.value = result.where((e) => e.isDefault == true).toList();
       }
 
       f();
