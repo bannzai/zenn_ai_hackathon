@@ -63,36 +63,56 @@ class TodoCaledarScheduleForm extends HookWidget {
             ),
             Column(
               children: [
-                TextFormField(
-                  decoration: const InputDecoration(labelText: '日数'),
-                  keyboardType: TextInputType.number,
-                  validator: (value) {
-                    if (value == null || value.isEmpty || int.tryParse(value) == null) {
-                      return '日数を入力してください';
-                    }
-                    return null;
-                  },
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  onChanged: (value) {
-                    selectedDays.value = int.parse(value);
-                  },
+                Row(
+                  children: [
+                    const Text('日数'),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: SizedBox(
+                        height: 60,
+                        child: TextFormField(
+                          initialValue: selectedDays.value.toString(),
+                          decoration: const InputDecoration(hintText: '日数'),
+                          keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value == null || value.isEmpty || int.tryParse(value) == null) {
+                              return '日数を入力してください';
+                            }
+                            return null;
+                          },
+                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                          onChanged: (value) {
+                            selectedDays.value = int.parse(value);
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
 
                 const SizedBox(height: 10),
                 // 作業時間（分）の入力
-                TextFormField(
-                  decoration: const InputDecoration(labelText: '合計作業時間 (分)'),
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  validator: (value) {
-                    if (value == null || value.isEmpty || int.tryParse(value) == null) {
-                      return '合計作業時間を分単位で入力してください';
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    durationMinutes.value = int.parse(value);
-                  },
+                Row(
+                  children: [
+                    const Text('合計作業時間'),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: TextFormField(
+                        decoration: const InputDecoration(hintText: '分'),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        validator: (value) {
+                          if (value == null || value.isEmpty || int.tryParse(value) == null) {
+                            return '合計作業時間を分単位で入力してください';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          durationMinutes.value = int.parse(value);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
