@@ -13,7 +13,7 @@ class TodoTimeRequiredRow extends StatelessWidget {
     final formattedTimeRequired = todo.formattedTimeRequired ?? '0秒';
     final formattedUserTimeRequired = todo.formattedUserTimeRequired;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -28,6 +28,8 @@ class TodoTimeRequiredRow extends StatelessWidget {
               IconButton(
                 onPressed: () {},
                 icon: const Icon(Icons.edit),
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(), // これを追加
               ),
               if (formattedUserTimeRequired != null) ...[
                 Text(formattedUserTimeRequired, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
