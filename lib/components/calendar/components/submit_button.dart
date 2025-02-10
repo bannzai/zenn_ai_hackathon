@@ -57,6 +57,8 @@ class TodoCalendarFormSubmitButton extends StatelessWidget {
       if (createdEventID != null) {
         // TODO: イベントを追加したら、イベント一覧を更新する
         // events.value = await calendarEvents();
+
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('カレンダーに追加しました')));
       }
     }
 
