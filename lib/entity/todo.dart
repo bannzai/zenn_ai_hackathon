@@ -25,6 +25,7 @@ class Todo with _$Todo {
     int? timeRequired,
     String? timeRequiredAITextResponse,
     List<GroundingData>? timeRequiredGroundings,
+    int? userTimeRequired,
     @NullableTimestampConverter() DateTime? completedDateTime,
     @ClientCreatedTimestamp() DateTime? createdDateTime,
     @ClientUpdatedTimestamp() DateTime? updatedDateTime,
@@ -46,6 +47,20 @@ class Todo with _$Todo {
             ? '${duration.inMinutes}分 ${duration.inSeconds % 60}秒'
             : '${duration.inSeconds}秒';
     return formattedTimeRequired;
+  }
+
+  String? get formattedUserTimeRequired {
+    final userTimeRequired = this.userTimeRequired;
+    if (userTimeRequired == null) {
+      return null;
+    }
+    final duration = Duration(seconds: userTimeRequired);
+    final formattedUserTimeRequired = duration.inHours > 0
+        ? '${duration.inHours}時間 ${duration.inMinutes % 60}分'
+        : duration.inMinutes > 0
+            ? '${duration.inMinutes}分 ${duration.inSeconds % 60}秒'
+            : '${duration.inSeconds}秒';
+    return formattedUserTimeRequired;
   }
 }
 

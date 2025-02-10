@@ -21,6 +21,7 @@ _$TodoImpl _$$TodoImplFromJson(Map<String, dynamic> json) => _$TodoImpl(
       timeRequiredAITextResponse: json['timeRequiredAITextResponse'] as String?,
       timeRequiredGroundings:
           (json['timeRequiredGroundings'] as List<dynamic>?)?.map((e) => GroundingData.fromJson(e as Map<String, dynamic>)).toList(),
+      userTimeRequired: (json['userTimeRequired'] as num?)?.toInt(),
       completedDateTime: const NullableTimestampConverter().fromJson(json['completedDateTime'] as Timestamp?),
       createdDateTime: const ClientCreatedTimestamp().fromJson(json['createdDateTime'] as Timestamp?),
       updatedDateTime: const ClientUpdatedTimestamp().fromJson(json['updatedDateTime'] as Timestamp?),
@@ -42,6 +43,7 @@ Map<String, dynamic> _$$TodoImplToJson(_$TodoImpl instance) => <String, dynamic>
       'timeRequired': instance.timeRequired,
       'timeRequiredAITextResponse': instance.timeRequiredAITextResponse,
       'timeRequiredGroundings': instance.timeRequiredGroundings?.map((e) => e.toJson()).toList(),
+      'userTimeRequired': instance.userTimeRequired,
       'completedDateTime': const NullableTimestampConverter().toJson(instance.completedDateTime),
       'createdDateTime': const ClientCreatedTimestamp().toJson(instance.createdDateTime),
       'updatedDateTime': const ClientUpdatedTimestamp().toJson(instance.updatedDateTime),

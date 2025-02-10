@@ -7,15 +7,30 @@ class TodoTimeRequiredRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formattedTimeRequired = todo.formattedTimeRequired;
-    if (formattedTimeRequired == null) {
-      return const SizedBox.shrink();
-    }
+    final formattedTimeRequired = todo.formattedTimeRequired ?? '0秒';
+    final formattedUserTimeRequired = todo.formattedUserTimeRequired;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-          Text('AIの推定所用時間: $formattedTimeRequired', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+          Row(
+            children: [
+              const Text('AIの推定所用時間', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+              const Spacer(),
+              if (formattedUserTimeRequired == null) ...[
+                Text(formattedTimeRequired, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                const SizedBox(width: 10),
+              ],
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.edit),
+              ),
+              if (formattedUserTimeRequired != null) ...[
+                Text(formattedUserTimeRequired, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                const SizedBox(width: 10),
+              ],
+            ],
+          ),
         ],
       ),
     );
