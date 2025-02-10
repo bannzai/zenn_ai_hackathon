@@ -12,6 +12,7 @@ class TodoTimeRequiredRow extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
@@ -31,8 +32,29 @@ class TodoTimeRequiredRow extends StatelessWidget {
               ],
             ],
           ),
+          TodoCalendarScheduleSection(todo: todo),
         ],
       ),
     );
+  }
+}
+
+class TodoCalendarScheduleSection extends StatelessWidget {
+  final Todo todo;
+  const TodoCalendarScheduleSection({super.key, required this.todo});
+
+  @override
+  Widget build(BuildContext context) {
+    if (todo.calendarSchedules.isEmpty) {
+      return TextButton.icon(
+        onPressed: () {},
+        icon: const Icon(Icons.calendar_month),
+        label: const Text('カレンダーに追加'),
+        style: TextButton.styleFrom(
+          padding: EdgeInsets.zero,
+        ),
+      );
+    }
+    return Text(todo.calendarSchedules.first.calendarEventID);
   }
 }

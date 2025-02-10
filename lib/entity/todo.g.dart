@@ -22,6 +22,8 @@ _$TodoImpl _$$TodoImplFromJson(Map<String, dynamic> json) => _$TodoImpl(
       timeRequiredGroundings:
           (json['timeRequiredGroundings'] as List<dynamic>?)?.map((e) => GroundingData.fromJson(e as Map<String, dynamic>)).toList(),
       userTimeRequired: (json['userTimeRequired'] as num?)?.toInt(),
+      calendarSchedules:
+          (json['calendarSchedules'] as List<dynamic>?)?.map((e) => TodoCalendarSchedule.fromJson(e as Map<String, dynamic>)).toList() ?? const [],
       completedDateTime: const NullableTimestampConverter().fromJson(json['completedDateTime'] as Timestamp?),
       createdDateTime: const ClientCreatedTimestamp().fromJson(json['createdDateTime'] as Timestamp?),
       updatedDateTime: const ClientUpdatedTimestamp().fromJson(json['updatedDateTime'] as Timestamp?),
@@ -44,9 +46,18 @@ Map<String, dynamic> _$$TodoImplToJson(_$TodoImpl instance) => <String, dynamic>
       'timeRequiredAITextResponse': instance.timeRequiredAITextResponse,
       'timeRequiredGroundings': instance.timeRequiredGroundings?.map((e) => e.toJson()).toList(),
       'userTimeRequired': instance.userTimeRequired,
+      'calendarSchedules': instance.calendarSchedules.map((e) => e.toJson()).toList(),
       'completedDateTime': const NullableTimestampConverter().toJson(instance.completedDateTime),
       'createdDateTime': const ClientCreatedTimestamp().toJson(instance.createdDateTime),
       'updatedDateTime': const ClientUpdatedTimestamp().toJson(instance.updatedDateTime),
       'serverCreatedDateTime': const ServerCreatedTimestamp().toJson(instance.serverCreatedDateTime),
       'serverUpdatedDateTime': const ServerUpdatedTimestamp().toJson(instance.serverUpdatedDateTime),
+    };
+
+_$TodoCalendarScheduleImpl _$$TodoCalendarScheduleImplFromJson(Map<String, dynamic> json) => _$TodoCalendarScheduleImpl(
+      calendarEventID: json['calendarEventID'] as String,
+    );
+
+Map<String, dynamic> _$$TodoCalendarScheduleImplToJson(_$TodoCalendarScheduleImpl instance) => <String, dynamic>{
+      'calendarEventID': instance.calendarEventID,
     };

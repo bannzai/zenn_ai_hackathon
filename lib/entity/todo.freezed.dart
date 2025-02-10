@@ -34,6 +34,7 @@ mixin _$Todo {
   String? get timeRequiredAITextResponse => throw _privateConstructorUsedError;
   List<GroundingData>? get timeRequiredGroundings => throw _privateConstructorUsedError;
   int? get userTimeRequired => throw _privateConstructorUsedError;
+  List<TodoCalendarSchedule> get calendarSchedules => throw _privateConstructorUsedError;
   @NullableTimestampConverter()
   DateTime? get completedDateTime => throw _privateConstructorUsedError;
   @ClientCreatedTimestamp()
@@ -73,6 +74,7 @@ abstract class $TodoCopyWith<$Res> {
       String? timeRequiredAITextResponse,
       List<GroundingData>? timeRequiredGroundings,
       int? userTimeRequired,
+      List<TodoCalendarSchedule> calendarSchedules,
       @NullableTimestampConverter() DateTime? completedDateTime,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
@@ -110,6 +112,7 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
     Object? timeRequiredAITextResponse = freezed,
     Object? timeRequiredGroundings = freezed,
     Object? userTimeRequired = freezed,
+    Object? calendarSchedules = null,
     Object? completedDateTime = freezed,
     Object? createdDateTime = freezed,
     Object? updatedDateTime = freezed,
@@ -173,6 +176,10 @@ class _$TodoCopyWithImpl<$Res, $Val extends Todo> implements $TodoCopyWith<$Res>
           ? _value.userTimeRequired
           : userTimeRequired // ignore: cast_nullable_to_non_nullable
               as int?,
+      calendarSchedules: null == calendarSchedules
+          ? _value.calendarSchedules
+          : calendarSchedules // ignore: cast_nullable_to_non_nullable
+              as List<TodoCalendarSchedule>,
       completedDateTime: freezed == completedDateTime
           ? _value.completedDateTime
           : completedDateTime // ignore: cast_nullable_to_non_nullable
@@ -231,6 +238,7 @@ abstract class _$$TodoImplCopyWith<$Res> implements $TodoCopyWith<$Res> {
       String? timeRequiredAITextResponse,
       List<GroundingData>? timeRequiredGroundings,
       int? userTimeRequired,
+      List<TodoCalendarSchedule> calendarSchedules,
       @NullableTimestampConverter() DateTime? completedDateTime,
       @ClientCreatedTimestamp() DateTime? createdDateTime,
       @ClientUpdatedTimestamp() DateTime? updatedDateTime,
@@ -264,6 +272,7 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
     Object? timeRequiredAITextResponse = freezed,
     Object? timeRequiredGroundings = freezed,
     Object? userTimeRequired = freezed,
+    Object? calendarSchedules = null,
     Object? completedDateTime = freezed,
     Object? createdDateTime = freezed,
     Object? updatedDateTime = freezed,
@@ -327,6 +336,10 @@ class __$$TodoImplCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res, _$TodoImpl
           ? _value.userTimeRequired
           : userTimeRequired // ignore: cast_nullable_to_non_nullable
               as int?,
+      calendarSchedules: null == calendarSchedules
+          ? _value._calendarSchedules
+          : calendarSchedules // ignore: cast_nullable_to_non_nullable
+              as List<TodoCalendarSchedule>,
       completedDateTime: freezed == completedDateTime
           ? _value.completedDateTime
           : completedDateTime // ignore: cast_nullable_to_non_nullable
@@ -370,6 +383,7 @@ class _$TodoImpl extends _Todo {
       this.timeRequiredAITextResponse,
       final List<GroundingData>? timeRequiredGroundings,
       this.userTimeRequired,
+      final List<TodoCalendarSchedule> calendarSchedules = const [],
       @NullableTimestampConverter() this.completedDateTime,
       @ClientCreatedTimestamp() this.createdDateTime,
       @ClientUpdatedTimestamp() this.updatedDateTime,
@@ -379,6 +393,7 @@ class _$TodoImpl extends _Todo {
         _locations = locations,
         _locationsGroundings = locationsGroundings,
         _timeRequiredGroundings = timeRequiredGroundings,
+        _calendarSchedules = calendarSchedules,
         super._();
 
   factory _$TodoImpl.fromJson(Map<String, dynamic> json) => _$$TodoImplFromJson(json);
@@ -443,6 +458,15 @@ class _$TodoImpl extends _Todo {
 
   @override
   final int? userTimeRequired;
+  final List<TodoCalendarSchedule> _calendarSchedules;
+  @override
+  @JsonKey()
+  List<TodoCalendarSchedule> get calendarSchedules {
+    if (_calendarSchedules is EqualUnmodifiableListView) return _calendarSchedules;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_calendarSchedules);
+  }
+
   @override
   @NullableTimestampConverter()
   final DateTime? completedDateTime;
@@ -461,7 +485,7 @@ class _$TodoImpl extends _Todo {
 
   @override
   String toString() {
-    return 'Todo(id: $id, taskID: $taskID, content: $content, supplement: $supplement, aiTextResponseMarkdown: $aiTextResponseMarkdown, groundings: $groundings, userLocation: $userLocation, locations: $locations, locationsAITextResponse: $locationsAITextResponse, locationsGroundings: $locationsGroundings, timeRequired: $timeRequired, timeRequiredAITextResponse: $timeRequiredAITextResponse, timeRequiredGroundings: $timeRequiredGroundings, userTimeRequired: $userTimeRequired, completedDateTime: $completedDateTime, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
+    return 'Todo(id: $id, taskID: $taskID, content: $content, supplement: $supplement, aiTextResponseMarkdown: $aiTextResponseMarkdown, groundings: $groundings, userLocation: $userLocation, locations: $locations, locationsAITextResponse: $locationsAITextResponse, locationsGroundings: $locationsGroundings, timeRequired: $timeRequired, timeRequiredAITextResponse: $timeRequiredAITextResponse, timeRequiredGroundings: $timeRequiredGroundings, userTimeRequired: $userTimeRequired, calendarSchedules: $calendarSchedules, completedDateTime: $completedDateTime, createdDateTime: $createdDateTime, updatedDateTime: $updatedDateTime, serverCreatedDateTime: $serverCreatedDateTime, serverUpdatedDateTime: $serverUpdatedDateTime)';
   }
 
   @override
@@ -484,6 +508,7 @@ class _$TodoImpl extends _Todo {
                 other.timeRequiredAITextResponse == timeRequiredAITextResponse) &&
             const DeepCollectionEquality().equals(other._timeRequiredGroundings, _timeRequiredGroundings) &&
             (identical(other.userTimeRequired, userTimeRequired) || other.userTimeRequired == userTimeRequired) &&
+            const DeepCollectionEquality().equals(other._calendarSchedules, _calendarSchedules) &&
             (identical(other.completedDateTime, completedDateTime) || other.completedDateTime == completedDateTime) &&
             (identical(other.createdDateTime, createdDateTime) || other.createdDateTime == createdDateTime) &&
             (identical(other.updatedDateTime, updatedDateTime) || other.updatedDateTime == updatedDateTime) &&
@@ -509,6 +534,7 @@ class _$TodoImpl extends _Todo {
         timeRequiredAITextResponse,
         const DeepCollectionEquality().hash(_timeRequiredGroundings),
         userTimeRequired,
+        const DeepCollectionEquality().hash(_calendarSchedules),
         completedDateTime,
         createdDateTime,
         updatedDateTime,
@@ -547,6 +573,7 @@ abstract class _Todo extends Todo {
       final String? timeRequiredAITextResponse,
       final List<GroundingData>? timeRequiredGroundings,
       final int? userTimeRequired,
+      final List<TodoCalendarSchedule> calendarSchedules,
       @NullableTimestampConverter() final DateTime? completedDateTime,
       @ClientCreatedTimestamp() final DateTime? createdDateTime,
       @ClientUpdatedTimestamp() final DateTime? updatedDateTime,
@@ -585,6 +612,8 @@ abstract class _Todo extends Todo {
   @override
   int? get userTimeRequired;
   @override
+  List<TodoCalendarSchedule> get calendarSchedules;
+  @override
   @NullableTimestampConverter()
   DateTime? get completedDateTime;
   @override
@@ -605,4 +634,142 @@ abstract class _Todo extends Todo {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TodoImplCopyWith<_$TodoImpl> get copyWith => throw _privateConstructorUsedError;
+}
+
+TodoCalendarSchedule _$TodoCalendarScheduleFromJson(Map<String, dynamic> json) {
+  return _TodoCalendarSchedule.fromJson(json);
+}
+
+/// @nodoc
+mixin _$TodoCalendarSchedule {
+  String get calendarEventID => throw _privateConstructorUsedError;
+
+  /// Serializes this TodoCalendarSchedule to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of TodoCalendarSchedule
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $TodoCalendarScheduleCopyWith<TodoCalendarSchedule> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TodoCalendarScheduleCopyWith<$Res> {
+  factory $TodoCalendarScheduleCopyWith(TodoCalendarSchedule value, $Res Function(TodoCalendarSchedule) then) =
+      _$TodoCalendarScheduleCopyWithImpl<$Res, TodoCalendarSchedule>;
+  @useResult
+  $Res call({String calendarEventID});
+}
+
+/// @nodoc
+class _$TodoCalendarScheduleCopyWithImpl<$Res, $Val extends TodoCalendarSchedule> implements $TodoCalendarScheduleCopyWith<$Res> {
+  _$TodoCalendarScheduleCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of TodoCalendarSchedule
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? calendarEventID = null,
+  }) {
+    return _then(_value.copyWith(
+      calendarEventID: null == calendarEventID
+          ? _value.calendarEventID
+          : calendarEventID // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$TodoCalendarScheduleImplCopyWith<$Res> implements $TodoCalendarScheduleCopyWith<$Res> {
+  factory _$$TodoCalendarScheduleImplCopyWith(_$TodoCalendarScheduleImpl value, $Res Function(_$TodoCalendarScheduleImpl) then) =
+      __$$TodoCalendarScheduleImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String calendarEventID});
+}
+
+/// @nodoc
+class __$$TodoCalendarScheduleImplCopyWithImpl<$Res> extends _$TodoCalendarScheduleCopyWithImpl<$Res, _$TodoCalendarScheduleImpl>
+    implements _$$TodoCalendarScheduleImplCopyWith<$Res> {
+  __$$TodoCalendarScheduleImplCopyWithImpl(_$TodoCalendarScheduleImpl _value, $Res Function(_$TodoCalendarScheduleImpl) _then) : super(_value, _then);
+
+  /// Create a copy of TodoCalendarSchedule
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? calendarEventID = null,
+  }) {
+    return _then(_$TodoCalendarScheduleImpl(
+      calendarEventID: null == calendarEventID
+          ? _value.calendarEventID
+          : calendarEventID // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$TodoCalendarScheduleImpl implements _TodoCalendarSchedule {
+  const _$TodoCalendarScheduleImpl({required this.calendarEventID});
+
+  factory _$TodoCalendarScheduleImpl.fromJson(Map<String, dynamic> json) => _$$TodoCalendarScheduleImplFromJson(json);
+
+  @override
+  final String calendarEventID;
+
+  @override
+  String toString() {
+    return 'TodoCalendarSchedule(calendarEventID: $calendarEventID)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TodoCalendarScheduleImpl &&
+            (identical(other.calendarEventID, calendarEventID) || other.calendarEventID == calendarEventID));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, calendarEventID);
+
+  /// Create a copy of TodoCalendarSchedule
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TodoCalendarScheduleImplCopyWith<_$TodoCalendarScheduleImpl> get copyWith =>
+      __$$TodoCalendarScheduleImplCopyWithImpl<_$TodoCalendarScheduleImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TodoCalendarScheduleImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _TodoCalendarSchedule implements TodoCalendarSchedule {
+  const factory _TodoCalendarSchedule({required final String calendarEventID}) = _$TodoCalendarScheduleImpl;
+
+  factory _TodoCalendarSchedule.fromJson(Map<String, dynamic> json) = _$TodoCalendarScheduleImpl.fromJson;
+
+  @override
+  String get calendarEventID;
+
+  /// Create a copy of TodoCalendarSchedule
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$TodoCalendarScheduleImplCopyWith<_$TodoCalendarScheduleImpl> get copyWith => throw _privateConstructorUsedError;
 }

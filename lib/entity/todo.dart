@@ -26,6 +26,7 @@ class Todo with _$Todo {
     String? timeRequiredAITextResponse,
     List<GroundingData>? timeRequiredGroundings,
     int? userTimeRequired,
+    @Default([]) List<TodoCalendarSchedule> calendarSchedules,
     @NullableTimestampConverter() DateTime? completedDateTime,
     @ClientCreatedTimestamp() DateTime? createdDateTime,
     @ClientUpdatedTimestamp() DateTime? updatedDateTime,
@@ -82,6 +83,15 @@ extension Todos on List<Todo> {
             : '${duration.inSeconds}秒';
     return formattedTimeRequired;
   }
+}
+
+@freezed
+class TodoCalendarSchedule with _$TodoCalendarSchedule {
+  const factory TodoCalendarSchedule({
+    required String calendarEventID,
+  }) = _TodoCalendarSchedule;
+
+  factory TodoCalendarSchedule.fromJson(Map<String, dynamic> json) => _$TodoCalendarScheduleFromJson(json);
 }
 
 /*
