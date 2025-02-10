@@ -44,29 +44,29 @@ class AppTimePicker extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Expanded(
+              Expanded(
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
                     child: CupertinoPicker(
-                      itemExtent: 1,
+                      itemExtent: 30,
                       scrollController: FixedExtentScrollController(
                         initialItem: hour,
                       ),
                       onSelectedItemChanged: (int value) {
                         hour = value;
                       },
-                      children: List.generate(24, (index) => Text('${index + 1}時')),
-                    ),
-                  )),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Expanded(
+                      children: List.generate(999, (index) => Text('${index + 1}時')),
+                    )),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
                   child: CupertinoPicker(
-                    itemExtent: 1,
+                    itemExtent: 30,
                     scrollController: FixedExtentScrollController(
                       initialItem: minute,
                     ),
