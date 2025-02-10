@@ -48,6 +48,7 @@ class TaskLocation extends StatelessWidget {
   }
 }
 
+// NOTE: TodoLocationRowと一緒な見た目
 class TaskLocationItem extends StatelessWidget {
   final TaskPrepared task;
   final AppLocation location;
