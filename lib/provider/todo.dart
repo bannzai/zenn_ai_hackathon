@@ -96,4 +96,22 @@ TodoFillLocation todoFillLocation(TodoFillLocationRef ref) {
   return TodoFillLocation(database: database);
 }
 
-class 
+class TodoEditTimeRequired {
+  final UserDatabase database;
+
+  TodoEditTimeRequired({required this.database});
+
+  Future<void> call({
+    required String taskID,
+    required String todoID,
+    required int timeRequired,
+  }) {
+    return database.todoReference(taskID: taskID, todoID: todoID).update({'timeRequired': timeRequired});
+  }
+}
+
+@Riverpod(dependencies: [userDatabase])
+TodoEditTimeRequired todoEditTimeRequired(TodoEditTimeRequiredRef ref) {
+  final database = ref.watch(userDatabaseProvider);
+  return TodoEditTimeRequired(database: database);
+}

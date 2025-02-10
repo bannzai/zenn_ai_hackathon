@@ -344,5 +344,18 @@ final todoFillLocationProvider = AutoDisposeProvider<TodoFillLocation>.internal(
 );
 
 typedef TodoFillLocationRef = AutoDisposeProviderRef<TodoFillLocation>;
+String _$todoEditTimeRequiredHash() => r'c63aac3706d1b190e6ec6bd4f09eb0ee6eab00f2';
+
+/// See also [todoEditTimeRequired].
+@ProviderFor(todoEditTimeRequired)
+final todoEditTimeRequiredProvider = AutoDisposeProvider<TodoEditTimeRequired>.internal(
+  todoEditTimeRequired,
+  name: r'todoEditTimeRequiredProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$todoEditTimeRequiredHash,
+  dependencies: <ProviderOrFamily>[userDatabaseProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{userDatabaseProvider, ...?userDatabaseProvider.allTransitiveDependencies},
+);
+
+typedef TodoEditTimeRequiredRef = AutoDisposeProviderRef<TodoEditTimeRequired>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
