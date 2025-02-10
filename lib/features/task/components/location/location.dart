@@ -197,26 +197,3 @@ class TaskLocationItem extends StatelessWidget {
     }
   }
 }
-
-class TaskLocationTODOLocationList extends StatelessWidget {
-  final TaskPrepared task;
-  final List<Todo> todos;
-  const TaskLocationTODOLocationList({super.key, required this.task, required this.todos});
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox.shrink();
-  }
-}
-
-class TaskLocationTODOLocationItem extends StatelessWidget {
-  final TaskPrepared task;
-  final Todo todo;
-  final AppLocation todoLocation;
-  const TaskLocationTODOLocationItem({super.key, required this.task, required this.todo, required this.todoLocation});
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox.shrink();
-  }
-}
