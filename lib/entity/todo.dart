@@ -73,6 +73,9 @@ class Todo with _$Todo {
     if (userTimeRequired == null) {
       return AppTimeOfDay(hour: 0, minute: 0);
     }
+    if (userTimeRequired <= 60) {
+      return AppTimeOfDay(hour: 0, minute: 1);
+    }
     final duration = Duration(seconds: userTimeRequired);
     return AppTimeOfDay(hour: duration.inHours, minute: duration.inMinutes % 60);
   }

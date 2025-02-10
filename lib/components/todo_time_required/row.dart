@@ -234,7 +234,7 @@ class TodoCalendarScheduleButton extends HookConsumerWidget {
             debugPrint('showTodoCalendarForm.result: $result');
             if (result != null) {
               final todoCalendarSchedule = TodoCalendarSchedule(calendarID: calendarID, calendarEventID: result.$1);
-              final timeRequiredSecond = result.$2.hour * 60 * 60 + result.$2.minute * 60;
+              final timeRequiredSecond = result.$2.seconds;
               await todoSetCalendarSchedule(
                 taskID: todo.taskID,
                 todoID: todo.id,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/rendering.dart';
 import 'package:todomaker/utils/picker/toolbar.dart';
 
 class AppTimeOfDay {
@@ -12,6 +13,10 @@ class AppTimeOfDay {
     final hour = seconds ~/ 3600;
     final minute = (seconds % 3600) ~/ 60;
     return AppTimeOfDay(hour: hour, minute: minute);
+  }
+
+  int get seconds {
+    return hour * 3600 + minute * 60;
   }
 }
 
